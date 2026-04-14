@@ -1,0 +1,15 @@
+/[Ll]ibrary/
+/[Ll]ogs/
+/[Uu]serSettings/
+/[Tt]emp/
+/[Bb]uild/
+/[Oo]bj/
+/.vscode/
+.vs/
+/*.csproj
+/*.sln
+/*.slnx
+
+.DS_Store
+Thumbs.db
+Desktop.ini
