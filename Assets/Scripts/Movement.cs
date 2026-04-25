@@ -34,8 +34,11 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {
+        targetZ = 0f;
+
         ProcessAscentDescent();
         ProcessRightLeft();
+        ProcessPitch();
 
         StabilizeRotation();
     }
@@ -75,7 +78,8 @@ public class Movement : MonoBehaviour
                 isMovingLeft = false;
                 targetY -= 180f;
             }
-            RightLeft();
+            
+            RightLeftMove();
         }
 
         else if (rightInput < 0)
@@ -85,18 +89,56 @@ public class Movement : MonoBehaviour
                 isMovingLeft = true;
                 targetY += 180f;
             }
-            RightLeft();
+
+            RightLeftMove();
         }
     }
 
-    private void RightLeft()
+    private void RightLeftMove()
     {
         ApplyRightLeft(rightLeftStrength);
+        targetZ += -maxTiltAngle;
     }
 
     private void ApplyRightLeft(float rightThisFrame)
     {
         rb.AddRelativeForce(Vector3.right * Time.fixedDeltaTime * rightThisFrame);
+    }
+
+//  ========================
+//  PITCH
+//  ========================
+
+    private void ProcessPitch()
+    {
+        float pitchInput = pitch.ReadValue<float>();
+
+        if (pitchInput > 0)
+        {
+            if (!isMovingLeft)
+            {
+                targetZ += maxTiltAngle;
+                rb.AddRelativeForce(Vector3.forward * Time.fixedDeltaTime * pitchStrength);
+            }
+            else
+            {
+                targetZ += -maxTiltAngle;
+                rb.AddRelativeForce(Vector3.forward * Time.fixedDeltaTime * pitchStrength);
+            }
+        }
+        else if (pitchInput < 0)
+        {
+            if (!isMovingLeft)
+            {
+                targetZ += -maxTiltAngle;
+                rb.AddRelativeForce(Vector3.forward * Time.fixedDeltaTime * -pitchStrength);
+            }
+            else
+            {
+                targetZ += maxTiltAngle;
+                rb.AddRelativeForce(Vector3.forward * Time.fixedDeltaTime * -pitchStrength);
+            }
+        }
     }
 
 //  ========================
