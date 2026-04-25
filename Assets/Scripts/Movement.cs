@@ -13,6 +13,8 @@ public class Movement : MonoBehaviour
     [SerializeField] float pitchStrength = 10f;
     [SerializeField] float tiltSpeed = 5f; 
     [SerializeField] float maxTiltAngle = 15f;
+    [SerializeField] float maxSpeed = 30f;
+    [SerializeField] float linearDrag = 2f;
 
     float targetZ = 0f;
     float targetY = 0f;
@@ -40,6 +42,7 @@ public class Movement : MonoBehaviour
         ProcessRightLeft();
         ProcessPitch();
 
+        VelocityLimiter();
         StabilizeRotation();
     }
 
@@ -153,5 +156,26 @@ public class Movement : MonoBehaviour
 
         Quaternion targetRotation = Quaternion.Euler(0f, targetY, targetZ);
         rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, Time.fixedDeltaTime * tiltSpeed));
+    }
+
+//  ========================
+//  VELOCITY LIMITER
+//  ========================
+
+    private void VelocityLimiter()
+    {
+        if (rb.linearVelocity.magnitude > maxSpeed)
+        {
+            rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
+        }
+
+        float horizontalInput = rightLeft.ReadValue<float>();
+        float pitchInput = pitch.ReadValue<float>();
+
+        if (horizontalInput == 0 && pitchInput == 0)
+        {
+            Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+            rb.AddForce(-horizontalVelocity * linearDrag, ForceMode.Acceleration);
+        }
     }
 }
