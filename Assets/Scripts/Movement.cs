@@ -8,15 +8,21 @@ public class Movement : MonoBehaviour
     [SerializeField] InputAction ascentDescent;
     [SerializeField] InputAction rightLeft;
     [SerializeField] InputAction pitch;
-    [SerializeField] float ascentDescentStrength = 1000;
-    [SerializeField] float rightLeftStrength = 1000;
-    [SerializeField] float pitchStrength = 10;
+    [SerializeField] float ascentDescentStrength = 1000f;
+    [SerializeField] float rightLeftStrength = 1000f;
+    [SerializeField] float pitchStrength = 10f;
+    [SerializeField] float tiltSpeed = 5f; 
+    [SerializeField] float maxTiltAngle = 15f;
+
+    float targetZ = 0f;
+    float targetY = 0f;
 
     bool isMovingLeft = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        targetY = rb.rotation.eulerAngles.y;
     }
 
     void OnEnable()
@@ -30,6 +36,8 @@ public class Movement : MonoBehaviour
     {
         ProcessAscentDescent();
         ProcessRightLeft();
+
+        StabilizeRotation();
     }
 
     //ASCENT - DESCENT
@@ -72,7 +80,7 @@ public class Movement : MonoBehaviour
             if (isMovingLeft == true)
             {
                 isMovingLeft = false;
-                rb.MoveRotation(rb.rotation * Quaternion.Euler(0f, 180f, 0f));
+                targetY -= 180f;
             }
             Right();
         }
@@ -82,7 +90,7 @@ public class Movement : MonoBehaviour
             if (isMovingLeft == false)
             {
                 isMovingLeft = true;
-                rb.MoveRotation(rb.rotation * Quaternion.Euler(0f, 180f, 0f));
+                targetY += 180f;
             }
             Left();
         }
@@ -101,5 +109,13 @@ public class Movement : MonoBehaviour
     private void ApplyRightLeft(float rightThisFrame)
     {
         rb.AddRelativeForce(Vector3.right * Time.fixedDeltaTime * rightThisFrame);
+    }
+
+    private void StabilizeRotation()
+    {
+        targetZ = Mathf.Clamp(targetZ, -maxTiltAngle, maxTiltAngle);
+
+        Quaternion targetRotation = Quaternion.Euler(0f, targetY, targetZ);
+        rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, Time.fixedDeltaTime * tiltSpeed));
     }
 }
