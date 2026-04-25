@@ -40,37 +40,30 @@ public class Movement : MonoBehaviour
         StabilizeRotation();
     }
 
-    //ASCENT - DESCENT
+//  ========================
+//  ASCENT - DESCENT
+//  ========================
+
     private void ProcessAscentDescent()
     {
         float verticalInput = ascentDescent.ReadValue<float>();
 
-        if (verticalInput > 0)
-        {
-            Ascent();
-        }
-        else if (verticalInput < 0)
-        {
-            Descent();
-        }
+        if (verticalInput > 0) Ascent();
+        else if (verticalInput < 0) Descent();        
     }
 
-    private void Ascent()
-    {
-        ApplyAscentDescent(ascentDescentStrength);
-    }
-
-    private void Descent()
-    {
-        ApplyAscentDescent(-ascentDescentStrength);
-    }
+    private void Ascent() {ApplyAscentDescent(ascentDescentStrength);}
+    private void Descent() {ApplyAscentDescent(-ascentDescentStrength);}
 
     private void ApplyAscentDescent(float verticalThisFrame)
     {
         rb.AddRelativeForce(Vector3.up * Time.fixedDeltaTime * verticalThisFrame);
     }
 
-    //RIGHT - LEFT
+//  ========================
+//  RIGHT - LEFT
+//  ========================
+
     private void ProcessRightLeft()
     {
         float rightInput = rightLeft.ReadValue<float>();
@@ -82,7 +75,7 @@ public class Movement : MonoBehaviour
                 isMovingLeft = false;
                 targetY -= 180f;
             }
-            Right();
+            RightLeft();
         }
 
         else if (rightInput < 0)
@@ -92,16 +85,11 @@ public class Movement : MonoBehaviour
                 isMovingLeft = true;
                 targetY += 180f;
             }
-            Left();
+            RightLeft();
         }
     }
 
-    private void Right()
-    {
-        ApplyRightLeft(rightLeftStrength);
-    }
-
-    private void Left()
+    private void RightLeft()
     {
         ApplyRightLeft(rightLeftStrength);
     }
@@ -110,6 +98,10 @@ public class Movement : MonoBehaviour
     {
         rb.AddRelativeForce(Vector3.right * Time.fixedDeltaTime * rightThisFrame);
     }
+
+//  ========================
+//  ROTATION HANDLING
+//  ========================
 
     private void StabilizeRotation()
     {
