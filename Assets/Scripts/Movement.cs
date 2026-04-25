@@ -76,9 +76,10 @@ public class Movement : MonoBehaviour
             if (isMovingLeft == true)
             {
                 isMovingLeft = false;
+                rb.linearVelocity = rb.linearVelocity * 0.5f;
                 targetY -= 180f;
             }
-            
+
             RightLeftMove();
         }
 
@@ -87,6 +88,7 @@ public class Movement : MonoBehaviour
             if (isMovingLeft == false)
             {
                 isMovingLeft = true;
+                rb.linearVelocity = rb.linearVelocity * 0.5f;
                 targetY += 180f;
             }
 
