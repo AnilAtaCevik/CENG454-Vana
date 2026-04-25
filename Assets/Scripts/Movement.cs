@@ -15,6 +15,8 @@ public class Movement : MonoBehaviour
     [SerializeField] float maxTiltAngle = 15f;
     [SerializeField] float maxSpeed = 30f;
     [SerializeField] float linearDrag = 2f;
+    [SerializeField] float maxAltitude = 50f;
+    [SerializeField] float altitudeSoftness = 3f;
 
     float targetZ = 0f;
     float targetY = 0f;
@@ -53,10 +55,31 @@ public class Movement : MonoBehaviour
     private void ProcessAscentDescent()
     {
         float verticalInput = ascentDescent.ReadValue<float>();
+        float currentHeight = transform.position.y;
 
-        if (verticalInput > 0) Ascent();
-        else if (verticalInput < 0) Descent();        
-    }
+        if (verticalInput > 0)
+        {
+            if (currentHeight < maxAltitude)
+            {
+                float proximityMultiplier = Mathf.Clamp01((maxAltitude - currentHeight) / altitudeSoftness);
+                ApplyAscentDescent(ascentDescentStrength * proximityMultiplier);
+            }
+
+            else
+            {
+                Vector3 vel = rb.linearVelocity;
+                if (vel.y > 0)
+                {
+                    rb.linearVelocity = new Vector3(vel.x, vel.y * 0.9f, vel.z);
+                }
+            }
+        }
+        
+        else if (verticalInput < 0)
+        {
+            Descent();
+        }
+}
 
     private void Ascent() {ApplyAscentDescent(ascentDescentStrength);}
     private void Descent() {ApplyAscentDescent(-ascentDescentStrength);}
