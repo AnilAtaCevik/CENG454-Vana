@@ -135,7 +135,7 @@ public class Movement : MonoBehaviour
     private void RightLeftMove()
     {
         ApplyRightLeft(rightLeftStrength);
-        targetZ += -maxTiltAngle;
+        targetZ += -10;
     }
 
     private void ApplyRightLeft(float rightThisFrame)
