@@ -15,7 +15,8 @@ public class Movement : MonoBehaviour
     [SerializeField] float maxTiltAngle = 15f;
     [SerializeField] float maxSpeed = 30f;
     [SerializeField] float linearDrag = 2f;
-    [SerializeField] float maxAltitude = 50f;
+    [SerializeField] float serviceCeiling = 50f;
+    [SerializeField] float absoluteCeiling = 100f;
     [SerializeField] float altitudeSoftness = 3f;
 
     float targetZ = 0f;
@@ -59,15 +60,22 @@ public class Movement : MonoBehaviour
 
         if (verticalInput > 0)
         {
-            if (currentHeight < maxAltitude)
+            if (currentHeight < serviceCeiling)
             {
-                float proximityMultiplier = Mathf.Clamp01((maxAltitude - currentHeight) / altitudeSoftness);
+                float proximityMultiplier = Mathf.Clamp01((serviceCeiling - currentHeight) / altitudeSoftness);
+                ApplyAscentDescent(ascentDescentStrength * proximityMultiplier);
+            }
+
+            else if (currentHeight >= serviceCeiling && currentHeight <= absoluteCeiling)
+            {
+                float proximityMultiplier = Mathf.Clamp01((absoluteCeiling - currentHeight) / altitudeSoftness * 20);
                 ApplyAscentDescent(ascentDescentStrength * proximityMultiplier);
             }
 
             else
             {
                 Vector3 vel = rb.linearVelocity;
+
                 if (vel.y > 0)
                 {
                     rb.linearVelocity = new Vector3(vel.x, vel.y * 0.9f, vel.z);
@@ -77,12 +85,9 @@ public class Movement : MonoBehaviour
         
         else if (verticalInput < 0)
         {
-            Descent();
+            ApplyAscentDescent(-ascentDescentStrength);
         }
-}
-
-    private void Ascent() {ApplyAscentDescent(ascentDescentStrength);}
-    private void Descent() {ApplyAscentDescent(-ascentDescentStrength);}
+    }
 
     private void ApplyAscentDescent(float verticalThisFrame)
     {
