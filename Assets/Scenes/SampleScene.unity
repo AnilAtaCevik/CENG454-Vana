@@ -1071,7 +1071,31 @@ MonoBehaviour:
     m_Id: b6fe4b93-fa3a-4791-a820-abc90441d8d8
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings: []
+    m_SingletonActionBindings:
+    - m_Name: Keyboard
+      m_Id: 2bccd146-40f5-4f68-80f4-90ca2cc24df0
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Pitch
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: d520f831-9b66-4207-8e60-317917f363de
+      m_Path: <Keyboard>/e
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Pitch
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: 980cde48-498b-456b-863b-ea954e228a7c
+      m_Path: <Keyboard>/q
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Pitch
+      m_Flags: 8
     m_Flags: 0
   ascentDescentStrength: 1000
   rightLeftStrength: 1000
