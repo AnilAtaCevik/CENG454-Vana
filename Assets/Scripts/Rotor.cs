@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HeliBladeRotater : MonoBehaviour
+public class Rotor : MonoBehaviour
 {
     [SerializeField] Transform mainRotor;
     [SerializeField] Transform tailRotor;

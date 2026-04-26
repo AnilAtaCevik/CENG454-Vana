@@ -974,7 +974,7 @@ MonoBehaviour:
       m_Flags: 8
     m_Flags: 0
   altitudeWarningAudio: {fileID: 8931781644635661941}
-  ascentDescentStrength: 900
+  ascentDescentStrength: 1500
   rightLeftStrength: 750
   pitchStrength: 10
   tiltSpeed: 3
@@ -983,7 +983,7 @@ MonoBehaviour:
   linearDrag: 2
   serviceCeiling: 50
   absoluteCeiling: 150
-  altitudeSoftness: 30
+  altitudeSoftness: 50
 --- !u!54 &8931781644635661938
 Rigidbody:
   m_ObjectHideFlags: 0
