@@ -3,87 +3,138 @@ using UnityEngine.InputSystem;
 
 public class Minigun : MonoBehaviour
 {
+    public enum MinigunState
+    {
+        Idle,
+        SpinningUp,
+        Firing,
+        Overheated,
+        Cooling
+    }
+
     [Header("References")]
-    public Transform[] firePoints;
-    public GameObject bulletPrefab;
+    [SerializeField] private Transform[] firePoints;
+    [SerializeField] private GameObject bulletPrefab;
 
-
-    [Header("Stats")]
-    public float fireRate = 0.1f;
+    [Header("Shooting")]
+    [SerializeField] private float fireRate = 0.1f;
     private float nextFireTime;
 
+    [Header("Timing")]
+    [SerializeField] private float spinUpTime = 2.25f;
+    [SerializeField] private float firingDuration = 5.3f;
+    [SerializeField] private float cooldownTime = 3f;
 
-    [Header("Overheat System")]
-    public float heatPerSecond = 1f;
-    public float maxHeat = 5f;
-    public float cooldownRate = 1.5f;
+    [Header("Debug")]
+    [SerializeField] private MinigunState currentState = MinigunState.Idle;
 
-    private float currentHeat = 0f;
-    private bool isOverheated = false;
+    private float stateTimer = 0f;
 
 
     void Update()
     {
-        HandleOverheat();
+        HandleState();
+    }
+
+
+    void HandleState()
+    {
+        switch (currentState)
+        {
+            case MinigunState.Idle:
+                HandleIdle();
+                break;
+
+            case MinigunState.SpinningUp:
+                HandleSpinningUp();
+                break;
+
+            case MinigunState.Firing:
+                HandleFiring();
+                break;
+
+            case MinigunState.Overheated:
+                HandleOverheated();
+                break;
+
+            case MinigunState.Cooling:
+                HandleCooling();
+                break;
+        }
+    }
+
+
+    void HandleIdle()
+    {
+        if (Mouse.current != null && Mouse.current.leftButton.isPressed)
+        {
+            currentState = MinigunState.SpinningUp;
+            stateTimer = spinUpTime;
+        }
+    }
+
+
+    void HandleSpinningUp()
+    {
+        stateTimer -= Time.deltaTime;
+
+        if (stateTimer <= 0f)
+        {
+            currentState = MinigunState.Firing;
+            stateTimer = firingDuration;
+        }
+    }
+
+
+    void HandleFiring()
+    {
+        stateTimer -= Time.deltaTime;
+
         HandleFire();
+
+        if (stateTimer <= 0f)
+        {
+            currentState = MinigunState.Overheated;
+        }
+    }
+
+
+    void HandleOverheated()
+    {
+        currentState = MinigunState.Cooling;
+        stateTimer = cooldownTime;
+    }
+
+
+    void HandleCooling()
+    {
+        stateTimer -= Time.deltaTime;
+
+        if (stateTimer <= 0f)
+        {
+            currentState = MinigunState.Idle;
+        }
     }
 
 
     void HandleFire()
     {
-        if (isOverheated)
+        if (Mouse.current == null || !Mouse.current.leftButton.isPressed)
             return;
 
-        if (Mouse.current != null && Mouse.current.leftButton.isPressed)
+        if (Time.time >= nextFireTime)
         {
-            if (Time.time >= nextFireTime)
-            {
-                Shoot();
-                nextFireTime = Time.time + fireRate;
-            }
+            Shoot();
+            nextFireTime = Time.time + fireRate;
         }
     }
 
 
     void Shoot()
     {
-    foreach (Transform fp in firePoints)
+        foreach (Transform fp in firePoints)
         {
             Instantiate(bulletPrefab, fp.position, fp.rotation);
-        }
-    }
-
-
-    void HandleOverheat()
-    {
-        if (isOverheated)
-        {
-            currentHeat -= cooldownRate * Time.deltaTime;
-
-            if (currentHeat <= 0f)
-            {
-                currentHeat = 0f;
-                isOverheated = false;
-            }
-
-        return;
-        }
-
-        if (Mouse.current != null && Mouse.current.leftButton.isPressed)
-        {
-            currentHeat += heatPerSecond * Time.deltaTime;
-
-            if (currentHeat >= maxHeat)
-            {
-                currentHeat = maxHeat;
-                isOverheated = true;
-            }
-        }
-        
-        else
-        {
-            currentHeat -= cooldownRate * Time.deltaTime;
-            currentHeat = Mathf.Max(currentHeat, 0f);
         }
     }
 }
