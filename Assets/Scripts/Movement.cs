@@ -8,6 +8,7 @@ public class Movement : MonoBehaviour
     [SerializeField] InputAction ascentDescent;
     [SerializeField] InputAction rightLeft;
     [SerializeField] InputAction pitch;
+    [SerializeField] AudioSource altitudeWarningAudio;
     [SerializeField] float ascentDescentStrength = 1000f;
     [SerializeField] float rightLeftStrength = 1000f;
     [SerializeField] float pitchStrength = 10f;
@@ -64,12 +65,16 @@ public class Movement : MonoBehaviour
             {
                 float proximityMultiplier = Mathf.Clamp01((serviceCeiling - currentHeight) / altitudeSoftness);
                 ApplyAscentDescent(ascentDescentStrength * proximityMultiplier);
+
+                if (altitudeWarningAudio.isPlaying) altitudeWarningAudio.Stop();
             }
 
             else if (currentHeight >= serviceCeiling && currentHeight <= absoluteCeiling)
             {
                 float proximityMultiplier = Mathf.Clamp01((absoluteCeiling - currentHeight) / altitudeSoftness * 20);
                 ApplyAscentDescent(ascentDescentStrength * proximityMultiplier);
+
+                if (!altitudeWarningAudio.isPlaying) altitudeWarningAudio.Play();
             }
 
             else
