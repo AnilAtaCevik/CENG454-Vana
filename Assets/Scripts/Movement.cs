@@ -8,6 +8,7 @@ public class Movement : MonoBehaviour
     [SerializeField] InputAction ascentDescent;
     [SerializeField] InputAction rightLeft;
     [SerializeField] InputAction pitch;
+    [SerializeField] AudioSource altitudeWarningAudio;
     [SerializeField] float ascentDescentStrength = 1000f;
     [SerializeField] float rightLeftStrength = 1000f;
     [SerializeField] float pitchStrength = 10f;
@@ -15,6 +16,9 @@ public class Movement : MonoBehaviour
     [SerializeField] float maxTiltAngle = 15f;
     [SerializeField] float maxSpeed = 30f;
     [SerializeField] float linearDrag = 2f;
+    [SerializeField] float serviceCeiling = 50f;
+    [SerializeField] float absoluteCeiling = 100f;
+    [SerializeField] float altitudeSoftness = 3f;
 
     float targetZ = 0f;
     float targetY = 0f;
@@ -53,13 +57,42 @@ public class Movement : MonoBehaviour
     private void ProcessAscentDescent()
     {
         float verticalInput = ascentDescent.ReadValue<float>();
+        float currentHeight = transform.position.y;
 
-        if (verticalInput > 0) Ascent();
-        else if (verticalInput < 0) Descent();        
+        if (verticalInput > 0)
+        {
+            if (currentHeight < serviceCeiling)
+            {
+                float proximityMultiplier = Mathf.Clamp01((serviceCeiling - currentHeight) / altitudeSoftness);
+                ApplyAscentDescent(ascentDescentStrength * proximityMultiplier);
+
+                if (altitudeWarningAudio.isPlaying) altitudeWarningAudio.Stop();
+            }
+
+            else if (currentHeight >= serviceCeiling && currentHeight <= absoluteCeiling)
+            {
+                float proximityMultiplier = Mathf.Clamp01((absoluteCeiling - currentHeight) / altitudeSoftness * 20);
+                ApplyAscentDescent(ascentDescentStrength * proximityMultiplier);
+
+                if (!altitudeWarningAudio.isPlaying) altitudeWarningAudio.Play();
+            }
+
+            else
+            {
+                Vector3 vel = rb.linearVelocity;
+
+                if (vel.y > 0)
+                {
+                    rb.linearVelocity = new Vector3(vel.x, vel.y * 0.9f, vel.z);
+                }
+            }
+        }
+        
+        else if (verticalInput < 0)
+        {
+            ApplyAscentDescent(-ascentDescentStrength);
+        }
     }
-
-    private void Ascent() {ApplyAscentDescent(ascentDescentStrength);}
-    private void Descent() {ApplyAscentDescent(-ascentDescentStrength);}
 
     private void ApplyAscentDescent(float verticalThisFrame)
     {
