@@ -27,8 +27,6 @@ public class Fuel : MonoBehaviour
         {
             currentFuel -= fuelConsumptionPerSecond * Time.deltaTime;
             currentFuel = Mathf.Max(currentFuel, 0f);
-            
-            Debug.Log("Current Fuel:" + currentFuel);
         }
     }
 
