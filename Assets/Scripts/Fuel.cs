@@ -26,8 +26,9 @@ public class Fuel : MonoBehaviour
         if (currentFuel > 0)
         {
             currentFuel -= fuelConsumptionPerSecond * Time.deltaTime;
-            Debug.Log("Current Fuel:" + currentFuel);
             currentFuel = Mathf.Max(currentFuel, 0f);
+            
+            Debug.Log("Current Fuel:" + currentFuel);
         }
     }
 
@@ -43,5 +44,13 @@ public class Fuel : MonoBehaviour
     public bool HasFuel()
     {
         return currentFuel > 0;
+    }
+
+    public void RefillFuel(float amount)
+    {
+        currentFuel += amount;
+        currentFuel = Mathf.Clamp(currentFuel, 0f, maxFuel);
+
+        if (currentFuel >= 25f) hasPlayedWarning = false;
     }
 }

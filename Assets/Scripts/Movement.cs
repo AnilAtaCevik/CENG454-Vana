@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class Movement : MonoBehaviour
 {
     Rigidbody rb;
-    Fuel fuelStatus;
+    Fuel fuel;
 
     [SerializeField] InputAction ascentDescent;
     [SerializeField] InputAction rightLeft;
@@ -29,7 +29,7 @@ public class Movement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        fuelStatus = GetComponent<Fuel>();
+        fuel = GetComponent<Fuel>();
         targetY = rb.rotation.eulerAngles.y;
     }
 
@@ -42,7 +42,7 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (fuelStatus != null && !fuelStatus.HasFuel()) return; 
+        if (fuel != null && !fuel.HasFuel()) return; 
 
         targetZ = 0f;
 
