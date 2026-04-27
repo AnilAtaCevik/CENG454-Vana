@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class Fuel : MonoBehaviour
 {
+    [SerializeField] AudioSource fuelWarningAudio;
     [SerializeField] float maxFuel = 100f;
     [SerializeField] float fuelConsumptionPerSecond = 1f;
 
     private float currentFuel;
+
+    private bool hasPlayedWarning = false;
 
     void Start()
     {
@@ -15,6 +18,7 @@ public class Fuel : MonoBehaviour
     void Update()
     {
         ConsumeFuel();
+        CheckFuelWarning();
     }
 
     private void ConsumeFuel()
@@ -24,6 +28,15 @@ public class Fuel : MonoBehaviour
             currentFuel -= fuelConsumptionPerSecond * Time.deltaTime;
             Debug.Log("Current Fuel:" + currentFuel);
             currentFuel = Mathf.Max(currentFuel, 0f);
+        }
+    }
+
+    private void CheckFuelWarning()
+    {
+        if (currentFuel < 25f && !hasPlayedWarning)
+        {
+            fuelWarningAudio.Play();
+            hasPlayedWarning = true;
         }
     }
 
