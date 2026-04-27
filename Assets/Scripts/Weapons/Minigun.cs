@@ -6,7 +6,6 @@ public class Minigun : MonoBehaviour
     public enum MinigunState
     {
         Idle,
-        SpinningUp,
         Firing,
         Overheated,
         Cooling
@@ -17,102 +16,104 @@ public class Minigun : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
 
     [Header("Shooting")]
-    [SerializeField] private float fireRate = 0.1f;
-    private float nextFireTime;
+    [SerializeField] private float fireRate = 0.05f;
+    [SerializeField] private float spinUpDelay = 0.918f;
 
     [Header("Timing")]
-    [SerializeField] private float spinUpTime = 2.25f;
-    [SerializeField] private float firingDuration = 5.3f;
-    [SerializeField] private float cooldownTime = 3f;
+    [SerializeField] private float firingDuration = 5f; 
+    [SerializeField] private float cooldownTime = 5f;
 
-    [Header("Debug")]
-    [SerializeField] private MinigunState currentState = MinigunState.Idle;
+    [Header("Audio")]
+    [SerializeField] private AudioSource firingAudio; 
+    [SerializeField] private AudioSource overheatAudio;
 
-    private float stateTimer = 0f;
+    private MinigunState currentState = MinigunState.Idle;
+    private float stateTimer;
+    private float fireStartTime;
+    private float nextFireTime;
 
 
     void Update()
     {
+        HandleInput();
         HandleState();
+    }
+
+
+    void HandleInput()
+    {
+        if (Mouse.current == null) return;
+
+        bool isPressed = Mouse.current.leftButton.isPressed;
+
+        if (isPressed)
+        {
+            if (currentState == MinigunState.Idle)
+                EnterState(MinigunState.Firing);
+        }
+        else
+        {
+            if (currentState == MinigunState.Firing)
+                EnterState(MinigunState.Idle);
+        }
     }
 
 
     void HandleState()
     {
+        stateTimer -= Time.deltaTime;
+
         switch (currentState)
         {
-            case MinigunState.Idle:
-                HandleIdle();
-                break;
-
-            case MinigunState.SpinningUp:
-                HandleSpinningUp();
-                break;
-
             case MinigunState.Firing:
-                HandleFiring();
+                HandleFire();
+
+                if (stateTimer <= 0f)
+                    EnterState(MinigunState.Overheated);
                 break;
 
             case MinigunState.Overheated:
-                HandleOverheated();
+                if (stateTimer <= 0f)
+                    EnterState(MinigunState.Cooling);
                 break;
 
             case MinigunState.Cooling:
-                HandleCooling();
+                if (stateTimer <= 0f)
+                    EnterState(MinigunState.Idle);
                 break;
         }
     }
 
 
-    void HandleIdle()
+    void EnterState(MinigunState newState)
     {
-        if (Mouse.current != null && Mouse.current.leftButton.isPressed)
+        currentState = newState;
+
+        StopAllAudio();
+
+        switch (newState)
         {
-            currentState = MinigunState.SpinningUp;
-            stateTimer = spinUpTime;
-        }
-    }
+            case MinigunState.Idle:
+                stateTimer = 0f;
+                break;
 
+            case MinigunState.Firing:
+                firingAudio?.Play();
 
-    void HandleSpinningUp()
-    {
-        stateTimer -= Time.deltaTime;
+                stateTimer = firingDuration;
 
-        if (stateTimer <= 0f)
-        {
-            currentState = MinigunState.Firing;
-            stateTimer = firingDuration;
-        }
-    }
+                fireStartTime = Time.time + spinUpDelay;
+                nextFireTime = fireStartTime;
+                break;
 
+            case MinigunState.Overheated:
+                overheatAudio?.Play();
+                stateTimer = overheatAudio != null ? overheatAudio.clip.length : 1.5f;
+                break;
 
-    void HandleFiring()
-    {
-        stateTimer -= Time.deltaTime;
-
-        HandleFire();
-
-        if (stateTimer <= 0f)
-        {
-            currentState = MinigunState.Overheated;
-        }
-    }
-
-
-    void HandleOverheated()
-    {
-        currentState = MinigunState.Cooling;
-        stateTimer = cooldownTime;
-    }
-
-
-    void HandleCooling()
-    {
-        stateTimer -= Time.deltaTime;
-
-        if (stateTimer <= 0f)
-        {
-            currentState = MinigunState.Idle;
+            case MinigunState.Cooling:
+                stateTimer = cooldownTime;
+                break;
         }
     }
 
@@ -120,6 +121,9 @@ public class Minigun : MonoBehaviour
     void HandleFire()
     {
         if (Mouse.current == null || !Mouse.current.leftButton.isPressed)
+            return;
+
+        if (Time.time < fireStartTime)
             return;
 
         if (Time.time >= nextFireTime)
@@ -132,9 +136,14 @@ public class Minigun : MonoBehaviour
 
     void Shoot()
     {
-        foreach (Transform fp in firePoints)
-        {
+        foreach (var fp in firePoints)
             Instantiate(bulletPrefab, fp.position, fp.rotation);
-        }
+    }
+
+
+    void StopAllAudio()
+    {
+        firingAudio?.Stop();
+        overheatAudio?.Stop();
     }
 }
