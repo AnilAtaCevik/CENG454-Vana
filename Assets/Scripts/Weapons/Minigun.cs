@@ -18,6 +18,7 @@ public class Minigun : MonoBehaviour
     [Header("Shooting")]
     [SerializeField] private float fireRate = 0.05f;
     [SerializeField] private float spinUpDelay = 0.918f;
+    [SerializeField] private ParticleSystem[] muzzleFlashes;
 
     [Header("Timing")]
     [SerializeField] private float firingDuration = 5f; 
@@ -136,8 +137,15 @@ public class Minigun : MonoBehaviour
 
     void Shoot()
     {
-        foreach (var fp in firePoints)
-            Instantiate(bulletPrefab, fp.position, fp.rotation);
+        for (int i = 0; i < firePoints.Length; i++)
+        {
+            Instantiate(bulletPrefab, firePoints[i].position, firePoints[i].rotation);
+
+            if (muzzleFlashes != null && i < muzzleFlashes.Length)
+            {
+                muzzleFlashes[i].Play();
+            }
+        }
     }
 
 
