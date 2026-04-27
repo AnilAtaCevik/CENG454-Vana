@@ -26,4 +26,9 @@ public class Fuel : MonoBehaviour
             currentFuel = Mathf.Max(currentFuel, 0f);
         }
     }
+
+    public bool HasFuel()
+    {
+        return currentFuel > 0;
+    }
 }
