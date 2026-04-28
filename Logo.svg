@@ -5,8 +5,18 @@
  width="2812.000000pt" height="1536.000000pt" viewBox="0 0 2812.000000 1536.000000"
  preserveAspectRatio="xMidYMid meet">
 
-<g transform="translate(0.000000,1536.000000) scale(0.100000,-0.100000)"
-fill="currentColor" stroke="none">
+ <style>
+  .logo-path {
+    fill: #000000;
+  }
+  @media (prefers-color-scheme: dark) {
+    .logo-path {
+      fill: #ffffff;
+    }
+  }
+</style>
+
+<g class="logo-path" transform="translate(0.000000,1536.000000) scale(0.100000,-0.100000)" stroke="none">
 <path d="M9264 12869 c-3 -6 -3 -143 1 -305 l7 -294 51 -15 c28 -8 56 -15 64
 -15 20 0 39 38 64 134 13 49 29 90 35 93 7 2 135 -23 285 -56 151 -33 375 -81
 499 -107 124 -25 228 -49 232 -53 3 -3 8 -106 10 -229 2 -162 0 -222 -8 -222
