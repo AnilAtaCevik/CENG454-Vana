@@ -5,6 +5,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float speed = 200f;
     [SerializeField] private float lifeTime = 3f;
     [SerializeField] private GameObject impactVfx;
+    [SerializeField] private AudioClip impactClip;
 
     private Rigidbody rb;
 
@@ -34,7 +35,17 @@ public class Bullet : MonoBehaviour
     {
         if (impactVfx != null)
         {
-            Instantiate(impactVfx, transform.position, Quaternion.identity);
+            Instantiate(impactVfx, collision.contacts[0].point, Quaternion.identity);
+        }
+
+        if (impactClip != null)
+        {
+            AudioSource.PlayClipAtPoint
+            (
+                impactClip,
+                collision.contacts[0].point,
+                1f
+            );
         }
 
         Destroy(gameObject);
