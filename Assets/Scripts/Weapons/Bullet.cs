@@ -4,12 +4,20 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed = 200f;
     [SerializeField] private float lifeTime = 3f;
+    [SerializeField] private GameObject impactVfx;
 
-    private Vector3 moveDirection;
+    private Rigidbody rb;
+
+    private Vector3 direction;
 
     public void SetDirection(Vector3 dir)
     {
-        moveDirection = dir.normalized;
+        direction = dir.normalized;
+    }
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
     }
 
     void Start()
@@ -17,8 +25,18 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject, lifeTime);
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        transform.position += moveDirection * speed * Time.deltaTime;
+        rb.linearVelocity = direction * speed;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (impactVfx != null)
+        {
+            Instantiate(impactVfx, transform.position, Quaternion.identity);
+        }
+
+        Destroy(gameObject);
     }
 }
