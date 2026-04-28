@@ -1,4 +1,6 @@
 # Chopper-Strike: Global Operations
+![Logo](Logo.svg)
+
 ## Team Info
 **Team Name**: VANA
 
