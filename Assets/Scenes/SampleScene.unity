@@ -1599,7 +1599,7 @@ MonoBehaviour:
   - {fileID: 252952650}
   - {fileID: 65537803}
   bulletPrefab: {fileID: 8909740203850123856, guid: 1455a3f0936755a438414cfcd2970a3d, type: 3}
-  fireRate: 0.1
+  fireRate: 0.05
   spinUpDelay: 0.95
   muzzleFlashes:
   - {fileID: 1444146205}

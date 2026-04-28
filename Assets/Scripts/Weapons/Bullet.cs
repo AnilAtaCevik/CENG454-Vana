@@ -2,24 +2,16 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed = 50f;
-    public float lifetime = 3f;
-
+    [SerializeField] private float speed = 200f;
+    [SerializeField] private float lifeTime = 3f;
 
     void Start()
     {
-        Destroy(gameObject, lifetime);
+        Destroy(gameObject, lifeTime);
     }
-
 
     void Update()
     {
-        transform.position += transform.forward * speed * Time.deltaTime;
-    }
-
-
-    void OnCollisionEnter(Collision collision)
-    {
-        Destroy(gameObject);
+        transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 }
