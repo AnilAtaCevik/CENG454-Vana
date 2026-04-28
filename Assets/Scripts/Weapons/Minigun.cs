@@ -139,7 +139,18 @@ public class Minigun : MonoBehaviour
     {
         for (int i = 0; i < firePoints.Length; i++)
         {
-            Instantiate(bulletPrefab, firePoints[i].position, firePoints[i].rotation);
+            GameObject bullet = Instantiate(
+                bulletPrefab,
+                firePoints[i].position,
+                Quaternion.identity
+            );
+
+            Bullet bulletScript = bullet.GetComponent<Bullet>();
+
+            if (bulletScript != null)
+            {
+                bulletScript.SetDirection(firePoints[i].forward);
+            }
 
             if (muzzleFlashes != null && i < muzzleFlashes.Length)
             {

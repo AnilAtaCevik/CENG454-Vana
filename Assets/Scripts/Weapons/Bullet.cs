@@ -5,6 +5,13 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float speed = 200f;
     [SerializeField] private float lifeTime = 3f;
 
+    private Vector3 moveDirection;
+
+    public void SetDirection(Vector3 dir)
+    {
+        moveDirection = dir.normalized;
+    }
+
     void Start()
     {
         Destroy(gameObject, lifeTime);
@@ -12,6 +19,6 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        transform.position += moveDirection * speed * Time.deltaTime;
     }
 }
