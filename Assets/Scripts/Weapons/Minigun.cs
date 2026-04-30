@@ -44,7 +44,6 @@ public class Minigun : MonoBehaviour
     void HandleInput()
     {
         if (Mouse.current == null) return;
-
         bool isPressed = Mouse.current.leftButton.isPressed;
 
         if (isPressed)
@@ -52,6 +51,7 @@ public class Minigun : MonoBehaviour
             if (currentState == MinigunState.Idle)
                 EnterState(MinigunState.Firing);
         }
+        
         else
         {
             if (currentState == MinigunState.Firing)

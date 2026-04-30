@@ -10,33 +10,36 @@ public class Bullet : MonoBehaviour
     [SerializeField] private AudioClip enemyImpactClip;
 
     private Rigidbody rb;
-
     private Vector3 direction;
+
 
     public void SetDirection(Vector3 dir)
     {
         direction = dir.normalized;
     }
 
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
+
 
     void Start()
     {
         Destroy(gameObject, lifeTime);
     }
 
+
     void FixedUpdate()
     {
         rb.linearVelocity = direction * speed;
     }
 
+
     void OnCollisionEnter(Collision collision)
     {
         Vector3 hitPoint = collision.contacts[0].point;
-
         bool isEnemy = collision.gameObject.CompareTag("Enemy");
 
         if (isEnemy)
@@ -46,7 +49,6 @@ public class Bullet : MonoBehaviour
                 Instantiate(enemyImpactVfx, hitPoint, Quaternion.identity);
             }
 
-            // ENEMY SOUND
             if (enemyImpactClip != null)
             {
                 AudioSource.PlayClipAtPoint(enemyImpactClip, hitPoint, 1f);
@@ -55,6 +57,7 @@ public class Bullet : MonoBehaviour
         
         else
         {
+   
             if (impactVfx != null)
             {
                 Instantiate(impactVfx, hitPoint, Quaternion.identity);
