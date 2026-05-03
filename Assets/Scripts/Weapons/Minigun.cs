@@ -17,7 +17,7 @@ public class Minigun : MonoBehaviour
 
     [Header("Shooting")]
     [SerializeField] private float fireRate = 0.05f;
-    [SerializeField] private float spinUpDelay = 0.918f;
+    [SerializeField] private float spinUpDelay = 0.95f;
     [SerializeField] private ParticleSystem[] muzzleFlashes;
 
     [Header("Timing")]
