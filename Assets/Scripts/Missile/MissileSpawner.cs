@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MissileLauncher : MonoBehaviour
+public class MissileSpawner : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private GameObject missilePrefab;
     [SerializeField] private Transform firePoint;
+    [SerializeField] private Transform[] firePoints;
 
     [Header("Shooting")]
     [SerializeField] private float fireCooldown = 1.5f;
@@ -37,6 +38,9 @@ public class MissileLauncher : MonoBehaviour
 
     void Fire()
     {
-        Instantiate(missilePrefab, firePoint.position, firePoint.rotation);
+        foreach (Transform fp in firePoints)
+        {
+            Instantiate(missilePrefab, fp.position, fp.rotation);
+        }
     }
 }
