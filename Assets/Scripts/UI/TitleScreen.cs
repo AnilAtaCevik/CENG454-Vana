@@ -67,6 +67,8 @@ public class TitleScreen : MonoBehaviour, IScreen
         }
 
         canvasGroup.alpha = 0f;
-        UIManager.Instance.HideAll();
+        UIManager.Instance.ShowScreen(
+            Object.FindAnyObjectByType<MainMenuScreen>()
+        );
     }
 }

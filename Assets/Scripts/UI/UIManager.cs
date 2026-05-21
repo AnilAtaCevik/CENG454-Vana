@@ -1,10 +1,12 @@
 using UnityEngine;
+using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
     private IScreen _currentScreen;
+    private ITransitionStrategy _transitionStrategy;
 
     private void Awake()
     {
@@ -15,22 +17,62 @@ public class UIManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        _transitionStrategy = new FadeTransition(0.5f);
+    }
+
+    // public void ShowScreen(IScreen screen)
+    // {
+    //     if (_currentScreen != null)
+    //         _currentScreen.Hide();
+
+    //     _currentScreen = screen;
+    //     _currentScreen.Show();
+    // }
+
+    public void SetTransitionStrategy(ITransitionStrategy strategy)
+    {
+        _transitionStrategy = strategy;
     }
 
     public void ShowScreen(IScreen screen)
     {
-        if (_currentScreen != null)
-            _currentScreen.Hide();
-
-        _currentScreen = screen;
-        _currentScreen.Show();
+        StartCoroutine(DoTransition(screen));
     }
 
     public void HideAll()
     {
         if (_currentScreen != null)
             _currentScreen.Hide();
-
         _currentScreen = null;
+    }
+
+    private IEnumerator DoTransition(IScreen nextScreen)
+    {
+        CanvasGroup fromGroup = null;
+        CanvasGroup toGroup = null;
+
+        if (_currentScreen != null)
+        {
+            fromGroup = (_currentScreen as MonoBehaviour)
+                ?.GetComponentInChildren<CanvasGroup>(true);
+        }
+
+        if (nextScreen != null)
+        {
+            toGroup = (nextScreen as MonoBehaviour)
+                ?.GetComponentInChildren<CanvasGroup>(true);
+        }
+
+        yield return StartCoroutine(
+            _transitionStrategy.Transition(fromGroup, toGroup)
+        );
+
+        if (_currentScreen != null)
+        _currentScreen.Hide();
+
+        _currentScreen = nextScreen;
+
+        if (_currentScreen != null)
+        _currentScreen.Show();
     }
 }
