@@ -600,7 +600,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d5f8bb2e31295f47a2912c5f508b607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuButtons
-  playButtonText: {fileID: 1482485860}
 --- !u!1 &457388554
 GameObject:
   m_ObjectHideFlags: 0
