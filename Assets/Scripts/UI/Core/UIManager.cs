@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
 
     private IScreen _currentScreen;
+    private IScreen _previousScreen;
     private ITransitionStrategy _transitionStrategy;
 
     private void Awake()
@@ -70,9 +71,16 @@ public class UIManager : MonoBehaviour
         if (_currentScreen != null)
         _currentScreen.Hide();
 
+        _previousScreen = _currentScreen;
         _currentScreen = nextScreen;
 
         if (_currentScreen != null)
         _currentScreen.Show();
+    }
+    public void GoBack()
+    {
+    Debug.Log("GoBack called. previousScreen: " + (_previousScreen != null ? _previousScreen.ScreenName : "NULL"));
+    if (_previousScreen != null)
+        ShowScreen(_previousScreen);
     }
 }

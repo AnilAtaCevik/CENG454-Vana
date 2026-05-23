@@ -33,6 +33,9 @@ public class MainMenuButtons : MonoBehaviour
 
     public void OnCreditsClicked()
     {
+        UIManager.Instance.ShowScreen(
+            Object.FindAnyObjectByType<CreditsScreen>()
+        );
         Debug.Log("Credits clicked");
     }
 

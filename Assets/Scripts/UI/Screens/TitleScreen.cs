@@ -14,7 +14,11 @@ public class TitleScreen : MonoBehaviour, IScreen
 
     private void Start()
     {
+        canvasGroup.alpha = 0f;
+        UIManager.Instance.SetTransitionStrategy(new InstantTransition());
         UIManager.Instance.ShowScreen(this);
+        UIManager.Instance.SetTransitionStrategy(new FadeTransition(0.5f));
+
     }
     private void Update() {
         if (!_canProceed) return;
@@ -67,8 +71,10 @@ public class TitleScreen : MonoBehaviour, IScreen
         }
 
         canvasGroup.alpha = 0f;
+        UIManager.Instance.SetTransitionStrategy(new InstantTransition());
         UIManager.Instance.ShowScreen(
             Object.FindAnyObjectByType<MainMenuScreen>()
         );
+        UIManager.Instance.SetTransitionStrategy(new FadeTransition(0.5f));
     }
 }
