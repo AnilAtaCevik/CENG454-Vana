@@ -10,11 +10,13 @@ public class TitleScreen : MonoBehaviour, IScreen
     public string ScreenName => "TitleScreen";
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private float fadeDuration = 1.5f;
+    [SerializeField] private CanvasGroup pressAnyKeyGroup;
     private bool _canProceed = false;
+    private Coroutine _blinkCoroutine;
 
     private void Start()
     {
-        canvasGroup.alpha = 0f;
+        canvasGroup.alpha = 1f;
         UIManager.Instance.SetTransitionStrategy(new InstantTransition());
         UIManager.Instance.ShowScreen(this);
         UIManager.Instance.SetTransitionStrategy(new FadeTransition(0.5f));
@@ -27,6 +29,7 @@ public class TitleScreen : MonoBehaviour, IScreen
         {
             // SceneManager.LoadScene("MainMenuScene");
             _canProceed = false;
+            if (_blinkCoroutine != null) StopCoroutine(_blinkCoroutine);
             StartCoroutine(FadeOutAndProceed());
         }
     }
@@ -34,30 +37,32 @@ public class TitleScreen : MonoBehaviour, IScreen
     public void Show()
     {
         gameObject.SetActive(true);
-        // _canProceed = true;
-        StartCoroutine(FadeIn());
+        canvasGroup.alpha = 1f;
+        _canProceed = true;
+        _blinkCoroutine = StartCoroutine(BlinkText());
     }
 
     public void Hide()
     {
         gameObject.SetActive(false);
         _canProceed = false;
+        if (_blinkCoroutine != null) StopCoroutine(_blinkCoroutine);
     }
-    private IEnumerator FadeIn()
-    {
-        canvasGroup.alpha = 0f;
-        float elapsed = 0f;
+    // private IEnumerator FadeIn()
+    // {
+    //     canvasGroup.alpha = 0f;
+    //     float elapsed = 0f;
 
-        while (elapsed < fadeDuration)
-        {
-            elapsed += Time.deltaTime;
-            canvasGroup.alpha = Mathf.Clamp01(elapsed / fadeDuration);
-            yield return null;
-        }
+    //     while (elapsed < fadeDuration)
+    //     {
+    //         elapsed += Time.deltaTime;
+    //         canvasGroup.alpha = Mathf.Clamp01(elapsed / fadeDuration);
+    //         yield return null;
+    //     }
 
-        canvasGroup.alpha = 1f;
-        _canProceed = true;
-    }
+    //     canvasGroup.alpha = 1f;
+    //     _canProceed = true;
+    // }
 
     private IEnumerator FadeOutAndProceed()
     {
@@ -76,5 +81,13 @@ public class TitleScreen : MonoBehaviour, IScreen
             Object.FindAnyObjectByType<MainMenuScreen>()
         );
         UIManager.Instance.SetTransitionStrategy(new FadeTransition(0.5f));
+    }
+    private IEnumerator BlinkText()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.3f);
+            pressAnyKeyGroup.alpha = pressAnyKeyGroup.alpha > 0.5f ? 0.2f : 1f;
+        }
     }
 }
