@@ -36,12 +36,13 @@ public class MainMenuButtons : MonoBehaviour
         UIManager.Instance.ShowScreen(
             Object.FindAnyObjectByType<CreditsScreen>()
         );
-        Debug.Log("Credits clicked");
     }
 
     public void OnSettingsClicked()
     {
-        Debug.Log("Settings clicked");
+        UIManager.Instance.ShowScreen(
+            Object.FindAnyObjectByType<SettingsScreen>()
+        );
     }
 
     public void OnExitClicked()
