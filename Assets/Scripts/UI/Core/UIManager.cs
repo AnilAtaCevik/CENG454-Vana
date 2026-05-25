@@ -79,7 +79,11 @@ public class UIManager : MonoBehaviour
     }
     public void GoBack()
     {
-    Debug.Log("GoBack called. previousScreen: " + (_previousScreen != null ? _previousScreen.ScreenName : "NULL"));
+    // Debug.Log("GoBack called. previousScreen: " + (_previousScreen != null ? _previousScreen.ScreenName : "NULL"));
+    // if (_previousScreen != null)
+    //     ShowScreen(_previousScreen);
+    Debug.Log("Current: " + (_currentScreen != null ? _currentScreen.ScreenName : "NULL"));
+    Debug.Log("Previous: " + (_previousScreen != null ? _previousScreen.ScreenName : "NULL"));
     if (_previousScreen != null)
         ShowScreen(_previousScreen);
     }

@@ -19,6 +19,7 @@ public class SettingsScreen : MonoBehaviour, IScreen
     [SerializeField] private TextMeshProUGUI musicValueText;
     [SerializeField] private TextMeshProUGUI dialogueValueText;
     [SerializeField] private TextMeshProUGUI sensitivityValueText;
+    [SerializeField] private UnityEngine.UI.Text bgmStatusText;
 
     [Header("Toggle")]
     [SerializeField] private Toggle bgmToggle;
@@ -40,7 +41,10 @@ public class SettingsScreen : MonoBehaviour, IScreen
         musicSlider.SetValueWithoutNotify(AudioManager.Instance.GetMusicVolume());
         dialogueSlider.SetValueWithoutNotify(AudioManager.Instance.GetDialogueVolume());
         sensitivitySlider.SetValueWithoutNotify(PlayerPrefs.GetFloat("aimSens", 1f));
-        bgmToggle.SetIsOnWithoutNotify(SaveSystem.LoadMusicEnabled());
+        
+        bool musicEnabled = SaveSystem.LoadMusicEnabled();
+        bgmToggle.SetIsOnWithoutNotify(musicEnabled);
+        UpdateBGMText(musicEnabled); 
 
         sfxSlider.onValueChanged.RemoveAllListeners();
         musicSlider.onValueChanged.RemoveAllListeners();
@@ -57,40 +61,46 @@ public class SettingsScreen : MonoBehaviour, IScreen
         UpdateAllValueTexts();
     }
 
+    private void UpdateBGMText(bool isOn)
+    {
+        if (bgmStatusText != null)
+            bgmStatusText.text = isOn ? "ENABLED" : "DISABLED";
+    }
+
     private void OnSFXChanged(float value)
     {
         AudioManager.Instance.SetSFXVolume(value);
         sfxValueText.text = Mathf.RoundToInt(value * 100) + "%";
-        // GameEventSystem.ScreenChanged("SFXVolume:" + value);
     }
 
     private void OnMusicChanged(float value)
     {
         AudioManager.Instance.SetMusicVolume(value);
         musicValueText.text = Mathf.RoundToInt(value * 100) + "%";
-        // GameEventSystem.ScreenChanged("MusicVolume:" + value);
     }
 
     private void OnDialogueChanged(float value)
     {
         AudioManager.Instance.SetDialogueVolume(value);
         dialogueValueText.text = Mathf.RoundToInt(value * 100) + "%";
-        // GameEventSystem.ScreenChanged("DialogueVolume:" + value);
     }
+
     private void OnSensitivityChanged(float value)
     {
         PlayerPrefs.SetFloat("aimSens", value);
         sensitivityValueText.text = value.ToString("F1") + "x";
     }
 
-    private void OnBGMToggleChanged(bool isOn)
+    public void OnBGMToggleChanged(bool isOn)
     {
         SaveSystem.SaveMusicEnabled(isOn);
+        UpdateBGMText(isOn);
         if (isOn)
             AudioManager.Instance.PlayMenuMusic();
         else
             AudioManager.Instance.StopMenuMusic();
     }
+
     public void OnResetClicked()
     {
         sfxSlider.SetValueWithoutNotify(1f);
@@ -106,13 +116,15 @@ public class SettingsScreen : MonoBehaviour, IScreen
         SaveSystem.SaveMusicEnabled(true);
         AudioManager.Instance.PlayMenuMusic();
 
+        UpdateBGMText(true);
         UpdateAllValueTexts();
     }
+
     private void UpdateAllValueTexts()
     {
-    sfxValueText.text = Mathf.RoundToInt(sfxSlider.value * 100) + "%";
-    musicValueText.text = Mathf.RoundToInt(musicSlider.value * 100) + "%";
-    dialogueValueText.text = Mathf.RoundToInt(dialogueSlider.value * 100) + "%";
-    sensitivityValueText.text = sensitivitySlider.value.ToString("F1") + "x";
+        sfxValueText.text = Mathf.RoundToInt(sfxSlider.value * 100) + "%";
+        musicValueText.text = Mathf.RoundToInt(musicSlider.value * 100) + "%";
+        dialogueValueText.text = Mathf.RoundToInt(dialogueSlider.value * 100) + "%";
+        sensitivityValueText.text = sensitivitySlider.value.ToString("F1") + "x";
     }
 }
