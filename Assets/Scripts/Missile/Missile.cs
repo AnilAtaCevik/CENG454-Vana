@@ -19,6 +19,10 @@ public class Missile : MonoBehaviour
     [SerializeField] private ParticleSystem launchBurstVfx;
     [SerializeField] private ParticleSystem afterburnerVfx;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource flightAudio;
+    [SerializeField] private AudioClip launchClip;
+
 
     private Rigidbody rb;
 
@@ -29,11 +33,19 @@ public class Missile : MonoBehaviour
 
         rb.linearVelocity = transform.forward * speed;
 
-        if (launchBurstVfx != null)
-            launchBurstVfx.Play();
+        if (launchBurstVfx != null) launchBurstVfx.Play();
 
-        if (afterburnerVfx != null)
-            afterburnerVfx.Play();
+        if (afterburnerVfx != null) afterburnerVfx.Play();
+
+        if (launchClip != null)
+        {
+            AudioSource.PlayClipAtPoint(launchClip, transform.position, 1f);
+        }
+
+        if (flightAudio != null)
+        {
+            flightAudio.Play();
+        }
 
         Destroy(gameObject, lifeTime);
     }
@@ -60,6 +72,11 @@ public class Missile : MonoBehaviour
             if (audioSource != null)
             {
                 audioSource.Play();
+            }
+
+            if (flightAudio != null)
+            {
+                flightAudio.Stop();
             }
         }
 
