@@ -14,12 +14,26 @@ public class MissileSpawner : MonoBehaviour
     [SerializeField] private float aimDistance = 100f;
 
     [Header("Cooldown")]
-    [SerializeField] private float fireCooldown = 2f;
+    [SerializeField] private float fireCooldown = 5f;
+
+    [Header("Ammo")]
+    [SerializeField] private int maxAmmo = 6;
+
+
+    private int currentAmmo;
 
     private bool isAiming = false;
 
     private float aimTimer = 0f;
     private float nextFireTime = 0f;
+
+
+
+    void Start()
+    {
+        currentAmmo = maxAmmo;
+    }
+
 
     void Update()
     {
@@ -31,6 +45,7 @@ public class MissileSpawner : MonoBehaviour
         }
     }
 
+
     void HandleInput()
     {
         if (Mouse.current == null)
@@ -39,7 +54,7 @@ public class MissileSpawner : MonoBehaviour
         // START AIM
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
-            if (Time.time >= nextFireTime)
+            if (Time.time >= nextFireTime && currentAmmo >= 2)
             {
                 StartAiming();
             }
@@ -67,6 +82,7 @@ public class MissileSpawner : MonoBehaviour
         }
     }
 
+
     void StartAiming()
     {
         isAiming = true;
@@ -78,6 +94,7 @@ public class MissileSpawner : MonoBehaviour
             aimLine.enabled = true;
         }
     }
+
 
     void UpdateAimLine()
     {
@@ -93,9 +110,11 @@ public class MissileSpawner : MonoBehaviour
         aimLine.SetPosition(1, endPos);
     }
 
+
     void FireMissiles()
     {
         isAiming = false;
+        currentAmmo -= 2;
 
         nextFireTime = Time.time + fireCooldown;
 
@@ -105,7 +124,10 @@ public class MissileSpawner : MonoBehaviour
         }
 
         StartCoroutine(FireSequence());
+
+        Debug.Log("Current Ammo: " + currentAmmo);
     }
+
 
     IEnumerator FireSequence()
     {

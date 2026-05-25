@@ -18,6 +18,7 @@ public class Missile : MonoBehaviour
 
     private Rigidbody rb;
 
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -27,10 +28,12 @@ public class Missile : MonoBehaviour
         Destroy(gameObject, lifeTime);
     }
 
+
     void OnCollisionEnter(Collision collision)
     {
         Explode();
     }
+
 
     void Explode()
     {
@@ -69,6 +72,7 @@ public class Missile : MonoBehaviour
 
         Destroy(gameObject);
     }
+
 
     void OnDrawGizmos()
     {
