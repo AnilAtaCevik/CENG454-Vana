@@ -13,7 +13,7 @@ public class Minigun : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Transform[] firePoints;
-    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private BulletPool bulletPool;
 
     [Header("Shooting")]
     [SerializeField] private float fireRate = 0.05f;
@@ -143,17 +143,16 @@ public class Minigun : MonoBehaviour
     {
         for (int i = 0; i < firePoints.Length; i++)
         {
-            GameObject bullet = Instantiate(
-                bulletPrefab,
-                firePoints[i].position,
-                Quaternion.identity
-            );
+            GameObject bullet = bulletPool.GetBullet();
+
+            bullet.transform.position = firePoints[i].position;
+            bullet.transform.rotation = Quaternion.identity;
 
             Bullet bulletScript = bullet.GetComponent<Bullet>();
 
             if (bulletScript != null)
             {
-                bulletScript.SetDirection(firePoints[i].forward);
+                bulletScript.Initialize(firePoints[i].forward, bulletPool);
             }
 
             if (muzzleFlashes != null && i < muzzleFlashes.Length)

@@ -738,7 +738,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74cbe741682cf964795f3ae8a53e4377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  health: 100
 --- !u!1 &979298379
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,7 +785,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74cbe741682cf964795f3ae8a53e4377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  health: 100
 --- !u!65 &979298382
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -922,7 +920,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74cbe741682cf964795f3ae8a53e4377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  health: 100
 --- !u!65 &1613949275
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1048,7 +1045,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74cbe741682cf964795f3ae8a53e4377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  health: 100
 --- !u!65 &1804319465
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1343,6 +1339,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9111758576615460160, guid: e0cf74682f56d484b9b9e6452991e0d4, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 8909740203850123856, guid: 1455a3f0936755a438414cfcd2970a3d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
