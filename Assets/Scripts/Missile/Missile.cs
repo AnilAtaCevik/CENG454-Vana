@@ -13,7 +13,6 @@ public class Missile : MonoBehaviour
 
     [Header("Damage")]
     [SerializeField] private float explosionRadius = 10f;
-    [SerializeField] private float damage = 50f;
 
     [Header("Engine VFX")]
     [SerializeField] private ParticleSystem launchBurstVfx;
@@ -23,9 +22,7 @@ public class Missile : MonoBehaviour
     [SerializeField] private AudioSource flightAudio;
     [SerializeField] private AudioClip launchClip;
 
-
     private Rigidbody rb;
-
 
     void Start()
     {
@@ -33,13 +30,23 @@ public class Missile : MonoBehaviour
 
         rb.linearVelocity = transform.forward * speed;
 
-        if (launchBurstVfx != null) launchBurstVfx.Play();
+        if (launchBurstVfx != null)
+        {
+            launchBurstVfx.Play();
+        }
 
-        if (afterburnerVfx != null) afterburnerVfx.Play();
+        if (afterburnerVfx != null)
+        {
+            afterburnerVfx.Play();
+        }
 
         if (launchClip != null)
         {
-            AudioSource.PlayClipAtPoint(launchClip, transform.position, 1f);
+            AudioSource.PlayClipAtPoint(
+                launchClip,
+                transform.position,
+                1f
+            );
         }
 
         if (flightAudio != null)
@@ -50,15 +57,18 @@ public class Missile : MonoBehaviour
         Destroy(gameObject, lifeTime);
     }
 
-
     void OnCollisionEnter(Collision collision)
     {
         Explode();
     }
 
-
     void Explode()
     {
+        if (flightAudio != null)
+        {
+            flightAudio.Stop();
+        }
+
         if (explosionVfx != null)
         {
             GameObject explosion = Instantiate(
@@ -67,39 +77,17 @@ public class Missile : MonoBehaviour
                 Quaternion.identity
             );
 
-            AudioSource audioSource = explosion.GetComponent<AudioSource>();
+            AudioSource audioSource =
+                explosion.GetComponent<AudioSource>();
 
             if (audioSource != null)
             {
                 audioSource.Play();
             }
-
-            if (flightAudio != null)
-            {
-                flightAudio.Stop();
-            }
-        }
-
-        Collider[] hitColliders =
-            Physics.OverlapSphere(
-                transform.position,
-                explosionRadius
-            );
-
-        foreach (Collider hit in hitColliders)
-        {
-            EnemyHealth enemy =
-                hit.GetComponent<EnemyHealth>();
-
-            if (enemy != null)
-            {
-                enemy.TakeDamage(damage);
-            }
         }
 
         Destroy(gameObject);
     }
-
 
     void OnDrawGizmos()
     {

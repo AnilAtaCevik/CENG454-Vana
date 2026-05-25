@@ -6,9 +6,6 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float speed = 200f;
     [SerializeField] private float lifeTime = 3f;
 
-    [Header("Damage")]
-    [SerializeField] private float damage = 10f;
-
     [Header("Impact VFX")]
     [SerializeField] private GameObject impactVfx;
     [SerializeField] private GameObject enemyImpactVfx;
@@ -46,16 +43,10 @@ public class Bullet : MonoBehaviour
     {
         Vector3 hitPoint = collision.contacts[0].point;
 
-        EnemyHealth enemy = collision.collider.GetComponentInParent<EnemyHealth>();
-        bool hitEnemy = enemy != null || collision.gameObject.CompareTag("Enemy");
+        bool isEnemy = collision.gameObject.CompareTag("Enemy");
 
-        if (hitEnemy)
+        if (isEnemy)
         {
-            if (enemy != null)
-            {
-                enemy.TakeDamage(damage);
-            }
-
             if (enemyImpactVfx != null)
             {
                 Instantiate(enemyImpactVfx, hitPoint, Quaternion.identity);
@@ -63,7 +54,11 @@ public class Bullet : MonoBehaviour
 
             if (enemyImpactClip != null)
             {
-                AudioSource.PlayClipAtPoint(enemyImpactClip, hitPoint, enemyImpactVolume);
+                AudioSource.PlayClipAtPoint(
+                    enemyImpactClip,
+                    hitPoint,
+                    enemyImpactVolume
+                );
             }
         }
         else
@@ -75,7 +70,11 @@ public class Bullet : MonoBehaviour
 
             if (impactClip != null)
             {
-                AudioSource.PlayClipAtPoint(impactClip, hitPoint, impactVolume);
+                AudioSource.PlayClipAtPoint(
+                    impactClip,
+                    hitPoint,
+                    impactVolume
+                );
             }
         }
 
