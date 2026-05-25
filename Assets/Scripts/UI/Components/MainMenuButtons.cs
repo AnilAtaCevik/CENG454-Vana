@@ -47,6 +47,6 @@ public class MainMenuButtons : MonoBehaviour
 
     public void OnExitClicked()
     {
-        Debug.Log("Exit clicked");
+         Object.FindAnyObjectByType<ExitDialog>()?.Show();
     }
 }

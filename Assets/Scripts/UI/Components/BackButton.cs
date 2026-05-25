@@ -4,6 +4,8 @@ public class BackButton : MonoBehaviour
 {
     public void OnBackClicked()
     {
-        UIManager.Instance.GoBack();
+        UIManager.Instance.ShowScreen(
+            Object.FindAnyObjectByType<MainMenuScreen>()
+        );
     }
 }

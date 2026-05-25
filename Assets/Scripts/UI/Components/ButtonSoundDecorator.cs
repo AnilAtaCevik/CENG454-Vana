@@ -21,13 +21,13 @@ public class ButtonSoundDecorator : MonoBehaviour, IPointerClickHandler, IPointe
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (clickSound != null)
+        if (clickSound != null && _audioSource != null && _audioSource.gameObject.activeInHierarchy)
             _audioSource.PlayOneShot(clickSound);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (hoverSound != null)
+        if (hoverSound != null && _audioSource != null && _audioSource.gameObject.activeInHierarchy)
             _audioSource.PlayOneShot(hoverSound);
     }
 }
