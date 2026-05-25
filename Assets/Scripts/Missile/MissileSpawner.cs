@@ -1,46 +1,131 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class MissileSpawner : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private GameObject missilePrefab;
-    [SerializeField] private Transform firePoint;
     [SerializeField] private Transform[] firePoints;
 
-    [Header("Shooting")]
-    [SerializeField] private float fireCooldown = 1.5f;
+    [Header("Aiming")]
+    [SerializeField] private LineRenderer aimLine;
+    [SerializeField] private float maxAimTime = 3f;
+    [SerializeField] private float aimDistance = 100f;
 
+    [Header("Cooldown")]
+    [SerializeField] private float fireCooldown = 2f;
+
+    private bool isAiming = false;
+
+    private float aimTimer = 0f;
     private float nextFireTime = 0f;
-
 
     void Update()
     {
-        HandleFire();
+        HandleInput();
+
+        if (isAiming)
+        {
+            UpdateAimLine();
+        }
     }
 
-
-    void HandleFire()
+    void HandleInput()
     {
         if (Mouse.current == null)
             return;
 
+        // START AIM
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
             if (Time.time >= nextFireTime)
             {
-                Fire();
-                nextFireTime = Time.time + fireCooldown;
+                StartAiming();
+            }
+        }
+
+        // HOLD AIM
+        if (isAiming)
+        {
+            aimTimer += Time.deltaTime;
+
+            // AUTO FIRE AFTER 3 SEC
+            if (aimTimer >= maxAimTime)
+            {
+                FireMissiles();
+            }
+        }
+
+        // RELEASE FIRE
+        if (Mouse.current.rightButton.wasReleasedThisFrame)
+        {
+            if (isAiming)
+            {
+                FireMissiles();
             }
         }
     }
 
-
-    void Fire()
+    void StartAiming()
     {
-        foreach (Transform fp in firePoints)
+        isAiming = true;
+
+        aimTimer = 0f;
+
+        if (aimLine != null)
         {
-            Instantiate(missilePrefab, fp.position, fp.rotation);
+            aimLine.enabled = true;
+        }
+    }
+
+    void UpdateAimLine()
+    {
+        if (aimLine == null || firePoints.Length == 0)
+            return;
+
+        Vector3 startPos = firePoints[0].position;
+        Vector3 endPos =
+            firePoints[0].position +
+            firePoints[0].forward * aimDistance;
+
+        aimLine.SetPosition(0, startPos);
+        aimLine.SetPosition(1, endPos);
+    }
+
+    void FireMissiles()
+    {
+        isAiming = false;
+
+        nextFireTime = Time.time + fireCooldown;
+
+        if (aimLine != null)
+        {
+            aimLine.enabled = false;
+        }
+
+        StartCoroutine(FireSequence());
+    }
+
+    IEnumerator FireSequence()
+    {
+        // RIGHT
+        Instantiate(
+            missilePrefab,
+            firePoints[0].position,
+            firePoints[0].rotation
+        );
+
+        yield return new WaitForSeconds(0.15f);
+
+        // LEFT
+        if (firePoints.Length > 1)
+        {
+            Instantiate(
+                missilePrefab,
+                firePoints[1].position,
+                firePoints[1].rotation
+            );
         }
     }
 }
