@@ -32,6 +32,8 @@ public class MissileSpawner : MonoBehaviour
     void Start()
     {
         currentAmmo = maxAmmo;
+
+        WeaponEvents.RaiseMissileAmmoChanged(currentAmmo, maxAmmo);
     }
 
 
@@ -115,6 +117,10 @@ public class MissileSpawner : MonoBehaviour
     {
         isAiming = false;
         currentAmmo -= 2;
+
+        WeaponEvents.RaiseMissileAmmoChanged(currentAmmo, maxAmmo);
+        WeaponEvents.RaiseMissileFired();
+        WeaponEvents.RaiseMissileCooldownStarted(fireCooldown);
 
         nextFireTime = Time.time + fireCooldown;
 
