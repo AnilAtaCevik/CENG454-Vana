@@ -12,6 +12,12 @@ public class SpotlightController : MonoBehaviour
     [SerializeField] private float maxUpAngle = 90f;
     [SerializeField] private float maxDownAngle = -90f;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip turnOnClip;
+    [SerializeField] private AudioClip turnOffClip;
+    [SerializeField] private float audioVolume = 1f;
+
     private bool isEnabled = false;
 
     void Update()
@@ -33,6 +39,8 @@ public class SpotlightController : MonoBehaviour
             {
                 spotlight.enabled = isEnabled;
             }
+
+            PlayToggleSound();
         }
     }
 
@@ -43,29 +51,37 @@ public class SpotlightController : MonoBehaviour
 
         Vector2 mousePosition = Mouse.current.position.ReadValue();
 
-        float screenHeight = Screen.height;
+        float normalizedMouseY = 1f - (mousePosition.y / Screen.height);
 
-        float normalizedMouseY = 1f - (mousePosition.y / screenHeight);
+        float targetAngle = Mathf.Lerp(
+            maxDownAngle,
+            maxUpAngle,
+            normalizedMouseY
+        );
 
-        float targetAngle =
-            Mathf.Lerp(
-                maxDownAngle,
-                maxUpAngle,
-                normalizedMouseY
-            );
+        Quaternion targetRotation = Quaternion.Euler(
+            targetAngle,
+            0f,
+            0f
+        );
 
-        Quaternion targetRotation =
-            Quaternion.Euler(
-                targetAngle,
-                0f,
-                0f
-            );
+        spotlightPivot.localRotation = Quaternion.Slerp(
+            spotlightPivot.localRotation,
+            targetRotation,
+            rotationSpeed * Time.deltaTime
+        );
+    }
 
-        spotlightPivot.localRotation =
-            Quaternion.Slerp(
-                spotlightPivot.localRotation,
-                targetRotation,
-                rotationSpeed * Time.deltaTime
-            );
+    void PlayToggleSound()
+    {
+        if (audioSource == null)
+            return;
+
+        AudioClip selectedClip = isEnabled ? turnOnClip : turnOffClip;
+
+        if (selectedClip != null)
+        {
+            audioSource.PlayOneShot(selectedClip, audioVolume);
+        }
     }
 }
