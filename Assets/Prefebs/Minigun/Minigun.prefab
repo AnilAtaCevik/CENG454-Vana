@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6262284617803633959}
+  - component: {fileID: 7900405594518115618}
   m_Layer: 0
   m_Name: Minigun
   m_TagString: Untagged
@@ -24,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2897494767456396569}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.19247, y: -0.434, z: -0.84011}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -35,6 +36,31 @@ Transform:
   - {fileID: 2114302020162027263}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7900405594518115618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2897494767456396569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a5a8f458e5a4ad4888dde2aecf3421f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Minigun
+  firePoints:
+  - {fileID: 6184987494326374056}
+  - {fileID: 4200675542453242725}
+  bulletPrefab: {fileID: 8909740203850123856, guid: 1455a3f0936755a438414cfcd2970a3d, type: 3}
+  fireRate: 0.05
+  spinUpDelay: 0.95
+  muzzleFlashes:
+  - {fileID: 7315787993100413197}
+  - {fileID: 1791238892508885107}
+  firingDuration: 5
+  cooldownTime: 5
+  firingAudio: {fileID: 3759380851465960322}
+  overheatAudio: {fileID: 7921990430232792402}
 --- !u!1 &4977166102794082326
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,6 +440,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4bc56cfb06506f45947469e272a7b71, type: 3}
+--- !u!198 &1791238892508885107 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2337950557284844164, guid: f4bc56cfb06506f45947469e272a7b71, type: 3}
+  m_PrefabInstance: {fileID: 4083027553436627703}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5090051522754870710 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9082261853056634689, guid: f4bc56cfb06506f45947469e272a7b71, type: 3}
@@ -479,5 +510,10 @@ PrefabInstance:
 --- !u!4 &4322992504228488392 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9082261853056634689, guid: f4bc56cfb06506f45947469e272a7b71, type: 3}
+  m_PrefabInstance: {fileID: 5040926348440415113}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7315787993100413197 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2337950557284844164, guid: f4bc56cfb06506f45947469e272a7b71, type: 3}
   m_PrefabInstance: {fileID: 5040926348440415113}
   m_PrefabAsset: {fileID: 0}

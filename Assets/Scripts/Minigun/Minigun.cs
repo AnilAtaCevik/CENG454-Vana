@@ -21,11 +21,11 @@ public class Minigun : MonoBehaviour
     [SerializeField] private ParticleSystem[] muzzleFlashes;
 
     [Header("Timing")]
-    [SerializeField] private float firingDuration = 5f; 
+    [SerializeField] private float firingDuration = 5f;
     [SerializeField] private float cooldownTime = 5f;
 
     [Header("Audio")]
-    [SerializeField] private AudioSource firingAudio; 
+    [SerializeField] private AudioSource firingAudio;
     [SerializeField] private AudioSource overheatAudio;
 
     private MinigunState currentState = MinigunState.Idle;
@@ -33,32 +33,34 @@ public class Minigun : MonoBehaviour
     private float fireStartTime;
     private float nextFireTime;
 
-
     void Update()
     {
         HandleInput();
         HandleState();
     }
 
-
     void HandleInput()
     {
-        if (Mouse.current == null) return;
+        if (Mouse.current == null)
+            return;
+
         bool isPressed = Mouse.current.leftButton.isPressed;
 
         if (isPressed)
         {
             if (currentState == MinigunState.Idle)
+            {
                 EnterState(MinigunState.Firing);
+            }
         }
-        
         else
         {
             if (currentState == MinigunState.Firing)
+            {
                 EnterState(MinigunState.Idle);
+            }
         }
     }
-
 
     void HandleState()
     {
@@ -70,21 +72,26 @@ public class Minigun : MonoBehaviour
                 HandleFire();
 
                 if (stateTimer <= 0f)
+                {
                     EnterState(MinigunState.Overheated);
+                }
                 break;
 
             case MinigunState.Overheated:
                 if (stateTimer <= 0f)
+                {
                     EnterState(MinigunState.Cooling);
+                }
                 break;
 
             case MinigunState.Cooling:
                 if (stateTimer <= 0f)
+                {
                     EnterState(MinigunState.Idle);
+                }
                 break;
         }
     }
-
 
     void EnterState(MinigunState newState)
     {
@@ -102,7 +109,6 @@ public class Minigun : MonoBehaviour
                 firingAudio?.Play();
 
                 stateTimer = firingDuration;
-
                 fireStartTime = Time.time + spinUpDelay;
                 nextFireTime = fireStartTime;
                 break;
@@ -118,7 +124,6 @@ public class Minigun : MonoBehaviour
         }
     }
 
-
     void HandleFire()
     {
         if (Mouse.current == null || !Mouse.current.leftButton.isPressed)
@@ -133,7 +138,6 @@ public class Minigun : MonoBehaviour
             nextFireTime = Time.time + fireRate;
         }
     }
-
 
     void Shoot()
     {
@@ -158,7 +162,6 @@ public class Minigun : MonoBehaviour
             }
         }
     }
-
 
     void StopAllAudio()
     {
