@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//static wrapper around PlayerPrefabs for typed saved/load operations
 public static class SaveSystem
 {
     // Int
@@ -18,7 +19,8 @@ public static class SaveSystem
     public static void SaveString(string key, string value) => PlayerPrefs.SetString(key, value);
     public static string LoadString(string key, string defaultValue = "") => PlayerPrefs.GetString(key, defaultValue);
 
-    // Özel kullanımlar
+    // Special cases
+    // Saves the last played level index so Play button can resume from it
     public static void SaveLastLevel(int index) => SaveInt("lastLevel", index);
     public static int LoadLastLevel() => LoadInt("lastLevel", 0);
 

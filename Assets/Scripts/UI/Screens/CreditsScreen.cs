@@ -31,6 +31,8 @@ public class CreditsScreen : MonoBehaviour, IScreen
         }
         creditsText.text = "";
     }
+
+    // Builds the tree using Composite pattern and render it into a single string
     private void BuildAndDisplayCredits()
     {
         // Composite tree
@@ -43,13 +45,20 @@ public class CreditsScreen : MonoBehaviour, IScreen
 
         CreditsSection tools = new CreditsSection("Tools & Engine");
         tools.Add(new CreditsItem("Unity 6000.3.9f1"));
-        tools.Add(new CreditsItem("CENG 454 - Game Programming"));
-        tools.Add(new CreditsItem("Spring 2025-2026"));
+
+        CreditsSection course = new CreditsSection("Course");
+        course.Add(new CreditsItem("CENG 454 - Game Programming"));
+        course.Add(new CreditsItem("Spring 2025-2026"));
+
+        CreditsSection thanks = new CreditsSection("Thanks To");
+        thanks.Add(new CreditsItem("Mustafa Kemal Binli"));
 
         // All credits — root composite
         CreditsSection allCredits = new CreditsSection("VANA");
         allCredits.Add(development);
         allCredits.Add(tools);
+        allCredits.Add(course);
+        allCredits.Add(thanks);
 
         //Render all by one Display() call
         creditsText.text = allCredits.Display();
@@ -58,18 +67,12 @@ public class CreditsScreen : MonoBehaviour, IScreen
     {
         creditsText.text = "";
         BuildAndDisplayCredits();
-        yield return null; 
+        yield return null; // wait one frame for layout to update
 
         float screenHalfHeight = Screen.height / 2f;
-        float textHeight = creditsRect.rect.height;
 
         creditsRect.anchoredPosition = new Vector2(0, -screenHalfHeight);
         float stopY = 0f;
-
-        // float startY = -Screen.height;
-        // float endY = Screen.height + creditsRect.rect.height;
-
-        // creditsRect.anchoredPosition = new Vector2(0, startY);
 
         while (creditsRect.anchoredPosition.y < stopY)
         {

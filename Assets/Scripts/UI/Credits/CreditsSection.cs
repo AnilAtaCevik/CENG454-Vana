@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 
+// Composite pattern - composite node: groping multiple ICreditsComponent items under a title
 public class CreditsSection : ICreditsComponent
 {
     private string _title;

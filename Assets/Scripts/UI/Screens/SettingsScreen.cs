@@ -35,6 +35,7 @@ public class SettingsScreen : MonoBehaviour, IScreen
         canvas.SetActive(false);
     }
 
+    //loads saved values and re-registers all listeners
     private void LoadSettings()
     {
         sfxSlider.SetValueWithoutNotify(AudioManager.Instance.GetSFXVolume());
@@ -46,6 +47,7 @@ public class SettingsScreen : MonoBehaviour, IScreen
         bgmToggle.SetIsOnWithoutNotify(musicEnabled);
         UpdateBGMText(musicEnabled); 
 
+        //remove and then re-add all listeners for avoiding duplicates
         sfxSlider.onValueChanged.RemoveAllListeners();
         musicSlider.onValueChanged.RemoveAllListeners();
         dialogueSlider.onValueChanged.RemoveAllListeners();
@@ -85,6 +87,7 @@ public class SettingsScreen : MonoBehaviour, IScreen
         dialogueValueText.text = Mathf.RoundToInt(value * 100) + "%";
     }
 
+    // Sensitivity saved to PlayerPrefs - will be linked to aim system when ready
     private void OnSensitivityChanged(float value)
     {
         PlayerPrefs.SetFloat("aimSens", value);
@@ -101,6 +104,7 @@ public class SettingsScreen : MonoBehaviour, IScreen
             AudioManager.Instance.StopMenuMusic();
     }
 
+    //reset all settings to default
     public void OnResetClicked()
     {
         sfxSlider.SetValueWithoutNotify(1f);

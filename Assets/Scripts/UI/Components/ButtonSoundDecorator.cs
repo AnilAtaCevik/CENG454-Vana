@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+// Decorator pattern: adds sound feedback to any Button and it does not modifies it
 [RequireComponent(typeof(Button))]
 public class ButtonSoundDecorator : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 {
@@ -19,12 +20,14 @@ public class ButtonSoundDecorator : MonoBehaviour, IPointerClickHandler, IPointe
         _audioSource.playOnAwake = false;
     }
 
+    //plays click sound when pressed
     public void OnPointerClick(PointerEventData eventData)
     {
         if (clickSound != null && _audioSource != null && _audioSource.gameObject.activeInHierarchy)
             _audioSource.PlayOneShot(clickSound);
     }
 
+    //plays hover sound when hovered
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (hoverSound != null && _audioSource != null && _audioSource.gameObject.activeInHierarchy)

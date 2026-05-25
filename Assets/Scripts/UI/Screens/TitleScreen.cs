@@ -1,9 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
-//right noe title Screen and Main Manu is in the same Scene (MainMenuScene)
-//Title Screen pens and when you press anythin on your keybooard it become hidden
-//in the next step you are going to make a connection w MainMenu screen
 
 public class TitleScreen : MonoBehaviour, IScreen
 {
@@ -16,6 +13,7 @@ public class TitleScreen : MonoBehaviour, IScreen
 
     private void Start()
     {
+        //using instant transition on startup
         canvasGroup.alpha = 1f;
         UIManager.Instance.SetTransitionStrategy(new InstantTransition());
         UIManager.Instance.ShowScreen(this);
@@ -27,7 +25,6 @@ public class TitleScreen : MonoBehaviour, IScreen
 
         if (Keyboard.current.anyKey.wasPressedThisFrame)
         {
-            // SceneManager.LoadScene("MainMenuScene");
             _canProceed = false;
             if (_blinkCoroutine != null) StopCoroutine(_blinkCoroutine);
             StartCoroutine(FadeOutAndProceed());
@@ -48,22 +45,8 @@ public class TitleScreen : MonoBehaviour, IScreen
         _canProceed = false;
         if (_blinkCoroutine != null) StopCoroutine(_blinkCoroutine);
     }
-    // private IEnumerator FadeIn()
-    // {
-    //     canvasGroup.alpha = 0f;
-    //     float elapsed = 0f;
 
-    //     while (elapsed < fadeDuration)
-    //     {
-    //         elapsed += Time.deltaTime;
-    //         canvasGroup.alpha = Mathf.Clamp01(elapsed / fadeDuration);
-    //         yield return null;
-    //     }
-
-    //     canvasGroup.alpha = 1f;
-    //     _canProceed = true;
-    // }
-
+    //fades out title screen than transitions to main menu
     private IEnumerator FadeOutAndProceed()
     {
         float elapsed = 0f;
@@ -82,6 +65,8 @@ public class TitleScreen : MonoBehaviour, IScreen
         );
         UIManager.Instance.SetTransitionStrategy(new FadeTransition(0.5f));
     }
+
+    //blinking text for attention
     private IEnumerator BlinkText()
     {
         while (true)

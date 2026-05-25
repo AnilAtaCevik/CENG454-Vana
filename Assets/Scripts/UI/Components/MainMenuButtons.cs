@@ -10,6 +10,8 @@ public class MainMenuButtons : MonoBehaviour
     {
         UpdatePlayButtonLabel();
     }
+
+    //shows "New Game" if no save exits, otherwise "Continue"
     private void UpdatePlayButtonLabel()
     {
         int lastLevel = SaveSystem.LoadLastLevel();
@@ -18,14 +20,10 @@ public class MainMenuButtons : MonoBehaviour
 
     public void OnPlayClicked()
     {
-        // int lastLevel = SaveSystem.LoadLastLevel();
-        // if (lastLevel == 0)
-        //     SceneManager.LoadScene("SampleScene");
-        // else
-        //     SceneManager.LoadScene(lastLevel);
         SceneManager.LoadScene("SampleScene");
     }
 
+    //TODO: Mission screen will be implemented after level system completed
     public void OnMissionsClicked()
     {
         Debug.Log("Missions clicked");

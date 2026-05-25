@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+// Strategy pattern: switching screens with no animation
 public class InstantTransition : ITransitionStrategy
 {
     public IEnumerator Transition(CanvasGroup from, CanvasGroup to)

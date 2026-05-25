@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+// Strategy pattern: transition between screens using a fade out and fade in animation
 public class FadeTransition : ITransitionStrategy
 {
     private float _duration;
@@ -12,6 +13,7 @@ public class FadeTransition : ITransitionStrategy
 
     public IEnumerator Transition(CanvasGroup from, CanvasGroup to)
     {
+        //fade out the current screen
         if (from != null)
         {
             float elapsed = 0f;
@@ -25,6 +27,7 @@ public class FadeTransition : ITransitionStrategy
             from.gameObject.SetActive(false);
         }
 
+        //fade in the next screen
         if (to != null)
         {
             to.gameObject.SetActive(true);

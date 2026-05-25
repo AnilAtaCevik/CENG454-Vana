@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using System.Collections;
 
+// Singleton: managing all audio playbacks and volume settings across scenes
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
@@ -32,6 +33,7 @@ public class AudioManager : MonoBehaviour
         PlayMenuMusic();
     }
 
+    // creates the AudioSource for music if it doesn't exist
     public void InitMusicSource()
     {
         if(_musicSource != null) return;
@@ -41,11 +43,13 @@ public class AudioManager : MonoBehaviour
         _musicSource.loop = false;
     }
 
+    // Returns the SFX mixer group for audio sources using them
     public UnityEngine.Audio.AudioMixerGroup GetSFXGroup()
     {
         return audioMixer.FindMatchingGroups("SFX")[0];
     }
 
+    // Converts 0-1 slider value to decibel and saves to PlayerPrefs
     public void SetSFXVolume(float sliderValue)
     {
         audioMixer.SetFloat(SFX_PARAM, SliderToDecibel(sliderValue));
@@ -68,12 +72,14 @@ public class AudioManager : MonoBehaviour
     public float GetMusicVolume() => PlayerPrefs.GetFloat(MUSIC_PARAM, 1f);
     public float GetDialogueVolume() => PlayerPrefs.GetFloat(DIALOGUE_PARAM, 1f);
 
+    //converts linear slider value to logarithmic decibel scale
     private float SliderToDecibel(float value)
     {
         value = Mathf.Clamp(value, 0.0001f, 1f);
         return Mathf.Log10(value) * 20f;
     }
 
+    //loads and applies volume settings
     private void LoadSavedVolumes()
     {
         SetSFXVolume(PlayerPrefs.GetFloat(SFX_PARAM, 1f));
@@ -81,30 +87,11 @@ public class AudioManager : MonoBehaviour
         SetDialogueVolume(PlayerPrefs.GetFloat(DIALOGUE_PARAM, 1f));
     }
 
+    //plays helicopter sound for 5 second than switches to menu music
     public void PlayMenuMusic()
     {
         if (!SaveSystem.LoadMusicEnabled()) return;
         StartCoroutine(PlayHelicopterThenMusic());
-        // if(menuMusic == null) return;
-        // if(_musicSource == null)
-        // {
-        //     _musicSource = gameObject.AddComponent<AudioSource>();
-        //     _musicSource.outputAudioMixerGroup = audioMixer.FindMatchingGroups("Music")[0];
-        //     _musicSource.loop = true ;
-        //     _musicSource.playOnAwake = false;
-        // }
-
-        // bool musicEnabled = SaveSystem.LoadMusicEnabled();
-
-        // if (musicEnabled && !_musicSource.isPlaying)
-        // {
-        //     _musicSource.clip = menuMusic;
-        //     _musicSource.Play();
-        // }
-        // else if (!musicEnabled)
-        // {
-        //     _musicSource.Stop();
-        // }
     }
     private IEnumerator PlayHelicopterThenMusic()
     {
@@ -123,8 +110,6 @@ public class AudioManager : MonoBehaviour
             _musicSource.Play();
         }
     }
-
-
     public void StopMenuMusic()
     {
         if (_musicSource != null && _musicSource.isPlaying)

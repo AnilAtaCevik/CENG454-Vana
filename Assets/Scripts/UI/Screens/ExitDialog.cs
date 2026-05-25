@@ -8,6 +8,7 @@ public class ExitDialog : MonoBehaviour
     [SerializeField] private RectTransform dialogPanel;
     private bool _isOpen = false;
 
+    //open or close dialog by pressing escape button
     private void Update()
     {
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
@@ -32,6 +33,7 @@ public class ExitDialog : MonoBehaviour
        _isOpen = false;
     }
 
+    //guit application
     public void OnYesClicked()
     {
 #if UNITY_EDITOR
@@ -48,6 +50,8 @@ public class ExitDialog : MonoBehaviour
         Object.FindAnyObjectByType<MainMenuScreen>()
         );
     }
+    
+    //animation for dialog panel
     private IEnumerator ScaleIn()
     {
         float duration = 0.2f;

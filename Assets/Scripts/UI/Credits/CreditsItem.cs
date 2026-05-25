@@ -1,3 +1,4 @@
+// Composite pattern - leaf node: single credit entry 
 public class CreditsItem : ICreditsComponent
 {
     private string _name;

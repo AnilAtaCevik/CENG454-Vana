@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+// Singleton: manages all UI screen transitions and tracks the active screen(s)
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
@@ -21,20 +22,13 @@ public class UIManager : MonoBehaviour
         _transitionStrategy = new FadeTransition(0.5f);
     }
 
-    // public void ShowScreen(IScreen screen)
-    // {
-    //     if (_currentScreen != null)
-    //         _currentScreen.Hide();
-
-    //     _currentScreen = screen;
-    //     _currentScreen.Show();
-    // }
-
+    // Allows switching transition style at runtime (Strategy pattern)
     public void SetTransitionStrategy(ITransitionStrategy strategy)
     {
         _transitionStrategy = strategy;
     }
 
+    // Triggers a transition to the given screen
     public void ShowScreen(IScreen screen)
     {
         StartCoroutine(DoTransition(screen));
@@ -47,6 +41,7 @@ public class UIManager : MonoBehaviour
         _currentScreen = null;
     }
 
+    // Handles the transition
     private IEnumerator DoTransition(IScreen nextScreen)
     {
         CanvasGroup fromGroup = null;
@@ -77,11 +72,10 @@ public class UIManager : MonoBehaviour
         if (_currentScreen != null)
         _currentScreen.Show();
     }
+
+    //navigatin back to previous screen
     public void GoBack()
     {
-    // Debug.Log("GoBack called. previousScreen: " + (_previousScreen != null ? _previousScreen.ScreenName : "NULL"));
-    // if (_previousScreen != null)
-    //     ShowScreen(_previousScreen);
     Debug.Log("Current: " + (_currentScreen != null ? _currentScreen.ScreenName : "NULL"));
     Debug.Log("Previous: " + (_previousScreen != null ? _previousScreen.ScreenName : "NULL"));
     if (_previousScreen != null)

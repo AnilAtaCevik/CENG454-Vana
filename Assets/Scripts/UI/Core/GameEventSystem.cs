@@ -1,8 +1,9 @@
 using System;
 
+// Observer pattern: central event hub for game communication
+// Subscribers listen to events without direct references to event senders
 public static class GameEventSystem
 {
-    //because of the GamEventSystem is static clas you dont have to added to the scene you can use directly
     // Health & Fuel
     public static event Action<float> OnHealthChanged;
     public static event Action<float> OnFuelChanged;
