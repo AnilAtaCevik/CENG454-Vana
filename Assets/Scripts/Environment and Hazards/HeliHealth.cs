@@ -1,22 +1,20 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class HelicopterHealth : MonoBehaviour
+public class HeliHealth : MonoBehaviour
 {
     [Header("Health Settings")]
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private float currentHealth;
 
-    void Start()
+    private void Start()
     {
-        // Oyun başında canı fulle
         currentHealth = maxHealth;
     }
 
-    // Dışarıdan mermiler ve füzeler bu fonksiyonu çağıracak
     public void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
-        Debug.Log($"Helikopter Vuruldu! Alınan Hasar: {damageAmount} | Kalan Can: {currentHealth}");
 
         if (currentHealth <= 0)
         {
@@ -24,9 +22,9 @@ public class HelicopterHealth : MonoBehaviour
         }
     }
 
-    void Die()
+    private void Die()
     {
-        Debug.Log("HELİKOPTER DÜŞTÜ! GÖREV BAŞARISIZ.");
-        Destroy(gameObject);
+        Scene activeScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(activeScene.name);
     }
 }
