@@ -15,6 +15,10 @@ public class Missile : MonoBehaviour
     [SerializeField] private float explosionRadius = 10f;
     [SerializeField] private float damage = 50f;
 
+    [Header("Engine VFX")]
+    [SerializeField] private ParticleSystem launchBurstVfx;
+    [SerializeField] private ParticleSystem afterburnerVfx;
+
 
     private Rigidbody rb;
 
@@ -24,6 +28,12 @@ public class Missile : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         rb.linearVelocity = transform.forward * speed;
+
+        if (launchBurstVfx != null)
+            launchBurstVfx.Play();
+
+        if (afterburnerVfx != null)
+            afterburnerVfx.Play();
 
         Destroy(gameObject, lifeTime);
     }

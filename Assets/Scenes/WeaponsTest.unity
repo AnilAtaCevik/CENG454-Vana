@@ -1301,6 +1301,7 @@ MonoBehaviour:
   maxAimTime: 3
   aimDistance: 100
   fireCooldown: 1.5
+  maxAmmo: 6
 --- !u!120 &2086899924
 LineRenderer:
   serializedVersion: 3
