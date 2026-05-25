@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Missile
   speed: 40
   lifeTime: 5
+  explosionVfx: {fileID: 7738673178121229186, guid: ba41732d14a642f499e0812e51b608b4, type: 3}
 --- !u!1 &9179698091977935036
 GameObject:
   m_ObjectHideFlags: 0

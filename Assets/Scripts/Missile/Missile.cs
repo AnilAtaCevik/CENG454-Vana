@@ -16,6 +16,7 @@ public class Missile : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
         rb.linearVelocity = transform.forward * speed;
 
         Destroy(gameObject, lifeTime);
@@ -30,7 +31,14 @@ public class Missile : MonoBehaviour
     {
         if (explosionVfx != null)
         {
-            Instantiate(explosionVfx, transform.position, Quaternion.identity);
+            GameObject explosion = Instantiate(explosionVfx, transform.position, Quaternion.identity);
+
+            AudioSource audioSource = explosion.GetComponent<AudioSource>();
+
+            if (audioSource != null)
+            {
+                audioSource.Play();
+            }
         }
 
         Destroy(gameObject);
