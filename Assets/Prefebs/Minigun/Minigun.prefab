@@ -34,6 +34,7 @@ Transform:
   - {fileID: 6184987494326374056}
   - {fileID: 843775297174162643}
   - {fileID: 2114302020162027263}
+  - {fileID: 6978686794990363222}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7900405594518115618
@@ -51,7 +52,7 @@ MonoBehaviour:
   firePoints:
   - {fileID: 6184987494326374056}
   - {fileID: 4200675542453242725}
-  bulletPrefab: {fileID: 8909740203850123856, guid: 1455a3f0936755a438414cfcd2970a3d, type: 3}
+  bulletPool: {fileID: 9111758576615460160}
   fireRate: 0.05
   spinUpDelay: 0.95
   muzzleFlashes:
@@ -383,6 +384,52 @@ Transform:
   - {fileID: 5090051522754870710}
   m_Father: {fileID: 6262284617803633959}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8789398802906382625
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6978686794990363222}
+  - component: {fileID: 9111758576615460160}
+  m_Layer: 0
+  m_Name: BulletPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6978686794990363222
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8789398802906382625}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.98553, y: 0, z: -0.53544}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6262284617803633959}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9111758576615460160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8789398802906382625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6adcff68203d2040a01aef0cf81ed7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BulletPool
+  bulletPrefab: {fileID: 0}
+  initialPoolSize: 50
 --- !u!1001 &4083027553436627703
 PrefabInstance:
   m_ObjectHideFlags: 0
