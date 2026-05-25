@@ -6,10 +6,15 @@ public class Missile : MonoBehaviour
     [SerializeField] private float speed = 40f;
 
     [Header("Lifetime")]
-    [SerializeField] private float lifeTime = 5f;
+    [SerializeField] private float lifeTime = 3f;
 
     [Header("Explosion")]
     [SerializeField] private GameObject explosionVfx;
+
+    [Header("Damage")]
+    [SerializeField] private float explosionRadius = 10f;
+    [SerializeField] private float damage = 50f;
+
 
     private Rigidbody rb;
 
@@ -31,7 +36,11 @@ public class Missile : MonoBehaviour
     {
         if (explosionVfx != null)
         {
-            GameObject explosion = Instantiate(explosionVfx, transform.position, Quaternion.identity);
+            GameObject explosion = Instantiate(
+                explosionVfx,
+                transform.position,
+                Quaternion.identity
+            );
 
             AudioSource audioSource = explosion.GetComponent<AudioSource>();
 
@@ -41,6 +50,33 @@ public class Missile : MonoBehaviour
             }
         }
 
+        Collider[] hitColliders =
+            Physics.OverlapSphere(
+                transform.position,
+                explosionRadius
+            );
+
+        foreach (Collider hit in hitColliders)
+        {
+            EnemyHealth enemy =
+                hit.GetComponent<EnemyHealth>();
+
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+            }
+        }
+
         Destroy(gameObject);
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawWireSphere(
+            transform.position,
+            explosionRadius
+        );
     }
 }
