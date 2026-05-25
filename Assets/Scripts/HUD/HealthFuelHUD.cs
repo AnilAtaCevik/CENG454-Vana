@@ -23,7 +23,7 @@ public class HealthFuelHUD : MonoBehaviour
     [SerializeField] private float midThreshold = 0.5f;
     [SerializeField] private float lowThreshold = 0.25f;
 
-    private void Onable()
+    private void OnEnable()
     {
         GameEventSystem.OnHealthChanged += UpdateHealth;
         GameEventSystem.OnFuelChanged += UpdateFuel;
