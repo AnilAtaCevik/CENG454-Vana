@@ -181,6 +181,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9082261853056634689, guid: f4bc56cfb06506f45947469e272a7b71, type: 3}
   m_PrefabInstance: {fileID: 800789805}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &169265235 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7030228865390730449, guid: c2b62d67c2ea4974db0e4797d9038909, type: 3}
+  m_PrefabInstance: {fileID: 8163497425078308922}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &169265236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169265235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3835f9977ad1a9459462bcb23a338c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GuidedHealth
+  maxHealth: 150
+  explosionPrefab: {fileID: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1525,7 +1544,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7030228865390730449, guid: c2b62d67c2ea4974db0e4797d9038909, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 169265236}
   m_SourcePrefab: {fileID: 100100000, guid: c2b62d67c2ea4974db0e4797d9038909, type: 3}
 --- !u!1 &8891728951819964803 stripped
 GameObject:
@@ -1733,7 +1755,7 @@ MonoBehaviour:
   firePoints:
   - {fileID: 0}
   - {fileID: 0}
-  bulletPrefab: {fileID: 8909740203850123856, guid: 1455a3f0936755a438414cfcd2970a3d, type: 3}
+  bulletPool: {fileID: 0}
   fireRate: 0.05
   spinUpDelay: 0.95
   muzzleFlashes:
