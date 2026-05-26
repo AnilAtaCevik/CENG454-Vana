@@ -5,9 +5,10 @@ using System.Collections;
 public class FlareLauncher : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private GameObject flarePrefab;
     [SerializeField] private Transform flareSpawnPoint;
     [SerializeField] private Movement helicopterMovement;
+    [SerializeField] private ObjectPool flarePool;
+    [SerializeField] private ObjectPool flareDeployAudioPool;
 
     [Header("Deploy Pattern")]
     [SerializeField] private int flareCountPerUse = 4;
@@ -52,10 +53,24 @@ public class FlareLauncher : MonoBehaviour
             return;
 
         if (Time.time < nextDeployTime)
+        { 
+            GameEvents.RaiseFeedback(
+                "Flare system cooling down!",
+                FeedbackSeverity.Warning
+            );
+
             return;
+        }
 
         if (currentCharges <= 0)
+        {
+            GameEvents.RaiseFeedback(
+                "No flares remaining!",
+                FeedbackSeverity.Warning
+            );
+
             return;
+        }
 
         currentCharges--;
         nextDeployTime = Time.time + deployCooldown;
@@ -75,14 +90,7 @@ public class FlareLauncher : MonoBehaviour
         {
             SpawnSingleFlare();
 
-            if (deployClip != null && flareSpawnPoint != null)
-            {
-                AudioSource.PlayClipAtPoint(
-                    deployClip,
-                    flareSpawnPoint.position,
-                    deployVolume
-                );
-            }
+            PlayDeployAudio();
 
             yield return new WaitForSeconds(delayBetweenFlares);
         }
@@ -92,7 +100,7 @@ public class FlareLauncher : MonoBehaviour
 
     void SpawnSingleFlare()
     {
-        if (flarePrefab == null || flareSpawnPoint == null)
+        if (flarePool == null || flareSpawnPoint == null)
             return;
 
         Vector3 randomOffset = new Vector3(
@@ -101,17 +109,26 @@ public class FlareLauncher : MonoBehaviour
             Random.Range(-spreadRadius, spreadRadius)
         );
 
-        GameObject flare = Instantiate(
-            flarePrefab,
-            flareSpawnPoint.position + randomOffset,
-            flareSpawnPoint.rotation
-        );
+        GameObject flare = flarePool.Get();
 
-        Flare flareScript = flare.GetComponent<Flare>();
+        if (flare == null)
+            return;
+
+        flare.transform.position =
+            flareSpawnPoint.position + randomOffset;
+
+        flare.transform.rotation =
+            flareSpawnPoint.rotation;
+
+        Flare flareScript =
+            flare.GetComponent<Flare>();
 
         if (flareScript != null)
         {
-            flareScript.Initialize(GetHelicopterMoveDirection());
+            flareScript.Initialize(
+                GetHelicopterMoveDirection(),
+                flarePool
+            );
         }
     }
 
@@ -139,5 +156,29 @@ public class FlareLauncher : MonoBehaviour
         }
 
         return Vector3.forward;
+    }
+
+    void PlayDeployAudio()
+    {
+        if (flareDeployAudioPool == null || deployClip == null || flareSpawnPoint == null)
+            return;
+
+        GameObject audioObj = flareDeployAudioPool.Get();
+
+        if (audioObj == null)
+            return;
+
+        audioObj.transform.position = flareSpawnPoint.position;
+
+        PooledAudio pooledAudio = audioObj.GetComponent<PooledAudio>();
+
+        if (pooledAudio != null)
+        {
+            pooledAudio.Initialize(
+                flareDeployAudioPool,
+                deployClip,
+                deployVolume
+            );
+        }
     }
 }
