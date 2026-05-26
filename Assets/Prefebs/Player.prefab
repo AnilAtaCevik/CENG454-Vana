@@ -164,6 +164,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1990537563052249279}
+  - {fileID: 8839023952046744331}
   - {fileID: 8444870023109104015}
   - {fileID: 624566342952582841}
   - {fileID: 7839089923373151987}
@@ -729,7 +730,6 @@ Transform:
   m_Children:
   - {fileID: 8342590832375159495}
   - {fileID: 5119615136340513591}
-  - {fileID: 8839023952046744331}
   - {fileID: 5497717210358523390}
   m_Father: {fileID: 7886476253462595585}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -746,6 +746,10 @@ PrefabInstance:
       value: FlareSystem
       objectReference: {fileID: 0}
     - target: {fileID: 7290337978357242779, guid: ee46d06c2014b14468cec43a8e7f53c3, type: 3}
+      propertyPath: flarePool
+      value: 
+      objectReference: {fileID: 699277663339626549}
+    - target: {fileID: 7290337978357242779, guid: ee46d06c2014b14468cec43a8e7f53c3, type: 3}
       propertyPath: deployClip
       value: 
       objectReference: {fileID: 8300000, guid: 608be3fe70b3e5f40a6d2b3fc3ce074f, type: 3}
@@ -761,6 +765,10 @@ PrefabInstance:
       propertyPath: helicopterMovement
       value: 
       objectReference: {fileID: 4041703093760727141}
+    - target: {fileID: 7290337978357242779, guid: ee46d06c2014b14468cec43a8e7f53c3, type: 3}
+      propertyPath: flareDeployAudioPool
+      value: 
+      objectReference: {fileID: 8127969056269877752}
     - target: {fileID: 8489446479073143887, guid: ee46d06c2014b14468cec43a8e7f53c3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.3110001
@@ -965,23 +973,23 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8444870023109104015}
+    m_TransformParent: {fileID: 7886476253462595585}
     m_Modifications:
     - target: {fileID: 2672071350921368879, guid: 2cabf4ed3a87956438b726a6cff6d665, type: 3}
       propertyPath: m_Name
-      value: Pools
+      value: WeaponAndEquipmentPools
       objectReference: {fileID: 0}
     - target: {fileID: 5913792997644903539, guid: 2cabf4ed3a87956438b726a6cff6d665, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.37774
+      value: -8.19852
       objectReference: {fileID: 0}
     - target: {fileID: 5913792997644903539, guid: 2cabf4ed3a87956438b726a6cff6d665, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.434
       objectReference: {fileID: 0}
     - target: {fileID: 5913792997644903539, guid: 2cabf4ed3a87956438b726a6cff6d665, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.47173
+      value: 0.50762
       objectReference: {fileID: 0}
     - target: {fileID: 5913792997644903539, guid: 2cabf4ed3a87956438b726a6cff6d665, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1027,6 +1035,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fb344130d090c04f8de6b581165922e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
+--- !u!114 &699277663339626549 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2381510602309896013, guid: 2cabf4ed3a87956438b726a6cff6d665, type: 3}
+  m_PrefabInstance: {fileID: 2934242569455617912}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fb344130d090c04f8de6b581165922e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
 --- !u!114 &3100351964485374610 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 269705518177490410, guid: 2cabf4ed3a87956438b726a6cff6d665, type: 3}
@@ -1063,6 +1082,17 @@ MonoBehaviour:
 --- !u!114 &7035229920167424380 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5267714323492124164, guid: 2cabf4ed3a87956438b726a6cff6d665, type: 3}
+  m_PrefabInstance: {fileID: 2934242569455617912}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fb344130d090c04f8de6b581165922e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
+--- !u!114 &8127969056269877752 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6373964395913807488, guid: 2cabf4ed3a87956438b726a6cff6d665, type: 3}
   m_PrefabInstance: {fileID: 2934242569455617912}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

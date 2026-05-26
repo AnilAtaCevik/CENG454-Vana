@@ -8,6 +8,7 @@ public class FlareLauncher : MonoBehaviour
     [SerializeField] private Transform flareSpawnPoint;
     [SerializeField] private Movement helicopterMovement;
     [SerializeField] private ObjectPool flarePool;
+    [SerializeField] private ObjectPool flareDeployAudioPool;
 
     [Header("Deploy Pattern")]
     [SerializeField] private int flareCountPerUse = 4;
@@ -89,14 +90,7 @@ public class FlareLauncher : MonoBehaviour
         {
             SpawnSingleFlare();
 
-            if (deployClip != null && flareSpawnPoint != null)
-            {
-                AudioSource.PlayClipAtPoint(
-                    deployClip,
-                    flareSpawnPoint.position,
-                    deployVolume
-                );
-            }
+            PlayDeployAudio();
 
             yield return new WaitForSeconds(delayBetweenFlares);
         }
@@ -162,5 +156,29 @@ public class FlareLauncher : MonoBehaviour
         }
 
         return Vector3.forward;
+    }
+
+    void PlayDeployAudio()
+    {
+        if (flareDeployAudioPool == null || deployClip == null || flareSpawnPoint == null)
+            return;
+
+        GameObject audioObj = flareDeployAudioPool.Get();
+
+        if (audioObj == null)
+            return;
+
+        audioObj.transform.position = flareSpawnPoint.position;
+
+        PooledAudio pooledAudio = audioObj.GetComponent<PooledAudio>();
+
+        if (pooledAudio != null)
+        {
+            pooledAudio.Initialize(
+                flareDeployAudioPool,
+                deployClip,
+                deployVolume
+            );
+        }
     }
 }
