@@ -14,21 +14,16 @@ public class ActiveFlightStrategy : IFlightStrategy
     {
         float verticalInput = ctx.ascentDescent.ReadValue<float>();
         float currentHeight = ctx.transform.position.y;
-        float finalStrength = ctx.ascentDescentStrength * powerMultiplier;
+
+        float finalStrength = ctx.ascentDescentStrength * powerMultiplier; 
 
         if (verticalInput > 0)
         {
             ctx.CheckAltitudeAudio(currentHeight);
 
-            if (currentHeight < ctx.serviceCeiling)
+            if (currentHeight <= ctx.absoluteCeiling)
             {
-                float proximityMultiplier = Mathf.Clamp01((ctx.serviceCeiling - currentHeight) / ctx.altitudeSoftness);
-                ctx.rb.AddRelativeForce(Vector3.up * Time.fixedDeltaTime * (finalStrength * proximityMultiplier));
-            }
-            else if (currentHeight >= ctx.serviceCeiling && currentHeight <= ctx.absoluteCeiling)
-            {
-                float proximityMultiplier = Mathf.Clamp01((ctx.absoluteCeiling - currentHeight) / ctx.altitudeSoftness * 20);
-                ctx.rb.AddRelativeForce(Vector3.up * Time.fixedDeltaTime * (finalStrength * proximityMultiplier));
+                ctx.rb.AddRelativeForce(Vector3.up * Time.fixedDeltaTime * finalStrength);
             }
             else
             {
@@ -38,7 +33,7 @@ public class ActiveFlightStrategy : IFlightStrategy
         }
         else if (verticalInput < 0)
         {
-            ctx.rb.AddRelativeForce(Vector3.up * Time.fixedDeltaTime * -finalStrength);
+            ctx.rb.AddRelativeForce(Vector3.up * Time.fixedDeltaTime * -ctx.ascentDescentStrength);
         }
     }
 

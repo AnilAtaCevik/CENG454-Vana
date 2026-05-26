@@ -7,5 +7,5 @@ public abstract class EnginePowerDecorator : IEnginePower
         _wrappedEngine = wrappedEngine;
     }
     
-    public virtual float GetPowerMultiplier() => _wrappedEngine.GetPowerMultiplier();
+    public virtual float GetPowerMultiplier(float currentAltitude) => _wrappedEngine.GetPowerMultiplier(currentAltitude);
 }

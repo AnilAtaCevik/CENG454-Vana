@@ -37,7 +37,9 @@ public class Movement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         targetY = rb.rotation.eulerAngles.y;
 
-        enginePower = new BaseEnginePower(); 
+        IEnginePower baseEngine = new BaseEnginePower(); 
+        enginePower = new AltitudePenaltyDecorator(baseEngine, serviceCeiling, absoluteCeiling, altitudeSoftness);
+        
         currentFlightStrategy = new ActiveFlightStrategy(); 
     }
 
@@ -49,7 +51,6 @@ public class Movement : MonoBehaviour
 
         GameEvents.OnFuelEmpty += HandleFuelEmpty;
         GameEvents.OnFuelChanged += HandleFuelChanged;
-        GameEvents.OnDamageTaken += HandleDamage; 
     }
 
     void OnDisable()
@@ -60,7 +61,6 @@ public class Movement : MonoBehaviour
 
         GameEvents.OnFuelEmpty -= HandleFuelEmpty;
         GameEvents.OnFuelChanged -= HandleFuelChanged;
-        GameEvents.OnDamageTaken -= HandleDamage;
     }
 
     private void HandleFuelEmpty()
@@ -77,15 +77,12 @@ public class Movement : MonoBehaviour
         }
     }
 
-    private void HandleDamage(float damageAmount)
-    {
-        enginePower = new DamagedEngineDecorator(enginePower, 0.1f);
-    }
-
     void FixedUpdate()
     {
         targetZ = 0f;
-        float currentPower = enginePower.GetPowerMultiplier();
+        float currentHeight = transform.position.y;
+        
+        float currentPower = enginePower.GetPowerMultiplier(currentHeight);
         
         currentFlightStrategy.ExecuteMovement(this, currentPower);
         StabilizeRotation();

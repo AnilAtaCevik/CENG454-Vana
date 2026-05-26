@@ -1,4 +1,4 @@
 public interface IEnginePower
 {
-    float GetPowerMultiplier();
+    float GetPowerMultiplier(float currentAltitude);
 }

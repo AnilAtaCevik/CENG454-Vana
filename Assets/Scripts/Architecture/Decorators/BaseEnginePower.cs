@@ -1,4 +1,4 @@
 public class BaseEnginePower : IEnginePower
 {
-    public float GetPowerMultiplier() => 1.0f;
+    public float GetPowerMultiplier(float currentAltitude) => 1.0f; 
 }
