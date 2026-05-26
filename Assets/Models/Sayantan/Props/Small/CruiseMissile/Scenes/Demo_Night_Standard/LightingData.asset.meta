@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f5451a6b1f740774197e4cdf6ab7c24d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 112000000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 153933
+  packageName: Cruise Missile PBR (Unity 6)
+  packageVersion: 1.1
+  assetPath: Assets/Sayantan/Props/Small/CruiseMissile/Scenes/Demo_Night_Standard/LightingData.asset
+  uploadId: 724327
