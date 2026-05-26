@@ -8,11 +8,9 @@ public class Missile : MonoBehaviour, IPoolable
     [Header("Lifetime")]
     [SerializeField] private float lifeTime = 3f;
 
-    [Header("Explosion")]
-    private ObjectPool explosionVfxPool;
-
     [Header("Damage")]
     [SerializeField] private float explosionRadius = 10f;
+    [SerializeField] private float damage = 50f;
 
     [Header("Engine VFX")]
     [SerializeField] private ParticleSystem launchBurstVfx;
@@ -23,11 +21,13 @@ public class Missile : MonoBehaviour, IPoolable
     [SerializeField] private AudioClip launchClip;
 
     private Rigidbody rb;
+
     private ObjectPool ownerPool;
+    private ObjectPool explosionVfxPool;
+    private ObjectPool launchAudioPool;
+
     private float lifeTimer;
     private bool isReturning;
-    private ObjectPool launchAudioPool;
-    
 
     void Awake()
     {
@@ -38,11 +38,10 @@ public class Missile : MonoBehaviour, IPoolable
         ObjectPool pool,
         ObjectPool explosionPool,
         ObjectPool missileLaunchAudioPool
-        )
+    )
     {
         ownerPool = pool;
         explosionVfxPool = explosionPool;
-
         launchAudioPool = missileLaunchAudioPool;
 
         lifeTimer = lifeTime;
@@ -141,38 +140,114 @@ public class Missile : MonoBehaviour, IPoolable
 
     void Explode()
     {
+        StopFlightAudio();
+
+        SpawnExplosionVfx();
+
+        ApplyAreaDamage();
+
+        ReturnToPool();
+    }
+
+    void ApplyAreaDamage()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(
+            transform.position,
+            explosionRadius
+        );
+
+        foreach (Collider hit in hitColliders)
+        {
+            IDamageable damageable = FindDamageable(hit);
+
+            if (damageable != null)
+            {
+                damageable.TakeDamage(damage);
+            }
+        }
+    }
+
+    IDamageable FindDamageable(Collider hit)
+    {
+        IDamageable damageable =
+            hit.GetComponentInParent<IDamageable>();
+
+        if (damageable != null)
+            return damageable;
+
+        damageable =
+            hit.GetComponentInChildren<IDamageable>();
+
+        if (damageable != null)
+            return damageable;
+
+        damageable =
+            hit.GetComponent<IDamageable>();
+
+        return damageable;
+    }
+
+    void SpawnExplosionVfx()
+    {
+        if (explosionVfxPool == null)
+            return;
+
+        GameObject explosion = explosionVfxPool.Get();
+
+        if (explosion == null)
+            return;
+
+        explosion.transform.position = transform.position;
+        explosion.transform.rotation = Quaternion.identity;
+
+        PooledAutoReturn pooledAutoReturn =
+            explosion.GetComponent<PooledAutoReturn>();
+
+        if (pooledAutoReturn != null)
+        {
+            pooledAutoReturn.Initialize(explosionVfxPool);
+        }
+
+        AudioSource audioSource =
+            explosion.GetComponent<AudioSource>();
+
+        if (audioSource != null)
+        {
+            audioSource.Play();
+        }
+    }
+
+    void PlayLaunchAudio()
+    {
+        if (launchAudioPool == null || launchClip == null)
+            return;
+
+        GameObject audioObj = launchAudioPool.Get();
+
+        if (audioObj == null)
+            return;
+
+        audioObj.transform.position = transform.position;
+
+        PooledAudio pooledAudio =
+            audioObj.GetComponent<PooledAudio>();
+
+        if (pooledAudio != null)
+        {
+            pooledAudio.Initialize(
+                launchAudioPool,
+                launchClip,
+                1f
+            );
+        }
+    }
+
+    void StopFlightAudio()
+    {
         if (flightAudio != null)
         {
             flightAudio.Stop();
         }
-
-       if (explosionVfxPool != null)
-        {
-            GameObject explosion = explosionVfxPool.Get();
-
-            if (explosion != null)
-            {
-                explosion.transform.position = transform.position;
-                explosion.transform.rotation = Quaternion.identity;
-
-                PooledAutoReturn pooledAutoReturn =
-                    explosion.GetComponent<PooledAutoReturn>();
-
-                if (pooledAutoReturn != null)
-                {
-                    pooledAutoReturn.Initialize(explosionVfxPool);
-                }
-
-                AudioSource audioSource = explosion.GetComponent<AudioSource>();
-
-                if (audioSource != null)
-                {
-                    audioSource.Play();
-                }
-            }
-        }
-
-        ReturnToPool();
     }
 
     void ReturnToPool()
@@ -190,29 +265,13 @@ public class Missile : MonoBehaviour, IPoolable
         }
     }
 
-    void PlayLaunchAudio()
-    {
-        if (launchAudioPool == null || launchClip == null)
-            return;
-
-        GameObject audioObj = launchAudioPool.Get();
-
-        if (audioObj == null)
-            return;
-
-        audioObj.transform.position = transform.position;
-
-        PooledAudio pooledAudio = audioObj.GetComponent<PooledAudio>();
-
-        if (pooledAudio != null)
-        {
-            pooledAudio.Initialize(launchAudioPool, launchClip, 1f);
-        }
-    }
-
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, explosionRadius);
+
+        Gizmos.DrawWireSphere(
+            transform.position,
+            explosionRadius
+        );
     }
 }

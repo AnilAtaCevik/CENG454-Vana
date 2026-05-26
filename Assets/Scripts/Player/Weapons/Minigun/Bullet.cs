@@ -6,21 +6,25 @@ public class Bullet : MonoBehaviour, IPoolable
     [SerializeField] private float speed = 200f;
     [SerializeField] private float lifeTime = 3f;
 
+    [Header("Damage")]
+    [SerializeField] private float damage = 10f;
+
     [Header("Impact Audio")]
     [SerializeField] private AudioClip impactClip;
     [SerializeField] private AudioClip enemyImpactClip;
     [SerializeField] private float impactVolume = 1f;
     [SerializeField] private float enemyImpactVolume = 1f;
 
-    [Header("Impact Pools")]
+    private Rigidbody rb;
+    private Vector3 direction;
+
+    private ObjectPool ownerPool;
+
     private ObjectPool impactVfxPool;
     private ObjectPool enemyImpactVfxPool;
     private ObjectPool impactAudioPool;
     private ObjectPool enemyImpactAudioPool;
 
-    private Rigidbody rb;
-    private Vector3 direction;
-    private ObjectPool ownerPool;
     private float lifeTimer;
     private bool isReturning;
 
@@ -101,35 +105,57 @@ public class Bullet : MonoBehaviour, IPoolable
             return;
 
         Vector3 hitPoint = collision.contacts[0].point;
-        bool isEnemy = collision.gameObject.CompareTag("Enemy");
 
-        if (isEnemy)
+        IDamageable damageable = FindDamageable(collision);
+
+        bool hitDamageable = damageable != null;
+
+        if (hitDamageable)
         {
+            damageable.TakeDamage(damage);
+
             SpawnVfx(enemyImpactVfxPool, hitPoint);
-            PlayImpactAudio(enemyImpactAudioPool, enemyImpactClip, enemyImpactVolume, hitPoint);
+
+            PlayImpactAudio(
+                enemyImpactAudioPool,
+                enemyImpactClip,
+                enemyImpactVolume,
+                hitPoint
+            );
         }
         else
         {
             SpawnVfx(impactVfxPool, hitPoint);
-            PlayImpactAudio(impactAudioPool, impactClip, impactVolume, hitPoint);
+
+            PlayImpactAudio(
+                impactAudioPool,
+                impactClip,
+                impactVolume,
+                hitPoint
+            );
         }
 
         ReturnToPool();
     }
 
-    void ReturnToPool()
+    IDamageable FindDamageable(Collision collision)
     {
-        if (isReturning)
-            return;
+        IDamageable damageable =
+            collision.collider.GetComponentInParent<IDamageable>();
 
-        if (ownerPool != null)
-        {
-            ownerPool.Return(gameObject);
-        }
-        else
-        {
-            gameObject.SetActive(false);
-        }
+        if (damageable != null)
+            return damageable;
+
+        damageable =
+            collision.collider.GetComponentInChildren<IDamageable>();
+
+        if (damageable != null)
+            return damageable;
+
+        damageable =
+            collision.gameObject.GetComponent<IDamageable>();
+
+        return damageable;
     }
 
     void SpawnVfx(ObjectPool pool, Vector3 position)
@@ -145,7 +171,8 @@ public class Bullet : MonoBehaviour, IPoolable
         vfx.transform.position = position;
         vfx.transform.rotation = Quaternion.identity;
 
-        PooledAutoReturn pooledAutoReturn = vfx.GetComponent<PooledAutoReturn>();
+        PooledAutoReturn pooledAutoReturn =
+            vfx.GetComponent<PooledAutoReturn>();
 
         if (pooledAutoReturn != null)
         {
@@ -153,7 +180,12 @@ public class Bullet : MonoBehaviour, IPoolable
         }
     }
 
-    void PlayImpactAudio(ObjectPool pool, AudioClip clip, float volume, Vector3 position)
+    void PlayImpactAudio(
+        ObjectPool pool,
+        AudioClip clip,
+        float volume,
+        Vector3 position
+    )
     {
         if (pool == null || clip == null)
             return;
@@ -165,11 +197,27 @@ public class Bullet : MonoBehaviour, IPoolable
 
         audioObj.transform.position = position;
 
-        PooledAudio pooledAudio = audioObj.GetComponent<PooledAudio>();
+        PooledAudio pooledAudio =
+            audioObj.GetComponent<PooledAudio>();
 
         if (pooledAudio != null)
         {
             pooledAudio.Initialize(pool, clip, volume);
+        }
+    }
+
+    void ReturnToPool()
+    {
+        if (isReturning)
+            return;
+
+        if (ownerPool != null)
+        {
+            ownerPool.Return(gameObject);
+        }
+        else
+        {
+            gameObject.SetActive(false);
         }
     }
 }
