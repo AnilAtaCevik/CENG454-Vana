@@ -5,9 +5,9 @@ using System.Collections;
 public class FlareLauncher : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private GameObject flarePrefab;
     [SerializeField] private Transform flareSpawnPoint;
     [SerializeField] private Movement helicopterMovement;
+    [SerializeField] private ObjectPool flarePool;
 
     [Header("Deploy Pattern")]
     [SerializeField] private int flareCountPerUse = 4;
@@ -106,7 +106,7 @@ public class FlareLauncher : MonoBehaviour
 
     void SpawnSingleFlare()
     {
-        if (flarePrefab == null || flareSpawnPoint == null)
+        if (flarePool == null || flareSpawnPoint == null)
             return;
 
         Vector3 randomOffset = new Vector3(
@@ -115,17 +115,26 @@ public class FlareLauncher : MonoBehaviour
             Random.Range(-spreadRadius, spreadRadius)
         );
 
-        GameObject flare = Instantiate(
-            flarePrefab,
-            flareSpawnPoint.position + randomOffset,
-            flareSpawnPoint.rotation
-        );
+        GameObject flare = flarePool.Get();
 
-        Flare flareScript = flare.GetComponent<Flare>();
+        if (flare == null)
+            return;
+
+        flare.transform.position =
+            flareSpawnPoint.position + randomOffset;
+
+        flare.transform.rotation =
+            flareSpawnPoint.rotation;
+
+        Flare flareScript =
+            flare.GetComponent<Flare>();
 
         if (flareScript != null)
         {
-            flareScript.Initialize(GetHelicopterMoveDirection());
+            flareScript.Initialize(
+                GetHelicopterMoveDirection(),
+                flarePool
+            );
         }
     }
 

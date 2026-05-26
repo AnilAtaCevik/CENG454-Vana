@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Flare : MonoBehaviour
+public class Flare : MonoBehaviour, IPoolable
 {
     [Header("Lifetime")]
     [SerializeField] private float lifeTime = 4f;
@@ -17,20 +17,50 @@ public class Flare : MonoBehaviour
     [SerializeField] private AudioClip guidedMissileDestroyClip;
     [SerializeField] private float destroySoundVolume = 1f;
 
+    private ObjectPool ownerPool;
+
     private Vector3 moveDirection;
 
-    void Start()
-    {
-        Destroy(gameObject, lifeTime);
-    }
+    private float lifeTimer;
+    private bool isReturning;
 
-    public void Initialize(Vector3 helicopterForward)
+    public void Initialize(
+        Vector3 helicopterForward,
+        ObjectPool pool
+    )
     {
         moveDirection = helicopterForward.normalized;
+
+        ownerPool = pool;
+
+        lifeTimer = lifeTime;
+        isReturning = false;
+    }
+
+    public void OnGetFromPool()
+    {
+        lifeTimer = lifeTime;
+        isReturning = false;
+    }
+
+    public void OnReturnToPool()
+    {
+        isReturning = true;
     }
 
     void Update()
     {
+        if (isReturning)
+            return;
+
+        lifeTimer -= Time.deltaTime;
+
+        if (lifeTimer <= 0f)
+        {
+            ReturnToPool();
+            return;
+        }
+
         Vector3 movement =
             moveDirection * forwardSpeed +
             Vector3.down * fallSpeed;
@@ -63,6 +93,23 @@ public class Flare : MonoBehaviour
             }
 
             Destroy(other.gameObject);
+
+            ReturnToPool();
+        }
+    }
+
+    void ReturnToPool()
+    {
+        if (isReturning)
+            return;
+
+        if (ownerPool != null)
+        {
+            ownerPool.Return(gameObject);
+        }
+        else
+        {
+            gameObject.SetActive(false);
         }
     }
 }
