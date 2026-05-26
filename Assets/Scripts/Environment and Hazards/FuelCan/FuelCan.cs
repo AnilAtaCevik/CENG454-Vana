@@ -8,13 +8,12 @@ public class FuelCan : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Fuel helicopterFuel = other.GetComponent<Fuel>();
+            IFuelReceiver fuelReceiver = other.GetComponent<IFuelReceiver>();
             
-            if (helicopterFuel != null)
+            if (fuelReceiver != null)
             {
-                helicopterFuel.RefillFuel(refillAmount);
-
-                Destroy(gameObject);
+                fuelReceiver.RefillFuel(refillAmount);
+                gameObject.SetActive(false); 
             }
         }
     }
