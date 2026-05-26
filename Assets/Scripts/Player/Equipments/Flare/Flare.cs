@@ -5,6 +5,9 @@ public class Flare : MonoBehaviour
     [Header("Lifetime")]
     [SerializeField] private float lifeTime = 4f;
 
+    [Header("Movement")]
+    [SerializeField] private float fallSpeed = 1.5f;
+
     [Header("Guided Missile Counter")]
     [SerializeField] private string guidedMissileTag = "GuidedMissile";
 
@@ -16,6 +19,11 @@ public class Flare : MonoBehaviour
     void Start()
     {
         Destroy(gameObject, lifeTime);
+    }
+
+    void Update()
+    {
+        transform.position += Vector3.down * fallSpeed * Time.deltaTime;
     }
 
     void OnTriggerEnter(Collider other)

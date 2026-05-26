@@ -1,11 +1,17 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class FlareLauncher : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private GameObject flarePrefab;
     [SerializeField] private Transform flareSpawnPoint;
+
+    [Header("Deploy Pattern")]
+    [SerializeField] private int flareCountPerUse = 4;
+    [SerializeField] private float spreadRadius = 1.5f;
+    [SerializeField] private float delayBetweenFlares = 0.12f;
 
     [Header("Ammo")]
     [SerializeField] private int maxCharges = 3;
@@ -19,6 +25,7 @@ public class FlareLauncher : MonoBehaviour
 
     private int currentCharges;
     private float nextDeployTime = 0f;
+    private bool isDeploying = false;
 
     void Start()
     {
@@ -38,36 +45,59 @@ public class FlareLauncher : MonoBehaviour
 
     void TryDeployFlare()
     {
+        if (isDeploying)
+            return;
+
         if (Time.time < nextDeployTime)
             return;
 
         if (currentCharges <= 0)
             return;
 
-        DeployFlare();
-
         currentCharges--;
         nextDeployTime = Time.time + deployCooldown;
+
+        StartCoroutine(DeployFlareBurst());
     }
 
-    void DeployFlare()
+    IEnumerator DeployFlareBurst()
+    {
+        isDeploying = true;
+
+        for (int i = 0; i < flareCountPerUse; i++)
+        {
+            SpawnSingleFlare();
+
+            if (deployClip != null && flareSpawnPoint != null)
+            {
+                AudioSource.PlayClipAtPoint(
+                    deployClip,
+                    flareSpawnPoint.position,
+                    deployVolume
+                );
+            }
+
+            yield return new WaitForSeconds(delayBetweenFlares);
+        }
+
+        isDeploying = false;
+    }
+
+    void SpawnSingleFlare()
     {
         if (flarePrefab == null || flareSpawnPoint == null)
             return;
 
-        Instantiate(
-            flarePrefab,
-            flareSpawnPoint.position,
-            flareSpawnPoint.rotation
+        Vector3 randomOffset = new Vector3(
+            Random.Range(-spreadRadius, spreadRadius),
+            Random.Range(-spreadRadius * 0.25f, spreadRadius * 0.25f),
+            Random.Range(-spreadRadius, spreadRadius)
         );
 
-        if (deployClip != null)
-        {
-            AudioSource.PlayClipAtPoint(
-                deployClip,
-                flareSpawnPoint.position,
-                deployVolume
-            );
-        }
+        Instantiate(
+            flarePrefab,
+            flareSpawnPoint.position + randomOffset,
+            flareSpawnPoint.rotation
+        );
     }
 }
