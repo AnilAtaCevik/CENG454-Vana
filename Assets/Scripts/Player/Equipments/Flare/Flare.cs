@@ -6,6 +6,7 @@ public class Flare : MonoBehaviour
     [SerializeField] private float lifeTime = 4f;
 
     [Header("Movement")]
+    [SerializeField] private float forwardSpeed = 8f;
     [SerializeField] private float fallSpeed = 1.5f;
 
     [Header("Guided Missile Counter")]
@@ -16,14 +17,25 @@ public class Flare : MonoBehaviour
     [SerializeField] private AudioClip guidedMissileDestroyClip;
     [SerializeField] private float destroySoundVolume = 1f;
 
+    private Vector3 moveDirection;
+
     void Start()
     {
         Destroy(gameObject, lifeTime);
     }
 
+    public void Initialize(Vector3 helicopterForward)
+    {
+        moveDirection = helicopterForward.normalized;
+    }
+
     void Update()
     {
-        transform.position += Vector3.down * fallSpeed * Time.deltaTime;
+        Vector3 movement =
+            moveDirection * forwardSpeed +
+            Vector3.down * fallSpeed;
+
+        transform.position += movement * Time.deltaTime;
     }
 
     void OnTriggerEnter(Collider other)

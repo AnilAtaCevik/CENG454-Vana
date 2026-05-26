@@ -7,6 +7,7 @@ public class FlareLauncher : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject flarePrefab;
     [SerializeField] private Transform flareSpawnPoint;
+    [SerializeField] private Movement helicopterMovement;
 
     [Header("Deploy Pattern")]
     [SerializeField] private int flareCountPerUse = 4;
@@ -94,10 +95,45 @@ public class FlareLauncher : MonoBehaviour
             Random.Range(-spreadRadius, spreadRadius)
         );
 
-        Instantiate(
+        GameObject flare = Instantiate(
             flarePrefab,
             flareSpawnPoint.position + randomOffset,
             flareSpawnPoint.rotation
         );
+
+        Flare flareScript = flare.GetComponent<Flare>();
+
+        if (flareScript != null)
+        {
+            flareScript.Initialize(GetHelicopterMoveDirection());
+        }
+    }
+
+    Vector3 GetHelicopterMoveDirection()
+    {
+        if (helicopterMovement != null &&
+            helicopterMovement.rb != null &&
+            helicopterMovement.rb.linearVelocity.sqrMagnitude > 0.1f)
+        {
+            Vector3 velocityDirection = helicopterMovement.rb.linearVelocity.normalized;
+
+            // Dikey hız flare'ı yukarı/aşağı fırlatmasın diye yatay düzleme indiriyoruz.
+            velocityDirection.y = 0f;
+
+            if (velocityDirection.sqrMagnitude > 0.01f)
+            {
+                return velocityDirection.normalized;
+            }
+        }
+
+        Vector3 fallbackDirection = transform.forward;
+        fallbackDirection.y = 0f;
+
+        if (fallbackDirection.sqrMagnitude > 0.01f)
+        {
+            return fallbackDirection.normalized;
+        }
+
+        return Vector3.forward;
     }
 }
