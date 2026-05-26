@@ -6,15 +6,17 @@ public class Bullet : MonoBehaviour, IPoolable
     [SerializeField] private float speed = 200f;
     [SerializeField] private float lifeTime = 3f;
 
-    [Header("Impact VFX")]
-    [SerializeField] private GameObject impactVfx;
-    [SerializeField] private GameObject enemyImpactVfx;
-
     [Header("Impact Audio")]
     [SerializeField] private AudioClip impactClip;
     [SerializeField] private AudioClip enemyImpactClip;
     [SerializeField] private float impactVolume = 1f;
     [SerializeField] private float enemyImpactVolume = 1f;
+
+    [Header("Impact Pools")]
+    private ObjectPool impactVfxPool;
+    private ObjectPool enemyImpactVfxPool;
+    private ObjectPool impactAudioPool;
+    private ObjectPool enemyImpactAudioPool;
 
     private Rigidbody rb;
     private Vector3 direction;
@@ -27,10 +29,23 @@ public class Bullet : MonoBehaviour, IPoolable
         rb = GetComponent<Rigidbody>();
     }
 
-    public void Initialize(Vector3 dir, ObjectPool pool)
+    public void Initialize(
+        Vector3 dir,
+        ObjectPool pool,
+        ObjectPool normalVfxPool,
+        ObjectPool enemyVfxPool,
+        ObjectPool normalAudioPool,
+        ObjectPool enemyAudioPool
+    )
     {
         direction = dir.normalized;
         ownerPool = pool;
+
+        impactVfxPool = normalVfxPool;
+        enemyImpactVfxPool = enemyVfxPool;
+        impactAudioPool = normalAudioPool;
+        enemyImpactAudioPool = enemyAudioPool;
+
         lifeTimer = lifeTime;
         isReturning = false;
     }
@@ -90,27 +105,13 @@ public class Bullet : MonoBehaviour, IPoolable
 
         if (isEnemy)
         {
-            if (enemyImpactVfx != null)
-            {
-                Instantiate(enemyImpactVfx, hitPoint, Quaternion.identity);
-            }
-
-            if (enemyImpactClip != null)
-            {
-                AudioSource.PlayClipAtPoint(enemyImpactClip, hitPoint, enemyImpactVolume);
-            }
+            SpawnVfx(enemyImpactVfxPool, hitPoint);
+            PlayImpactAudio(enemyImpactAudioPool, enemyImpactClip, enemyImpactVolume, hitPoint);
         }
         else
         {
-            if (impactVfx != null)
-            {
-                Instantiate(impactVfx, hitPoint, Quaternion.identity);
-            }
-
-            if (impactClip != null)
-            {
-                AudioSource.PlayClipAtPoint(impactClip, hitPoint, impactVolume);
-            }
+            SpawnVfx(impactVfxPool, hitPoint);
+            PlayImpactAudio(impactAudioPool, impactClip, impactVolume, hitPoint);
         }
 
         ReturnToPool();
@@ -128,6 +129,47 @@ public class Bullet : MonoBehaviour, IPoolable
         else
         {
             gameObject.SetActive(false);
+        }
+    }
+
+    void SpawnVfx(ObjectPool pool, Vector3 position)
+    {
+        if (pool == null)
+            return;
+
+        GameObject vfx = pool.Get();
+
+        if (vfx == null)
+            return;
+
+        vfx.transform.position = position;
+        vfx.transform.rotation = Quaternion.identity;
+
+        PooledAutoReturn pooledAutoReturn = vfx.GetComponent<PooledAutoReturn>();
+
+        if (pooledAutoReturn != null)
+        {
+            pooledAutoReturn.Initialize(pool);
+        }
+    }
+
+    void PlayImpactAudio(ObjectPool pool, AudioClip clip, float volume, Vector3 position)
+    {
+        if (pool == null || clip == null)
+            return;
+
+        GameObject audioObj = pool.Get();
+
+        if (audioObj == null)
+            return;
+
+        audioObj.transform.position = position;
+
+        PooledAudio pooledAudio = audioObj.GetComponent<PooledAudio>();
+
+        if (pooledAudio != null)
+        {
+            pooledAudio.Initialize(pool, clip, volume);
         }
     }
 }

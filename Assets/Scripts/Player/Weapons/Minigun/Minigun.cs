@@ -24,6 +24,12 @@ public class Minigun : MonoBehaviour
     [SerializeField] private float firingDuration = 5f;
     [SerializeField] private float cooldownTime = 5f;
 
+    [Header("Impact Pools")]
+    [SerializeField] private ObjectPool impactVfxPool;
+    [SerializeField] private ObjectPool enemyImpactVfxPool;
+    [SerializeField] private ObjectPool impactAudioPool;
+    [SerializeField] private ObjectPool enemyImpactAudioPool;
+
     [Header("Audio")]
     [SerializeField] private AudioSource firingAudio;
     [SerializeField] private AudioSource overheatAudio;
@@ -184,7 +190,11 @@ public class Minigun : MonoBehaviour
             {
                 bulletScript.Initialize(
                     firePoints[i].forward,
-                    bulletPool
+                    bulletPool,
+                    impactVfxPool,
+                    enemyImpactVfxPool,
+                    impactAudioPool,
+                    enemyImpactAudioPool
                 );
             }
 
