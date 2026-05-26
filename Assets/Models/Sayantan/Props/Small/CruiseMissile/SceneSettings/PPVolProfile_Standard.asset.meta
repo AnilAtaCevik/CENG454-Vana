@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ac240d5325170d548892a85ed5ae8911
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 153933
+  packageName: Cruise Missile PBR (Unity 6)
+  packageVersion: 1.1
+  assetPath: Assets/Sayantan/Props/Small/CruiseMissile/SceneSettings/PPVolProfile_Standard.asset
+  uploadId: 724327

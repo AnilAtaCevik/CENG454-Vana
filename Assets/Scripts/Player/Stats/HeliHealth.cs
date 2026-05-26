@@ -1,11 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-public class HeliHealth : MonoBehaviour
+public class HeliHealth : MonoBehaviour, IDamageable
 {
-    [Header("Health Settings")]
     [SerializeField] private float maxHealth = 100f;
-    [SerializeField] private float currentHealth;
+    private float currentHealth;
 
     private void Start()
     {
@@ -15,8 +13,9 @@ public class HeliHealth : MonoBehaviour
     public void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
+        Debug.Log("Helikopter hasar aldi! Kalan Can: " + currentHealth);
 
-        if (currentHealth <= 0)
+        if (currentHealth <= 0f)
         {
             Die();
         }
@@ -24,7 +23,6 @@ public class HeliHealth : MonoBehaviour
 
     private void Die()
     {
-        Scene activeScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(activeScene.name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
