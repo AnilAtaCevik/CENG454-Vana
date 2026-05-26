@@ -1423,26 +1423,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3073006382524921258, guid: ce417dba4b38e3f4895fc09d483c35a0, type: 3}
-      propertyPath: moveWithTransform
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3073006382524921258, guid: ce417dba4b38e3f4895fc09d483c35a0, type: 3}
-      propertyPath: InitialModule.rotation3D
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3073006382524921258, guid: ce417dba4b38e3f4895fc09d483c35a0, type: 3}
-      propertyPath: InitialModule.startRotation.scalar
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3073006382524921258, guid: ce417dba4b38e3f4895fc09d483c35a0, type: 3}
-      propertyPath: InitialModule.startRotationY.scalar
-      value: 1.7453293
-      objectReference: {fileID: 0}
-    - target: {fileID: 3073006382524921258, guid: ce417dba4b38e3f4895fc09d483c35a0, type: 3}
-      propertyPath: InitialModule.randomizeRotationDirection
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5545353808214177577, guid: ce417dba4b38e3f4895fc09d483c35a0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -15.36

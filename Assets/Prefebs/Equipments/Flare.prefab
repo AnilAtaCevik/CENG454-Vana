@@ -456,7 +456,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -849,7 +849,7 @@ ParticleSystem:
     startRotationY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1.7453293
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -5119,6 +5119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Flare
   lifeTime: 4
+  forwardSpeed: 8
+  fallSpeed: 1.5
   guidedMissileTag: GuidedMissile
   guidedMissileDestroyVfx: {fileID: 2287050538949738651, guid: 32e7e6678f7aa0c42b37664af69b0a32, type: 3}
   guidedMissileDestroyClip: {fileID: 8300000, guid: f42a2e5734db658498e6121f8ee1a1b8, type: 3}
