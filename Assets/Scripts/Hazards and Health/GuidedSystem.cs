@@ -1,10 +1,9 @@
 using UnityEngine;
 
-public class GuidedAASystem : MonoBehaviour
+public class GuidedSystem : MonoBehaviour
 {
     [Header("Targeting Settings")]
     [SerializeField] private float baseRange = 250f;
-    [SerializeField] private float radarBonusRange = 150f;
     [SerializeField] private string targetTag = "Player";
     [SerializeField] private Transform partToRotate;
     [SerializeField] private Transform barrelToRotate;
@@ -24,23 +23,26 @@ public class GuidedAASystem : MonoBehaviour
     private float fireCountdown = 0f;
     private int currentFirePointIndex = 0;
     private float lockOnTimer = 0f;
-    private float currentRange;
+    private RadarSystem connectedRadar;
 
     private void Start()
     {
-        currentRange = baseRange;
         InvokeRepeating(nameof(UpdateTarget), 0f, 0.2f);
         
         if (audioSource == null)
         {
             audioSource = GetComponent<AudioSource>();
         }
+
+        GameObject radarObj = GameObject.FindGameObjectWithTag("Radar");
+        if (radarObj != null)
+        {
+            connectedRadar = radarObj.GetComponent<RadarSystem>();
+        }
     }
 
     private void Update()
     {
-        CheckRadarSynergy();
-
         if (target == null)
         {
             lockOnTimer = 0f;
@@ -68,6 +70,12 @@ public class GuidedAASystem : MonoBehaviour
 
     private void UpdateTarget()
     {
+        if (connectedRadar != null && connectedRadar.IsTargetFlagged())
+        {
+            target = connectedRadar.GetDetectedTarget();
+            return;
+        }
+
         GameObject[] players = GameObject.FindGameObjectsWithTag(targetTag);
         float shortestDistance = Mathf.Infinity;
         GameObject nearestPlayer = null;
@@ -82,7 +90,7 @@ public class GuidedAASystem : MonoBehaviour
             }
         }
 
-        if (nearestPlayer != null && shortestDistance <= currentRange)
+        if (nearestPlayer != null && shortestDistance <= baseRange)
         {
             target = nearestPlayer.transform;
         }
@@ -139,22 +147,9 @@ public class GuidedAASystem : MonoBehaviour
         currentFirePointIndex = (currentFirePointIndex + 1) % firePoints.Length;
     }
 
-    private void CheckRadarSynergy()
-    {
-        try
-        {
-            GameObject radarObj = GameObject.FindGameObjectWithTag("Radar");
-            currentRange = (radarObj != null) ? (baseRange + radarBonusRange) : baseRange;
-        }
-        catch
-        {
-            currentRange = baseRange;
-        }
-    }
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, currentRange);
+        Gizmos.DrawWireSphere(transform.position, baseRange);
     }
 }
