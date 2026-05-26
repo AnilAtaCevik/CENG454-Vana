@@ -9,7 +9,7 @@ public class Missile : MonoBehaviour, IPoolable
     [SerializeField] private float lifeTime = 3f;
 
     [Header("Explosion")]
-    [SerializeField] private GameObject explosionVfx;
+    private ObjectPool explosionVfxPool;
 
     [Header("Damage")]
     [SerializeField] private float explosionRadius = 10f;
@@ -26,15 +26,18 @@ public class Missile : MonoBehaviour, IPoolable
     private ObjectPool ownerPool;
     private float lifeTimer;
     private bool isReturning;
+    
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    public void Initialize(ObjectPool pool)
+    public void Initialize(ObjectPool pool, ObjectPool explosionPool)
     {
         ownerPool = pool;
+        explosionVfxPool = explosionPool;
+
         lifeTimer = lifeTime;
         isReturning = false;
 
@@ -139,19 +142,29 @@ public class Missile : MonoBehaviour, IPoolable
             flightAudio.Stop();
         }
 
-        if (explosionVfx != null)
+       if (explosionVfxPool != null)
         {
-            GameObject explosion = Instantiate(
-                explosionVfx,
-                transform.position,
-                Quaternion.identity
-            );
+            GameObject explosion = explosionVfxPool.Get();
 
-            AudioSource audioSource = explosion.GetComponent<AudioSource>();
-
-            if (audioSource != null)
+            if (explosion != null)
             {
-                audioSource.Play();
+                explosion.transform.position = transform.position;
+                explosion.transform.rotation = Quaternion.identity;
+
+                PooledAutoReturn pooledAutoReturn =
+                    explosion.GetComponent<PooledAutoReturn>();
+
+                if (pooledAutoReturn != null)
+                {
+                    pooledAutoReturn.Initialize(explosionVfxPool);
+                }
+
+                AudioSource audioSource = explosion.GetComponent<AudioSource>();
+
+                if (audioSource != null)
+                {
+                    audioSource.Play();
+                }
             }
         }
 

@@ -597,6 +597,7 @@ Transform:
   - {fileID: 5918271893212438458}
   - {fileID: 3846404431439286442}
   - {fileID: 5660019966006230519}
+  - {fileID: 1933431323706681658}
   m_Father: {fileID: 8444870023109104015}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1202457018117831827
@@ -660,6 +661,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PooledAutoReturn
   returnDelay: 1
+--- !u!1 &2235687404330702910
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1933431323706681658}
+  - component: {fileID: 175486118214589034}
+  m_Layer: 0
+  m_Name: Pool_MissileExplosionVFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1933431323706681658
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2235687404330702910}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.37774, y: 0, z: 0.47173}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8839023952046744331}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &175486118214589034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2235687404330702910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fb344130d090c04f8de6b581165922e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
+  prefab: {fileID: 7738673178121229186, guid: ba41732d14a642f499e0812e51b608b4, type: 3}
+  initialSize: 10
+  canExpand: 1
 --- !u!1 &2693359266191289523
 GameObject:
   m_ObjectHideFlags: 0
@@ -1487,6 +1535,10 @@ PrefabInstance:
       propertyPath: missilePool
       value: 
       objectReference: {fileID: 3100351964485374610}
+    - target: {fileID: 6216811783844443826, guid: a91b9b1c41b50d749a77cb44fe892beb, type: 3}
+      propertyPath: missileExplosionVfxPool
+      value: 
+      objectReference: {fileID: 175486118214589034}
     - target: {fileID: 6687186453806062559, guid: a91b9b1c41b50d749a77cb44fe892beb, type: 3}
       propertyPath: m_Name
       value: MissileLauncher
