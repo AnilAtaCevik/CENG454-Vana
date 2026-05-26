@@ -24,6 +24,7 @@ public class MissileSpawner : MonoBehaviour
     [Header("Pools")]
     [SerializeField] private ObjectPool missilePool;
     [SerializeField] private ObjectPool missileExplosionVfxPool;
+    [SerializeField] private ObjectPool missileLaunchAudioPool;
 
 
     private int currentAmmo;
@@ -173,7 +174,11 @@ public class MissileSpawner : MonoBehaviour
 
         if (missileScript != null)
         {
-            missileScript.Initialize(missilePool, missileExplosionVfxPool);
+            missileScript.Initialize(
+                missilePool,
+                missileExplosionVfxPool,
+                missileLaunchAudioPool
+            );
         }
     }
 }

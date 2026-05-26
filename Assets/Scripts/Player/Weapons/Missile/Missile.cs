@@ -26,6 +26,7 @@ public class Missile : MonoBehaviour, IPoolable
     private ObjectPool ownerPool;
     private float lifeTimer;
     private bool isReturning;
+    private ObjectPool launchAudioPool;
     
 
     void Awake()
@@ -33,10 +34,16 @@ public class Missile : MonoBehaviour, IPoolable
         rb = GetComponent<Rigidbody>();
     }
 
-    public void Initialize(ObjectPool pool, ObjectPool explosionPool)
+    public void Initialize(
+        ObjectPool pool,
+        ObjectPool explosionPool,
+        ObjectPool missileLaunchAudioPool
+        )
     {
         ownerPool = pool;
         explosionVfxPool = explosionPool;
+
+        launchAudioPool = missileLaunchAudioPool;
 
         lifeTimer = lifeTime;
         isReturning = false;
@@ -57,10 +64,7 @@ public class Missile : MonoBehaviour, IPoolable
             afterburnerVfx.Play();
         }
 
-        if (launchClip != null)
-        {
-            AudioSource.PlayClipAtPoint(launchClip, transform.position, 1f);
-        }
+        PlayLaunchAudio();
 
         if (flightAudio != null)
         {
@@ -183,6 +187,26 @@ public class Missile : MonoBehaviour, IPoolable
         else
         {
             gameObject.SetActive(false);
+        }
+    }
+
+    void PlayLaunchAudio()
+    {
+        if (launchAudioPool == null || launchClip == null)
+            return;
+
+        GameObject audioObj = launchAudioPool.Get();
+
+        if (audioObj == null)
+            return;
+
+        audioObj.transform.position = transform.position;
+
+        PooledAudio pooledAudio = audioObj.GetComponent<PooledAudio>();
+
+        if (pooledAudio != null)
+        {
+            pooledAudio.Initialize(launchAudioPool, launchClip, 1f);
         }
     }
 
