@@ -5,7 +5,6 @@ using System.Collections;
 public class MissileSpawner : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private GameObject missilePrefab;
     [SerializeField] private Transform[] firePoints;
 
     [Header("Aiming")]
@@ -18,6 +17,14 @@ public class MissileSpawner : MonoBehaviour
 
     [Header("Ammo")]
     [SerializeField] private int maxAmmo = 6;
+
+    [Header("Launch Sequence")]
+    [SerializeField] private float delayBetweenMissiles = 0.15f;
+
+    [Header("Pools")]
+    [SerializeField] private ObjectPool missilePool;
+    [SerializeField] private ObjectPool missileExplosionVfxPool;
+    [SerializeField] private ObjectPool missileLaunchAudioPool;
 
 
     private int currentAmmo;
@@ -137,22 +144,40 @@ public class MissileSpawner : MonoBehaviour
 
     IEnumerator FireSequence()
     {
-        // RIGHT
-        Instantiate(
-            missilePrefab,
-            firePoints[0].position,
-            firePoints[0].rotation
-        );
+        if (firePoints == null || firePoints.Length == 0)
+            yield break;
 
-        yield return new WaitForSeconds(0.15f);
+        SpawnMissile(firePoints[0]);
 
-        // LEFT
+        yield return new WaitForSeconds(delayBetweenMissiles);
+
         if (firePoints.Length > 1)
         {
-            Instantiate(
-                missilePrefab,
-                firePoints[1].position,
-                firePoints[1].rotation
+            SpawnMissile(firePoints[1]);
+        }
+    }
+
+    void SpawnMissile(Transform firePoint)
+    {
+        if (missilePool == null || firePoint == null)
+            return;
+
+        GameObject missile = missilePool.Get();
+
+        if (missile == null)
+            return;
+
+        missile.transform.position = firePoint.position;
+        missile.transform.rotation = firePoint.rotation;
+
+        Missile missileScript = missile.GetComponent<Missile>();
+
+        if (missileScript != null)
+        {
+            missileScript.Initialize(
+                missilePool,
+                missileExplosionVfxPool,
+                missileLaunchAudioPool
             );
         }
     }

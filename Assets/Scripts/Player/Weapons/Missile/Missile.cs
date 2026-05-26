@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Missile : MonoBehaviour
+public class Missile : MonoBehaviour, IPoolable
 {
     [Header("Movement")]
     [SerializeField] private float speed = 40f;
@@ -9,7 +9,7 @@ public class Missile : MonoBehaviour
     [SerializeField] private float lifeTime = 3f;
 
     [Header("Explosion")]
-    [SerializeField] private GameObject explosionVfx;
+    private ObjectPool explosionVfxPool;
 
     [Header("Damage")]
     [SerializeField] private float explosionRadius = 10f;
@@ -23,12 +23,36 @@ public class Missile : MonoBehaviour
     [SerializeField] private AudioClip launchClip;
 
     private Rigidbody rb;
+    private ObjectPool ownerPool;
+    private float lifeTimer;
+    private bool isReturning;
+    private ObjectPool launchAudioPool;
+    
 
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
+    }
 
-        rb.linearVelocity = transform.forward * speed;
+    public void Initialize(
+        ObjectPool pool,
+        ObjectPool explosionPool,
+        ObjectPool missileLaunchAudioPool
+        )
+    {
+        ownerPool = pool;
+        explosionVfxPool = explosionPool;
+
+        launchAudioPool = missileLaunchAudioPool;
+
+        lifeTimer = lifeTime;
+        isReturning = false;
+
+        if (rb != null)
+        {
+            rb.linearVelocity = transform.forward * speed;
+            rb.angularVelocity = Vector3.zero;
+        }
 
         if (launchBurstVfx != null)
         {
@@ -40,25 +64,78 @@ public class Missile : MonoBehaviour
             afterburnerVfx.Play();
         }
 
-        if (launchClip != null)
-        {
-            AudioSource.PlayClipAtPoint(
-                launchClip,
-                transform.position,
-                1f
-            );
-        }
+        PlayLaunchAudio();
 
         if (flightAudio != null)
         {
             flightAudio.Play();
         }
+    }
 
-        Destroy(gameObject, lifeTime);
+    public void OnGetFromPool()
+    {
+        lifeTimer = lifeTime;
+        isReturning = false;
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+    }
+
+    public void OnReturnToPool()
+    {
+        isReturning = true;
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        if (flightAudio != null)
+        {
+            flightAudio.Stop();
+        }
+
+        if (launchBurstVfx != null)
+        {
+            launchBurstVfx.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+
+        if (afterburnerVfx != null)
+        {
+            afterburnerVfx.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (isReturning || rb == null)
+            return;
+
+        rb.linearVelocity = transform.forward * speed;
+    }
+
+    void Update()
+    {
+        if (isReturning)
+            return;
+
+        lifeTimer -= Time.deltaTime;
+
+        if (lifeTimer <= 0f)
+        {
+            ReturnToPool();
+        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
+        if (isReturning)
+            return;
+
         Explode();
     }
 
@@ -69,33 +146,73 @@ public class Missile : MonoBehaviour
             flightAudio.Stop();
         }
 
-        if (explosionVfx != null)
+       if (explosionVfxPool != null)
         {
-            GameObject explosion = Instantiate(
-                explosionVfx,
-                transform.position,
-                Quaternion.identity
-            );
+            GameObject explosion = explosionVfxPool.Get();
 
-            AudioSource audioSource =
-                explosion.GetComponent<AudioSource>();
-
-            if (audioSource != null)
+            if (explosion != null)
             {
-                audioSource.Play();
+                explosion.transform.position = transform.position;
+                explosion.transform.rotation = Quaternion.identity;
+
+                PooledAutoReturn pooledAutoReturn =
+                    explosion.GetComponent<PooledAutoReturn>();
+
+                if (pooledAutoReturn != null)
+                {
+                    pooledAutoReturn.Initialize(explosionVfxPool);
+                }
+
+                AudioSource audioSource = explosion.GetComponent<AudioSource>();
+
+                if (audioSource != null)
+                {
+                    audioSource.Play();
+                }
             }
         }
 
-        Destroy(gameObject);
+        ReturnToPool();
+    }
+
+    void ReturnToPool()
+    {
+        if (isReturning)
+            return;
+
+        if (ownerPool != null)
+        {
+            ownerPool.Return(gameObject);
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    void PlayLaunchAudio()
+    {
+        if (launchAudioPool == null || launchClip == null)
+            return;
+
+        GameObject audioObj = launchAudioPool.Get();
+
+        if (audioObj == null)
+            return;
+
+        audioObj.transform.position = transform.position;
+
+        PooledAudio pooledAudio = audioObj.GetComponent<PooledAudio>();
+
+        if (pooledAudio != null)
+        {
+            pooledAudio.Initialize(launchAudioPool, launchClip, 1f);
+        }
     }
 
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-
-        Gizmos.DrawWireSphere(
-            transform.position,
-            explosionRadius
-        );
+        Gizmos.DrawWireSphere(transform.position, explosionRadius);
     }
 }

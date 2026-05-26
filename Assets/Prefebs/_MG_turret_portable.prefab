@@ -482,15 +482,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2be4f2270501a54fb9de3de20ff1c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AASystem
-  range: 40
+  baseRange: 250
+  radarBonusRange: 150
   targetTag: Player
   partToRotate: {fileID: 241092311266837855}
   barrelToRotate: {fileID: 4348155606239136380}
   turnSpeed: 10
-  bulletPrefab: {fileID: 2207330078483044208, guid: 3660f8e7e6b7cf746b9d2bebc986b444, type: 3}
+  missilePrefab: {fileID: 2207330078483044208, guid: 3660f8e7e6b7cf746b9d2bebc986b444, type: 3}
   firePoints:
   - {fileID: 6593991902131294345}
   - {fileID: 5147351011552858821}
   fireRate: 0.2
+  requiredLockTime: 3
   audioSource: {fileID: 0}
   fireSound: {fileID: 0}
