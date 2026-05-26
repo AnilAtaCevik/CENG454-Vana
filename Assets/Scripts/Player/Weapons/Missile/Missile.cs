@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Missile : MonoBehaviour
+public class Missile : MonoBehaviour, IPoolable
 {
     [Header("Movement")]
     [SerializeField] private float speed = 40f;
@@ -23,12 +23,26 @@ public class Missile : MonoBehaviour
     [SerializeField] private AudioClip launchClip;
 
     private Rigidbody rb;
+    private ObjectPool ownerPool;
+    private float lifeTimer;
+    private bool isReturning;
 
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
+    }
 
-        rb.linearVelocity = transform.forward * speed;
+    public void Initialize(ObjectPool pool)
+    {
+        ownerPool = pool;
+        lifeTimer = lifeTime;
+        isReturning = false;
+
+        if (rb != null)
+        {
+            rb.linearVelocity = transform.forward * speed;
+            rb.angularVelocity = Vector3.zero;
+        }
 
         if (launchBurstVfx != null)
         {
@@ -42,23 +56,79 @@ public class Missile : MonoBehaviour
 
         if (launchClip != null)
         {
-            AudioSource.PlayClipAtPoint(
-                launchClip,
-                transform.position,
-                1f
-            );
+            AudioSource.PlayClipAtPoint(launchClip, transform.position, 1f);
         }
 
         if (flightAudio != null)
         {
             flightAudio.Play();
         }
+    }
 
-        Destroy(gameObject, lifeTime);
+    public void OnGetFromPool()
+    {
+        lifeTimer = lifeTime;
+        isReturning = false;
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+    }
+
+    public void OnReturnToPool()
+    {
+        isReturning = true;
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        if (flightAudio != null)
+        {
+            flightAudio.Stop();
+        }
+
+        if (launchBurstVfx != null)
+        {
+            launchBurstVfx.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+
+        if (afterburnerVfx != null)
+        {
+            afterburnerVfx.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (isReturning || rb == null)
+            return;
+
+        rb.linearVelocity = transform.forward * speed;
+    }
+
+    void Update()
+    {
+        if (isReturning)
+            return;
+
+        lifeTimer -= Time.deltaTime;
+
+        if (lifeTimer <= 0f)
+        {
+            ReturnToPool();
+        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
+        if (isReturning)
+            return;
+
         Explode();
     }
 
@@ -77,8 +147,7 @@ public class Missile : MonoBehaviour
                 Quaternion.identity
             );
 
-            AudioSource audioSource =
-                explosion.GetComponent<AudioSource>();
+            AudioSource audioSource = explosion.GetComponent<AudioSource>();
 
             if (audioSource != null)
             {
@@ -86,16 +155,27 @@ public class Missile : MonoBehaviour
             }
         }
 
-        Destroy(gameObject);
+        ReturnToPool();
+    }
+
+    void ReturnToPool()
+    {
+        if (isReturning)
+            return;
+
+        if (ownerPool != null)
+        {
+            ownerPool.Return(gameObject);
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-
-        Gizmos.DrawWireSphere(
-            transform.position,
-            explosionRadius
-        );
+        Gizmos.DrawWireSphere(transform.position, explosionRadius);
     }
 }
