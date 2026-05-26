@@ -20,6 +20,16 @@ public class SpotlightController : MonoBehaviour
 
     private bool isEnabled = false;
 
+    void Start()
+    {
+        if (spotlight != null)
+        {
+            spotlight.enabled = isEnabled;
+        }
+
+        EquipmentEvents.RaiseSpotlightToggled(isEnabled);
+    }
+
     void Update()
     {
         HandleToggle();
@@ -41,6 +51,8 @@ public class SpotlightController : MonoBehaviour
             }
 
             PlayToggleSound();
+
+            EquipmentEvents.RaiseSpotlightToggled(isEnabled);
         }
     }
 
@@ -51,7 +63,7 @@ public class SpotlightController : MonoBehaviour
 
         Vector2 mousePosition = Mouse.current.position.ReadValue();
 
-        float normalizedMouseY = 1f - (mousePosition.y / Screen.height);
+        float normalizedMouseY = mousePosition.y / Screen.height;
 
         float targetAngle = Mathf.Lerp(
             maxDownAngle,
