@@ -1484,6 +1484,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7363104518882301245, guid: c2159beb6c7e8da4eb4f56699e0fb01a, type: 3}
+      propertyPath: deployClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 608be3fe70b3e5f40a6d2b3fc3ce074f, type: 3}
+    - target: {fileID: 7363104518882301245, guid: c2159beb6c7e8da4eb4f56699e0fb01a, type: 3}
+      propertyPath: deployVolume
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7886476253462595585, guid: c2159beb6c7e8da4eb4f56699e0fb01a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

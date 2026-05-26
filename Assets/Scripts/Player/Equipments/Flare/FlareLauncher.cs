@@ -13,6 +13,10 @@ public class FlareLauncher : MonoBehaviour
     [Header("Cooldown")]
     [SerializeField] private float deployCooldown = 5f;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip deployClip;
+    [SerializeField] private float deployVolume = 1f;
+
     private int currentCharges;
     private float nextDeployTime = 0f;
 
@@ -56,5 +60,14 @@ public class FlareLauncher : MonoBehaviour
             flareSpawnPoint.position,
             flareSpawnPoint.rotation
         );
+
+        if (deployClip != null)
+        {
+            AudioSource.PlayClipAtPoint(
+                deployClip,
+                flareSpawnPoint.position,
+                deployVolume
+            );
+        }
     }
 }

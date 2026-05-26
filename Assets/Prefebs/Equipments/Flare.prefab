@@ -378,7 +378,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
@@ -5120,3 +5120,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Flare
   lifeTime: 4
   guidedMissileTag: GuidedMissile
+  guidedMissileDestroyVfx: {fileID: 2287050538949738651, guid: 32e7e6678f7aa0c42b37664af69b0a32, type: 3}
+  guidedMissileDestroyClip: {fileID: 8300000, guid: f42a2e5734db658498e6121f8ee1a1b8, type: 3}
+  destroySoundVolume: 50
