@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CruiseMissile
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 4ab581e06f3b88042b9154887d4c359e, type: 3}
+      propertyPath: m_TagString
+      value: GuidedMissile
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -99,6 +103,7 @@ MonoBehaviour:
   rotationSpeed: 5
   damage: 25
   lifeTime: 4
+  proximityRadius: 3
 --- !u!136 &5624935457848285840
 CapsuleCollider:
   m_ObjectHideFlags: 0
