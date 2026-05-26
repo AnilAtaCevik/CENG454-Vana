@@ -31,6 +31,8 @@ public class FlareLauncher : MonoBehaviour
     void Start()
     {
         currentCharges = maxCharges;
+
+        EquipmentEvents.RaiseFlareAmmoChanged(currentCharges, maxCharges);
     }
 
     void Update()
@@ -57,6 +59,10 @@ public class FlareLauncher : MonoBehaviour
 
         currentCharges--;
         nextDeployTime = Time.time + deployCooldown;
+
+        EquipmentEvents.RaiseFlareAmmoChanged(currentCharges, maxCharges);
+        EquipmentEvents.RaiseFlareUsed();
+        EquipmentEvents.RaiseFlareCooldownStarted(deployCooldown);
 
         StartCoroutine(DeployFlareBurst());
     }
@@ -116,8 +122,6 @@ public class FlareLauncher : MonoBehaviour
             helicopterMovement.rb.linearVelocity.sqrMagnitude > 0.1f)
         {
             Vector3 velocityDirection = helicopterMovement.rb.linearVelocity.normalized;
-
-            // Dikey hız flare'ı yukarı/aşağı fırlatmasın diye yatay düzleme indiriyoruz.
             velocityDirection.y = 0f;
 
             if (velocityDirection.sqrMagnitude > 0.01f)
