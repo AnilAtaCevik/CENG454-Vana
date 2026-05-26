@@ -63,7 +63,7 @@ public class MissileSpawner : MonoBehaviour
         // START AIM
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
-            if (Time.time >= nextFireTime && currentAmmo >= 2)
+            if (CanStartAiming())
             {
                 StartAiming();
             }
@@ -91,6 +91,30 @@ public class MissileSpawner : MonoBehaviour
         }
     }
 
+    bool CanStartAiming()
+    {
+        if (Time.time < nextFireTime)
+        {
+            GameEvents.RaiseFeedback(
+                "Missile system cooling down!",
+                FeedbackSeverity.Warning
+            );
+
+            return false;
+        }
+
+        if (currentAmmo < 2)
+        {
+            GameEvents.RaiseFeedback(
+                "No missiles remaining!",
+                FeedbackSeverity.Warning
+            );
+
+            return false;
+        }
+
+        return true;
+    }
 
     void StartAiming()
     {
@@ -138,7 +162,6 @@ public class MissileSpawner : MonoBehaviour
 
         StartCoroutine(FireSequence());
 
-        Debug.Log("Current Ammo: " + currentAmmo);
     }
 
 

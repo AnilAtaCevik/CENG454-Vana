@@ -52,10 +52,24 @@ public class FlareLauncher : MonoBehaviour
             return;
 
         if (Time.time < nextDeployTime)
+        { 
+            GameEvents.RaiseFeedback(
+                "Flare system cooling down!",
+                FeedbackSeverity.Warning
+            );
+
             return;
+        }
 
         if (currentCharges <= 0)
+        {
+            GameEvents.RaiseFeedback(
+                "No flares remaining!",
+                FeedbackSeverity.Warning
+            );
+
             return;
+        }
 
         currentCharges--;
         nextDeployTime = Time.time + deployCooldown;
