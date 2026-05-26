@@ -13,7 +13,7 @@ public class Minigun : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Transform[] firePoints;
-    [SerializeField] private BulletPool bulletPool;
+    [SerializeField] private ObjectPool bulletPool;
 
     [Header("Shooting")]
     [SerializeField] private float fireRate = 0.05f;
@@ -23,6 +23,12 @@ public class Minigun : MonoBehaviour
     [Header("Timing")]
     [SerializeField] private float firingDuration = 5f;
     [SerializeField] private float cooldownTime = 5f;
+
+    [Header("Impact Pools")]
+    [SerializeField] private ObjectPool impactVfxPool;
+    [SerializeField] private ObjectPool enemyImpactVfxPool;
+    [SerializeField] private ObjectPool impactAudioPool;
+    [SerializeField] private ObjectPool enemyImpactAudioPool;
 
     [Header("Audio")]
     [SerializeField] private AudioSource firingAudio;
@@ -170,24 +176,29 @@ public class Minigun : MonoBehaviour
     {
         for (int i = 0; i < firePoints.Length; i++)
         {
-            GameObject bullet = bulletPool.GetBullet();
+            GameObject bullet = bulletPool.Get();
+
+            if (bullet == null)
+                return;
 
             bullet.transform.position = firePoints[i].position;
             bullet.transform.rotation = Quaternion.identity;
 
-            Bullet bulletScript =
-                bullet.GetComponent<Bullet>();
+            Bullet bulletScript = bullet.GetComponent<Bullet>();
 
             if (bulletScript != null)
             {
                 bulletScript.Initialize(
                     firePoints[i].forward,
-                    bulletPool
+                    bulletPool,
+                    impactVfxPool,
+                    enemyImpactVfxPool,
+                    impactAudioPool,
+                    enemyImpactAudioPool
                 );
             }
 
-            if (muzzleFlashes != null &&
-                i < muzzleFlashes.Length)
+            if (muzzleFlashes != null && i < muzzleFlashes.Length)
             {
                 muzzleFlashes[i].Play();
             }
