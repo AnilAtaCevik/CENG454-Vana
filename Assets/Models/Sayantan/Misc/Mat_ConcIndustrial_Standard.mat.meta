@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: db098849f518b034eb48528ba09be94e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 153933
+  packageName: Cruise Missile PBR (Unity 6)
+  packageVersion: 1.1
+  assetPath: Assets/Sayantan/Misc/Mat_ConcIndustrial_Standard.mat
+  uploadId: 724327

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ac322d2ffad29f3429894d664cbe9eda
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 169039
+  packageName: Fixed Machine Gun (Turret)
+  packageVersion: 1.0
+  assetPath: Assets/FST/Fixed Machine Gun Turret/Materials/MG-8_mat.mat
+  uploadId: 369007

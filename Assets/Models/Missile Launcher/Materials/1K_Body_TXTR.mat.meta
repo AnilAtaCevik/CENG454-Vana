@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0eb160aa7ef04924fbc55ac35e8beac8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 3759
+  packageName: Missile Launcher
+  packageVersion: 1.0
+  assetPath: Assets/Missile Launcher/Materials/1K_Body_TXTR.mat
+  uploadId: 29291
