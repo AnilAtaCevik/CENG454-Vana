@@ -43,7 +43,13 @@ public class GuidedSystem : MonoBehaviour
 
     private void Update()
     {
+<<<<<<< Updated upstream
         if (target == null)
+=======
+        CheckRadarSynergy();
+
+        if (target == null || !HasLineOfSight(target))
+>>>>>>> Stashed changes
         {
             lockOnTimer = 0f;
             return;
@@ -85,8 +91,11 @@ public class GuidedSystem : MonoBehaviour
             float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
             if (distanceToPlayer < shortestDistance)
             {
-                shortestDistance = distanceToPlayer;
-                nearestPlayer = player;
+                if (HasLineOfSight(player.transform))
+                {
+                    shortestDistance = distanceToPlayer;
+                    nearestPlayer = player;
+                }
             }
         }
 
@@ -98,6 +107,24 @@ public class GuidedSystem : MonoBehaviour
         {
             target = null;
         }
+    }
+
+    private bool HasLineOfSight(Transform potentialTarget)
+    {
+        if (potentialTarget == null) return false;
+
+        Vector3 startPos = barrelToRotate != null ? barrelToRotate.position : transform.position;
+        Vector3 direction = (potentialTarget.position - startPos).normalized;
+        float distance = Vector3.Distance(startPos, potentialTarget.position);
+
+        if (Physics.Raycast(startPos, direction, out RaycastHit hit, distance))
+        {
+            if (!hit.collider.CompareTag(targetTag))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void LockOnTarget()

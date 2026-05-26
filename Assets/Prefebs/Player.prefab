@@ -143,6 +143,7 @@ GameObject:
   - component: {fileID: 4041703093760727141}
   - component: {fileID: 599806004647139994}
   - component: {fileID: 2389430431192495521}
+  - component: {fileID: 2994601536779046035}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -372,6 +373,19 @@ MonoBehaviour:
   tailRotor: {fileID: 3309956733889518108}
   mainSpeed: 1800
   tailSpeed: 2000
+--- !u!114 &2994601536779046035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451020400778653224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b9ba0d745c0d894f8cf62d74a09c5a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HeliHealth
+  maxHealth: 100
 --- !u!1 &710750654586869343
 GameObject:
   m_ObjectHideFlags: 0
