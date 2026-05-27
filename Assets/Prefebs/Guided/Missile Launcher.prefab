@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5466271877556311976
+--- !u!1 &415991496886732766
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4894563247082766078}
-  m_Layer: 0
-  m_Name: FP2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4894563247082766078
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5466271877556311976}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 76, y: 37, z: 181}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7653055685790819484}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7605331003540054108
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9062288732201193283}
+  - component: {fileID: 5000910934543398844}
   m_Layer: 0
   m_Name: FP1
   m_TagString: Untagged
@@ -47,22 +16,53 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9062288732201193283
+--- !u!4 &5000910934543398844
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7605331003540054108}
+  m_GameObject: {fileID: 415991496886732766}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -82, y: 37, z: 181}
+  m_LocalPosition: {x: 84, y: 40, z: 159.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7653055685790819484}
+  m_Father: {fileID: 7829535463281451968}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1347014932205438424
+--- !u!1 &6349283479440506471
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8518859838746532085}
+  m_Layer: 0
+  m_Name: FP2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8518859838746532085
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6349283479440506471}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -85.3, y: 27.5, z: 179.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7829535463281451968}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1453688984745935492
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -72,31 +72,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4216859302048453862, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.0049794996
+      value: 0.0057573
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.0049794996
+      value: 0.0057573
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.0049794996
+      value: 0.0057573
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 72.985
+      value: 42.234
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1
+      value: 1.397
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.15049
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
       propertyPath: m_LocalRotation.x
@@ -104,11 +104,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7071068
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -116,7 +116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -126,55 +126,47 @@ PrefabInstance:
       propertyPath: m_Name
       value: Missile Launcher
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -539143978065796796, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9062288732201193283}
+      addedObject: {fileID: 5000910934543398844}
     - targetCorrespondingSourceObject: {fileID: -539143978065796796, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4894563247082766078}
+      addedObject: {fileID: 8518859838746532085}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7152441580586263602}
+      addedObject: {fileID: 1048179055303694508}
     - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3316652004911565286}
+      addedObject: {fileID: 377465712334703548}
     - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
       insertIndex: -1
-<<<<<<< Updated upstream:Assets/Prefebs/Guided/Missile Launcher.prefab
-      addedObject: {fileID: 1509469639124121656}
-=======
-      addedObject: {fileID: 517900274534360352}
+      addedObject: {fileID: 1298026037454400389}
     - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 577199272258924518}
+      addedObject: {fileID: 4013742159863071621}
     - targetCorrespondingSourceObject: {fileID: 5133913965574556032, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4166198013280699275}
+      addedObject: {fileID: 3463221806167441295}
     - targetCorrespondingSourceObject: {fileID: 2526872151483258434, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8638278903904336179}
->>>>>>> Stashed changes:Assets/Prefebs/Missile Launcher.prefab
+      addedObject: {fileID: 4184124835440138029}
   m_SourcePrefab: {fileID: 100100000, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
---- !u!1 &3576084761782522778 stripped
+--- !u!1 &3980560539575293126 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2526872151483258434, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
-  m_PrefabInstance: {fileID: 1347014932205438424}
+  m_PrefabInstance: {fileID: 1453688984745935492}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &8638278903904336179
+--- !u!65 &4184124835440138029
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3576084761782522778}
+  m_GameObject: {fileID: 3980560539575293126}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -187,20 +179,20 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 251.75653, y: 184.74376, z: 329.0903}
-  m_Center: {x: 0.75501657, y: 16.151876, z: 3.4671028}
---- !u!1 &6165108467720621144 stripped
+  m_Size: {x: 251.75647, y: 184.74377, z: 329.0902}
+  m_Center: {x: 0.7550163, y: 16.151909, z: 3.467102}
+--- !u!1 &5986367889774676740 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5133913965574556032, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
-  m_PrefabInstance: {fileID: 1347014932205438424}
+  m_PrefabInstance: {fileID: 1453688984745935492}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &4166198013280699275
+--- !u!65 &3463221806167441295
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6165108467720621144}
+  m_GameObject: {fileID: 5986367889774676740}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -213,58 +205,57 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 456.36868, y: 365.12863, z: 658.46454}
-  m_Center: {x: 0.0016784671, y: 127.06053, z: 89.33546}
---- !u!4 &6912083882676512865 stripped
+  m_Size: {x: 456.36856, y: 365.12866, z: 658.46436}
+  m_Center: {x: 0.0016784668, y: 127.06057, z: 89.335434}
+--- !u!4 &6445111999239843645 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5574657383665397177, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
-  m_PrefabInstance: {fileID: 1347014932205438424}
+  m_PrefabInstance: {fileID: 1453688984745935492}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7030228865390730449 stripped
+--- !u!1 &7425705141059279757 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
-  m_PrefabInstance: {fileID: 1347014932205438424}
+  m_PrefabInstance: {fileID: 1453688984745935492}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7152441580586263602
+--- !u!114 &1048179055303694508
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7030228865390730449}
+  m_GameObject: {fileID: 7425705141059279757}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a1ac43761813b74fbb316565c0bf8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuidedSystem
-  baseRange: 150
-  radarBonusRange: 50
+  baseRange: 250
   targetTag: Player
-  partToRotate: {fileID: 6912083882676512865}
-  barrelToRotate: {fileID: 7653055685790819484}
+  partToRotate: {fileID: 6445111999239843645}
+  barrelToRotate: {fileID: 7829535463281451968}
   turnSpeed: 10
   missilePrefab: {fileID: 8945380333128470582, guid: 59dd852105e574c4babdbe55ac36f151, type: 3}
   firePoints:
-  - {fileID: 9062288732201193283}
-  - {fileID: 4894563247082766078}
+  - {fileID: 5000910934543398844}
+  - {fileID: 8518859838746532085}
   fireRate: 4
   requiredLockTime: 3
-  audioSource: {fileID: 3316652004911565286}
-  fireSound: {fileID: 8300000, guid: c4f01b1c2911553449789b99c8e0c77a, type: 3}
---- !u!82 &3316652004911565286
+  audioSource: {fileID: 377465712334703548}
+  fireSound: {fileID: 8300000, guid: 5bec571a8b7bab6489306dcceaa9a82c, type: 3}
+--- !u!82 &377465712334703548
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7030228865390730449}
+  m_GameObject: {fileID: 7425705141059279757}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_PlayOnAwake: 1
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -348,33 +339,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-<<<<<<< Updated upstream:Assets/Prefebs/Guided/Missile Launcher.prefab
---- !u!114 &1509469639124121656
-=======
---- !u!114 &517900274534360352
->>>>>>> Stashed changes:Assets/Prefebs/Missile Launcher.prefab
+--- !u!114 &1298026037454400389
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7030228865390730449}
+  m_GameObject: {fileID: 7425705141059279757}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3835f9977ad1a9459462bcb23a338c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuidedHealth
   maxHealth: 100
-  explosionPrefab: {fileID: 0}
-<<<<<<< Updated upstream:Assets/Prefebs/Guided/Missile Launcher.prefab
-=======
---- !u!65 &577199272258924518
+  explosionPrefab: {fileID: 100010, guid: d609d5ebc845aca409f72e9c6a56dc60, type: 3}
+--- !u!65 &4013742159863071621
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7030228865390730449}
+  m_GameObject: {fileID: 7425705141059279757}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -387,11 +372,10 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 974.7916, y: 154.05833, z: 939.4215}
-  m_Center: {x: -6.805406, y: -29.381376, z: 4.001008}
->>>>>>> Stashed changes:Assets/Prefebs/Missile Launcher.prefab
---- !u!4 &7653055685790819484 stripped
+  m_Size: {x: 974.7914, y: 154.05835, z: 939.42126}
+  m_Center: {x: -6.8054047, y: -29.381378, z: 4.001007}
+--- !u!4 &7829535463281451968 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -539143978065796796, guid: a2e2dc37c1fdbdd419db3632766d70aa, type: 3}
-  m_PrefabInstance: {fileID: 1347014932205438424}
+  m_PrefabInstance: {fileID: 1453688984745935492}
   m_PrefabAsset: {fileID: 0}
