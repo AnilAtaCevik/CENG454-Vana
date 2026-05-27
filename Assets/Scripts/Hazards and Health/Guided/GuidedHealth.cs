@@ -2,38 +2,24 @@ using UnityEngine;
 
 public class GuidedHealth : MonoBehaviour, IDamageable
 {
-    [Header("Health Settings")]
-    [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private float maxHealth = 50f;
+    private float currentHealth;
+
+    [Header("Effects")]
     [SerializeField] private GameObject explosionPrefab;
 
-    private float currentHealth;
-    private bool isDead = false;
-
-    public float CurrentHealth => currentHealth;
-    public float MaxHealth => maxHealth;
-    public bool IsAlive => !isDead;
+    [Header("Loot Settings")]
+    [SerializeField] private GameObject fuelCanPrefab;
 
     private void Start()
     {
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damageAmount)
     {
-        ExecuteDamage(damage);
-    }
-
-    public void TakeDamage(float damage, GameObject attacker)
-    {
-        ExecuteDamage(damage);
-    }
-
-    private void ExecuteDamage(float damage)
-    {
-        if (isDead) return;
-
-        currentHealth -= damage;
-        currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
+        currentHealth -= damageAmount;
+        Debug.Log("Guided Launcher Health: " + currentHealth);
 
         if (currentHealth <= 0f)
         {
@@ -43,11 +29,14 @@ public class GuidedHealth : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        isDead = true;
-
         if (explosionPrefab != null)
         {
             Instantiate(explosionPrefab, transform.position, transform.rotation);
+        }
+
+        if (fuelCanPrefab != null)
+        {
+            Instantiate(fuelCanPrefab, transform.position, Quaternion.identity);
         }
 
         Destroy(gameObject);

@@ -353,6 +353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GuidedHealth
   maxHealth: 100
   explosionPrefab: {fileID: 100010, guid: d609d5ebc845aca409f72e9c6a56dc60, type: 3}
+  fuelCanPrefab: {fileID: 8480765971192770263, guid: 4b3d575113620f443990fb17a6c830ab, type: 3}
 --- !u!65 &4013742159863071621
 BoxCollider:
   m_ObjectHideFlags: 0

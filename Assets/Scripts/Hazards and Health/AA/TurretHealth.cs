@@ -8,6 +8,9 @@ public class TurretHealth : MonoBehaviour, IDamageable
     [Header("Effects")]
     [SerializeField] private GameObject explosionPrefab;
 
+    [Header("Loot Settings")]
+    [SerializeField] private GameObject fuelCanPrefab;
+
     private void Start()
     {
         currentHealth = maxHealth;
@@ -29,6 +32,11 @@ public class TurretHealth : MonoBehaviour, IDamageable
         if (explosionPrefab != null)
         {
             Instantiate(explosionPrefab, transform.position, transform.rotation);
+        }
+
+        if (fuelCanPrefab != null)
+        {
+            Instantiate(fuelCanPrefab, transform.position, Quaternion.identity); 
         }
 
         Destroy(gameObject);

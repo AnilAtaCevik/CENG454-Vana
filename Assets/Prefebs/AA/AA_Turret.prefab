@@ -513,6 +513,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TurretHealth
   maxHealth: 50
   explosionPrefab: {fileID: 100008, guid: 1ae4db7b36e51124b89d2b32303a7a0b, type: 3}
+  fuelCanPrefab: {fileID: 8480765971192770263, guid: 4b3d575113620f443990fb17a6c830ab, type: 3}
 --- !u!82 &-7667499693039314754
 AudioSource:
   m_ObjectHideFlags: 0
