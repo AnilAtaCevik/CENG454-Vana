@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 599806004647139994}
   - component: {fileID: 2389430431192495521}
   - component: {fileID: 2994601536779046035}
+  - component: {fileID: 9209212044257930116}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -387,6 +388,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeliHealth
   maxHealth: 100
+--- !u!114 &9209212044257930116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451020400778653224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3089beb0b98d9e541aeefb7684870399, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HelicopterCrashDetector
+  crashForceThreshold: 10
+  resetDelay: 1
+  explosionPrefab: {fileID: 100008, guid: 1dbc518224e49f34095aab42fe05751a, type: 3}
 --- !u!1 &710750654586869343
 GameObject:
   m_ObjectHideFlags: 0
