@@ -1,0 +1,194 @@
+fileFormatVersion: 2
+guid: 515196c2c229f3b47a7ee14c97b22231
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Hangar_Rounded_Facedoor_Frame
+    100002: Hangar_Rounded_Facedoor_Frame_Top
+    100004: Hangar_Rounded_Facewall
+    100006: Hangar_Rounded_Facewall_Base_Tile
+    100008: Hangar_Rounded_Facewall_Doors
+    100010: Hangar_Rounded_Support_Arc
+    100012: Hangar_Rounded_Support_Arc_Base_Tile
+    100014: Hangar_Rounded_Tile
+    100016: Hangar_Rounded_Tile_Base_Tile
+    100018: //RootNode
+    100020: Hangar_Rounded_Tile_Window
+    100022: Hangar_Rounded_Window_Glass
+    100024: Hangar_Rounded_Facewall_Door_1
+    100026: Hangar_Rounded_Facewall_Door_2
+    400000: Hangar_Rounded_Facedoor_Frame
+    400002: Hangar_Rounded_Facedoor_Frame_Top
+    400004: Hangar_Rounded_Facewall
+    400006: Hangar_Rounded_Facewall_Base_Tile
+    400008: Hangar_Rounded_Facewall_Doors
+    400010: Hangar_Rounded_Support_Arc
+    400012: Hangar_Rounded_Support_Arc_Base_Tile
+    400014: Hangar_Rounded_Tile
+    400016: Hangar_Rounded_Tile_Base_Tile
+    400018: //RootNode
+    400020: Hangar_Rounded_Tile_Window
+    400022: Hangar_Rounded_Window_Glass
+    400024: Hangar_Rounded_Facewall_Door_1
+    400026: Hangar_Rounded_Facewall_Door_2
+    2100000: Hangar_Arc_Parts
+    2100002: Hangar_Arc_Facewall
+    2100004: Hangar_Arc_Tile
+    2100006: Hangar_Rounded_Window_Glass
+    2100008: Hangar_Rounded_Facewall
+    2100010: Hangar_Rounded_Tile
+    2300000: Hangar_Rounded_Facedoor_Frame
+    2300002: Hangar_Rounded_Facedoor_Frame_Top
+    2300004: Hangar_Rounded_Facewall
+    2300006: Hangar_Rounded_Facewall_Base_Tile
+    2300008: Hangar_Rounded_Facewall_Doors
+    2300010: Hangar_Rounded_Support_Arc
+    2300012: Hangar_Rounded_Support_Arc_Base_Tile
+    2300014: Hangar_Rounded_Tile
+    2300016: Hangar_Rounded_Tile_Base_Tile
+    2300018: Hangar_Rounded_Tile_Window
+    2300020: Hangar_Rounded_Window_Glass
+    2300022: Hangar_Rounded_Facewall_Door_1
+    2300024: Hangar_Rounded_Facewall_Door_2
+    3300000: Hangar_Rounded_Facedoor_Frame
+    3300002: Hangar_Rounded_Facedoor_Frame_Top
+    3300004: Hangar_Rounded_Facewall
+    3300006: Hangar_Rounded_Facewall_Base_Tile
+    3300008: Hangar_Rounded_Facewall_Doors
+    3300010: Hangar_Rounded_Support_Arc
+    3300012: Hangar_Rounded_Support_Arc_Base_Tile
+    3300014: Hangar_Rounded_Tile
+    3300016: Hangar_Rounded_Tile_Base_Tile
+    3300018: Hangar_Rounded_Tile_Window
+    3300020: Hangar_Rounded_Window_Glass
+    3300022: Hangar_Rounded_Facewall_Door_1
+    3300024: Hangar_Rounded_Facewall_Door_2
+    4300000: Hangar_Rounded_Tile_Base_Tile
+    4300002: Hangar_Rounded_Facedoor_Frame_Top
+    4300004: Hangar_Rounded_Support_Arc
+    4300006: Hangar_Rounded_Support_Arc_Base_Tile
+    4300008: Hangar_Rounded_Facewall_Base_Tile
+    4300010: Hangar_Rounded_Facewall_Doors
+    4300012: Hangar_Rounded_Facewall
+    4300014: Hangar_Rounded_Facedoor_Frame
+    4300016: Hangar_Rounded_Tile
+    4300018: Hangar_Rounded_Window_Glass
+    4300020: Hangar_Rounded_Tile_Window
+    4300022: Hangar_Rounded_Facewall_Door_2
+    4300024: Hangar_Rounded_Facewall_Door_1
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hangar_Arc_Facewall
+    second: {fileID: 2100000, guid: 82ffbad5c908da448b60a1ac2d8d7314, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hangar_Arc_Parts
+    second: {fileID: 2100000, guid: 850a7aa545ead7c4bad7127b426d143e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hangar_Arc_Tile
+    second: {fileID: 2100000, guid: 21976880aec191d42aad9b6b084a5a75, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hangar_Rounded_Facewall
+    second: {fileID: 2100000, guid: 82ffbad5c908da448b60a1ac2d8d7314, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hangar_Rounded_Tile
+    second: {fileID: 2100000, guid: 21976880aec191d42aad9b6b084a5a75, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hangar_Rounded_Window_Glass
+    second: {fileID: 2100000, guid: f319e23a876b0644c98a00cc6fd2339f, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
