@@ -37,7 +37,9 @@ public class ObjectPool : MonoBehaviour
         }
 
         GameObject obj = pool.Dequeue();
+        obj.transform.SetParent(null);
         obj.SetActive(true);
+
 
         IPoolable poolable = obj.GetComponent<IPoolable>();
         poolable?.OnGetFromPool();

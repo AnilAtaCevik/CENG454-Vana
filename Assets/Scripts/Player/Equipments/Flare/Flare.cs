@@ -18,20 +18,25 @@ public class Flare : MonoBehaviour, IPoolable
     [SerializeField] private float destroySoundVolume = 1f;
 
     private ObjectPool ownerPool;
-
     private Vector3 moveDirection;
-
     private float lifeTimer;
     private bool isReturning;
 
-    public void Initialize(
-        Vector3 helicopterForward,
-        ObjectPool pool
-    )
+    public void Initialize(Vector3 helicopterMoveDirection, ObjectPool pool)
     {
-        moveDirection = helicopterForward.normalized;
-
         ownerPool = pool;
+
+        moveDirection = helicopterMoveDirection;
+        moveDirection.y = 0f;
+
+        if (moveDirection.sqrMagnitude > 0.01f)
+        {
+            moveDirection.Normalize();
+        }
+        else
+        {
+            moveDirection = Vector3.forward;
+        }
 
         lifeTimer = lifeTime;
         isReturning = false;
@@ -46,6 +51,7 @@ public class Flare : MonoBehaviour, IPoolable
     public void OnReturnToPool()
     {
         isReturning = true;
+        moveDirection = Vector3.zero;
     }
 
     void Update()
@@ -70,6 +76,9 @@ public class Flare : MonoBehaviour, IPoolable
 
     void OnTriggerEnter(Collider other)
     {
+        if (isReturning)
+            return;
+
         if (other.CompareTag(guidedMissileTag))
         {
             Vector3 hitPoint = other.transform.position;
