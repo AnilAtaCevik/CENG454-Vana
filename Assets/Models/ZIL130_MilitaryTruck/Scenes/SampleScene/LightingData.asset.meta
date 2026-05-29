@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f55541d94104d204599076ba2c272fac
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 112000000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 208991
+  packageName: ZIL 130 Military truck
+  packageVersion: 1.0
+  assetPath: Assets/ZIL130_MilitaryTruck/Scenes/SampleScene/LightingData.asset
+  uploadId: 469672

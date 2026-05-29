@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2827b35f027a5824ebcd66530c79a2e7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300601
+  packageName: KCISA - M4A3E8 Sherman
+  packageVersion: 1.0
+  assetPath: Assets/M4A3E8 Sherman/Materials/M_M4_Turret_In.mat
+  uploadId: 730158

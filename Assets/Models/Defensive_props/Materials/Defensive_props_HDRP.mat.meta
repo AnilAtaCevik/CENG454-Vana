@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 42e1b082c33bde747bc7971c47d52b27
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 321415
+  packageName: Military prop pack - Defense
+  packageVersion: 1.0
+  assetPath: Assets/Defensive_props/Materials/Defensive_props_HDRP.mat
+  uploadId: 759263
