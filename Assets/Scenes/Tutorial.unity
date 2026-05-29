@@ -44619,38 +44619,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Persisten
       objectReference: {fileID: 0}
-    - target: {fileID: 2530739297222039793, guid: 52aeca304ff86c04fae6181bce37b6a8, type: 3}
-      propertyPath: maxUpAngle
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 2530739297222039793, guid: 52aeca304ff86c04fae6181bce37b6a8, type: 3}
-      propertyPath: maxDownAngle
-      value: -45
-      objectReference: {fileID: 0}
-    - target: {fileID: 3945393104670697279, guid: 52aeca304ff86c04fae6181bce37b6a8, type: 3}
-      propertyPath: m_ClearFlags
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4477218863952178740, guid: 52aeca304ff86c04fae6181bce37b6a8, type: 3}
-      propertyPath: m_Range
-      value: 132.90126
-      objectReference: {fileID: 0}
-    - target: {fileID: 4477218863952178740, guid: 52aeca304ff86c04fae6181bce37b6a8, type: 3}
-      propertyPath: m_Intensity
-      value: 1200
-      objectReference: {fileID: 0}
-    - target: {fileID: 4477218863952178740, guid: 52aeca304ff86c04fae6181bce37b6a8, type: 3}
-      propertyPath: m_SpotAngle
-      value: 134
-      objectReference: {fileID: 0}
-    - target: {fileID: 4477218863952178740, guid: 52aeca304ff86c04fae6181bce37b6a8, type: 3}
-      propertyPath: m_InnerSpotAngle
-      value: 112
-      objectReference: {fileID: 0}
-    - target: {fileID: 4477218863952178740, guid: 52aeca304ff86c04fae6181bce37b6a8, type: 3}
-      propertyPath: m_BounceIntensity
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7545804733384562290, guid: 52aeca304ff86c04fae6181bce37b6a8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 88.359024
@@ -44690,10 +44658,6 @@ PrefabInstance:
     - target: {fileID: 7545804733384562290, guid: 52aeca304ff86c04fae6181bce37b6a8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7901585322597402281, guid: 52aeca304ff86c04fae6181bce37b6a8, type: 3}
-      propertyPath: m_Antialiasing
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
