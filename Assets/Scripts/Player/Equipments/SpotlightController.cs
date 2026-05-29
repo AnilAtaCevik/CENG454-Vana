@@ -63,7 +63,7 @@ public class SpotlightController : MonoBehaviour
 
         Vector2 mousePosition = Mouse.current.position.ReadValue();
 
-        float normalizedMouseY = mousePosition.y / Screen.height;
+        float normalizedMouseY = 1f - (mousePosition.y / Screen.height);
 
         float targetAngle = Mathf.Lerp(
             maxDownAngle,
