@@ -9745,7 +9745,7 @@ GameObject:
   - component: {fileID: 270207430075396432}
   m_Layer: 0
   m_Name: Missile
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9929,7 +9929,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Missile
   speed: 40
   lifeTime: 5
-  explosionVfx: {fileID: 7738673178121229186, guid: ba41732d14a642f499e0812e51b608b4, type: 3}
   explosionRadius: 10
   damage: 50
   launchBurstVfx: {fileID: 5684934537910647128}

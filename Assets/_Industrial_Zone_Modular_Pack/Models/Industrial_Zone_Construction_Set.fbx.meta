@@ -1,0 +1,220 @@
+fileFormatVersion: 2
+guid: d7c4411e64fc84040bd09a8445855301
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Plane.006
+    100004: Plane.007
+    100006: Plane.008
+    100008: Plane.015
+    100010: Plane.041
+    100012: Plane.042
+    100014: Plane.051
+    100016: Plane.053
+    100018: Plane.082
+    100020: Construction_Set_Column_Armature
+    100022: Construction_Set_Column_Small
+    100024: Construction_Set_Column_Tall
+    100026: Construction_Set_Column_Thin
+    100028: Construction_Set_Girder
+    100030: Construction_Set_Ramp
+    100032: Construction_Set_Slab
+    100034: Construction_Set_Wall
+    100036: Construction_Set_Wall_Side
+    100038: Construction_Set_Wall_Wider
+    100040: Construction_Set_Column
+    100042: Construction_Set_Column_T_Top
+    100044: Construction_Set_Slab_Ground
+    100046: Construction_Set_Slab_Terras
+    400000: //RootNode
+    400002: Plane.006
+    400004: Plane.007
+    400006: Plane.008
+    400008: Plane.015
+    400010: Plane.041
+    400012: Plane.042
+    400014: Plane.051
+    400016: Plane.053
+    400018: Plane.082
+    400020: Construction_Set_Column_Armature
+    400022: Construction_Set_Column_Small
+    400024: Construction_Set_Column_Tall
+    400026: Construction_Set_Column_Thin
+    400028: Construction_Set_Girder
+    400030: Construction_Set_Ramp
+    400032: Construction_Set_Slab
+    400034: Construction_Set_Wall
+    400036: Construction_Set_Wall_Side
+    400038: Construction_Set_Wall_Wider
+    400040: Construction_Set_Column
+    400042: Construction_Set_Column_T_Top
+    400044: Construction_Set_Slab_Ground
+    400046: Construction_Set_Slab_Terras
+    2100000: Construction_Parts
+    2100002: Ground
+    2300000: Plane.006
+    2300002: Plane.007
+    2300004: Plane.008
+    2300006: Plane.015
+    2300008: Plane.041
+    2300010: Plane.042
+    2300012: Plane.051
+    2300014: Plane.053
+    2300016: Plane.082
+    2300018: Construction_Set_Column_Armature
+    2300020: Construction_Set_Column_Small
+    2300022: Construction_Set_Column_Tall
+    2300024: Construction_Set_Column_Thin
+    2300026: Construction_Set_Girder
+    2300028: Construction_Set_Ramp
+    2300030: Construction_Set_Slab
+    2300032: Construction_Set_Wall
+    2300034: Construction_Set_Wall_Side
+    2300036: Construction_Set_Wall_Wider
+    2300038: Construction_Set_Column
+    2300040: Construction_Set_Column_T_Top
+    2300042: Construction_Set_Slab_Ground
+    2300044: Construction_Set_Slab_Terras
+    3300000: Plane.006
+    3300002: Plane.007
+    3300004: Plane.008
+    3300006: Plane.015
+    3300008: Plane.041
+    3300010: Plane.042
+    3300012: Plane.051
+    3300014: Plane.053
+    3300016: Plane.082
+    3300018: Construction_Set_Column_Armature
+    3300020: Construction_Set_Column_Small
+    3300022: Construction_Set_Column_Tall
+    3300024: Construction_Set_Column_Thin
+    3300026: Construction_Set_Girder
+    3300028: Construction_Set_Ramp
+    3300030: Construction_Set_Slab
+    3300032: Construction_Set_Wall
+    3300034: Construction_Set_Wall_Side
+    3300036: Construction_Set_Wall_Wider
+    3300038: Construction_Set_Column
+    3300040: Construction_Set_Column_T_Top
+    3300042: Construction_Set_Slab_Ground
+    3300044: Construction_Set_Slab_Terras
+    4300000: Plane.006
+    4300002: Plane.008
+    4300004: Plane.007
+    4300006: Plane.041
+    4300008: Plane.015
+    4300010: Plane.042
+    4300012: Plane.053
+    4300014: Plane.082
+    4300016: Plane.051
+    4300018: Construction_Set_Column_Armature
+    4300020: Construction_Set_Slab
+    4300022: Construction_Set_Girder
+    4300024: Construction_Set_Column_Small
+    4300026: Construction_Set_Wall_Side
+    4300028: Construction_Set_Column_Tall
+    4300030: Construction_Set_Wall
+    4300032: Construction_Set_Column_Thin
+    4300034: Construction_Set_Ramp
+    4300036: Construction_Set_Wall_Wider
+    4300038: Construction_Set_Slab_Terras
+    4300040: Construction_Set_Column
+    4300042: Construction_Set_Column_T_Top
+    4300044: Construction_Set_Slab_Ground
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Construction_Parts
+    second: {fileID: 2100000, guid: 8aaa590513f2f0441b8697bf30e41dfa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ground
+    second: {fileID: 2100000, guid: b3a75b0cd67f4fd4abca5e0d2bdd40d4, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

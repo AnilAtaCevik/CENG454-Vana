@@ -1,0 +1,177 @@
+fileFormatVersion: 2
+guid: 4ef7cc5b5cfbbc243b30e1f0527e4ea7
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Building_Small_Factory_Ceiling_Tile
+    100002: Building_Small_Factory_Entrance
+    100004: Building_Small_Factory_Wall_Tile
+    100006: Building_Small_Factory_Wall_Top_1
+    100008: Building_Small_Factory_Wall_Top_2
+    100010: Building_Small_Factory_Wall_Windows_Small
+    100012: Building_Small_Factory_Wall_Windows_Small_Hole
+    100014: //RootNode
+    100016: Factory_Door_1
+    100018: Factory_Door_2
+    100020: Factory_Wall_Tile
+    100022: Cube.001
+    100024: Factory_Small_Door
+    100026: Factory_Small_El_Props
+    100028: Building_Small_Factory_Wall_Windows_Tall
+    400000: Building_Small_Factory_Ceiling_Tile
+    400002: Building_Small_Factory_Entrance
+    400004: Building_Small_Factory_Wall_Tile
+    400006: Building_Small_Factory_Wall_Top_1
+    400008: Building_Small_Factory_Wall_Top_2
+    400010: Building_Small_Factory_Wall_Windows_Small
+    400012: Building_Small_Factory_Wall_Windows_Small_Hole
+    400014: //RootNode
+    400016: Factory_Door_1
+    400018: Factory_Door_2
+    400020: Factory_Wall_Tile
+    400022: Cube.001
+    400024: Factory_Small_Door
+    400026: Factory_Small_El_Props
+    400028: Building_Small_Factory_Wall_Windows_Tall
+    2100000: Building_Small_Factory
+    2100002: Building_Small_Factory_Entrance
+    2100004: No Name
+    2100006: Hangar_Wooden_Small_Room
+    2300000: Building_Small_Factory_Ceiling_Tile
+    2300002: Building_Small_Factory_Entrance
+    2300004: Building_Small_Factory_Wall_Tile
+    2300006: Building_Small_Factory_Wall_Top_1
+    2300008: Building_Small_Factory_Wall_Top_2
+    2300010: Building_Small_Factory_Wall_Windows_Small
+    2300012: Building_Small_Factory_Wall_Windows_Small_Hole
+    2300014: Factory_Door_1
+    2300016: Factory_Door_2
+    2300018: Factory_Wall_Tile
+    2300020: Cube.001
+    2300022: Factory_Small_Door
+    2300024: Factory_Small_El_Props
+    2300026: Building_Small_Factory_Wall_Windows_Tall
+    3300000: Building_Small_Factory_Ceiling_Tile
+    3300002: Building_Small_Factory_Entrance
+    3300004: Building_Small_Factory_Wall_Tile
+    3300006: Building_Small_Factory_Wall_Top_1
+    3300008: Building_Small_Factory_Wall_Top_2
+    3300010: Building_Small_Factory_Wall_Windows_Small
+    3300012: Building_Small_Factory_Wall_Windows_Small_Hole
+    3300014: Factory_Door_1
+    3300016: Factory_Door_2
+    3300018: Factory_Wall_Tile
+    3300020: Cube.001
+    3300022: Factory_Small_Door
+    3300024: Factory_Small_El_Props
+    3300026: Building_Small_Factory_Wall_Windows_Tall
+    4300000: Building_Small_Factory_Wall_Windows_Small
+    4300002: Building_Small_Factory_Wall_Windows_Small_Hole
+    4300004: Building_Small_Factory_Wall_Top_2
+    4300006: Building_Small_Factory_Wall_Top_1
+    4300008: Building_Small_Factory_Ceiling_Tile
+    4300010: Building_Small_Factory_Entrance
+    4300012: Building_Small_Factory_Wall_Tile
+    4300014: Factory_Door_2
+    4300016: Factory_Wall_Tile
+    4300018: Factory_Door_1
+    4300020: Factory_Small_El_Props
+    4300022: Cube.001
+    4300024: Factory_Small_Door
+    4300026: Building_Small_Factory_Wall_Windows_Tall
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Building_Small_Factory
+    second: {fileID: 2100000, guid: 198649f04584a9c4ea1f6bce9443bb2f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Building_Small_Factory_Entrance
+    second: {fileID: 2100000, guid: 450c4918cae994c4fa74e3a213fdb741, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
