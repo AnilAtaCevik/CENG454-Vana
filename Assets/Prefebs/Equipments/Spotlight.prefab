@@ -76,10 +76,10 @@ Light:
   serializedVersion: 12
   m_Type: 0
   m_Color: {r: 0.78113204, g: 0.78113204, b: 0.78113204, a: 1}
-  m_Intensity: 750
+  m_Intensity: 1200
   m_Range: 25
-  m_SpotAngle: 44.943737
-  m_InnerSpotAngle: 27.447084
+  m_SpotAngle: 134
+  m_InnerSpotAngle: 112
   m_CookieSize2D: {x: 0.5, y: 0.5}
   m_Shadows:
     m_Type: 0
@@ -306,7 +306,7 @@ MonoBehaviour:
   spotlightPivot: {fileID: 6421209555065498850}
   rotationSpeed: 5
   maxUpAngle: 90
-  maxDownAngle: -90
+  maxDownAngle: -45
   audioSource: {fileID: 7616444992192685941}
   turnOnClip: {fileID: 8300000, guid: 61ff59ed04f572c49b01efb51ee534f2, type: 3}
   turnOffClip: {fileID: 8300000, guid: 15fa250d958c5114d91598fc52021ecd, type: 3}

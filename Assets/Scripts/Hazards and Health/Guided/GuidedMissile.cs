@@ -4,6 +4,9 @@ using System.Collections;
 
 public class GuidedMissile : MonoBehaviour
 {
+    
+    
+    [SerializeField] private GameObject explosionVfxPrefab;
     [SerializeField] private float speed = 15f;
     [SerializeField] private float damage = 25f;
     [SerializeField] private AudioClip normalHitSound;
@@ -92,38 +95,28 @@ public class GuidedMissile : MonoBehaviour
 
     private void Explode(bool fatalBlow)
     {
-        ObjectPool[] pools = FindObjectsByType<ObjectPool>(FindObjectsSortMode.None);
-        
-        foreach (var pool in pools)
+        if (explosionVfxPrefab != null)
         {
-            if (pool.gameObject.name.Contains("Missile") || pool.gameObject.name.Contains("Rocket"))
-            {
-                continue;
-            }
+            Instantiate(
+                explosionVfxPrefab,
+                transform.position,
+                Quaternion.identity
+            );
+        }
 
-            GameObject pooledObj = pool.Get();
-            if (pooledObj != null)
-            {
-                pooledObj.transform.position = transform.position;
-                pooledObj.transform.rotation = Quaternion.identity;
+        AudioClip soundToPlay = fatalBlow ? fatalDeathSound : normalHitSound;
+        float volumeToApply = fatalBlow ? fatalDeathVolume : normalHitVolume;
 
-                AudioSource audio = pooledObj.GetComponent<AudioSource>();
-                if (audio != null)
-                {
-                    AudioClip soundToPlay = fatalBlow ? fatalDeathSound : normalHitSound;
-                    float volumeToApply = fatalBlow ? fatalDeathVolume : normalHitVolume;
-
-                    if (soundToPlay != null)
-                    {
-                        audio.clip = soundToPlay;
-                        audio.volume = volumeToApply;
-                        audio.spatialBlend = 0f;
-                        audio.Play();
-                    }
-                }
-            }
+        if (soundToPlay != null)
+        {
+            AudioSource.PlayClipAtPoint(
+                soundToPlay,
+                transform.position,
+                volumeToApply
+            );
         }
     }
+    
 
     private IEnumerator FatalExplosionCoroutine()
     {
