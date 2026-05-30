@@ -24,6 +24,8 @@ public class Movement : MonoBehaviour
     public float serviceCeiling = 50f;
     public float absoluteCeiling = 100f;
     public float altitudeSoftness = 3f;
+    public float maxClimbSpeed = 12f;
+    public float verticalDrag = 2.5f;   
 
     public float targetZ;
     public float targetY;
