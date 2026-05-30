@@ -25,7 +25,7 @@ public abstract class LandingZone : MonoBehaviour, IInteractable
 
     //IInteractable 
     public float InteractionDuration => landingDuration;
-    public bool IsAvailable => !(oneTimeUse && State == LandingZoneState.Completed);
+    public virtual bool IsAvailable => !(oneTimeUse && State == LandingZoneState.Completed);
 
     public virtual void OnInteractionStart(GameObject interactor)
     {

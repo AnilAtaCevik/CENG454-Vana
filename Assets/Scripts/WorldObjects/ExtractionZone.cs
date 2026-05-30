@@ -1,26 +1,27 @@
 using UnityEngine;
 
 /// <summary>
-/// Landing platform that completes the mission after the helicopter lands
-/// and remains for the decided duration. One-time use.
+/// Landing zone for picking up passengers. Helicopter lands for 5 seconds,
+/// passengers board, objective completes. Sets PassengerState so DropoffZone
+/// becomes available.
 /// </summary>
-public class ExtractionZone : LandingZone
+public class ExtractionZone : LandingZone, IInteractable
 {
-    [Header("Extraction")]
-    [Tooltip("Objective text logged when extraction completes")]
-    [SerializeField] private string extractionObjective = "Reach the extraction zone";
+    [Header("Pickup Settings")]
+    [SerializeField] private string pickupObjective = "Pick up passengers";
 
     void Awake()
     {
-        interactionLabel = "EXTRACTING...";
+        interactionLabel = "PICKING UP...";
         oneTimeUse = true;
+        PassengerState.IsCarryingPassengers = false;
     }
 
     protected override void OnLandingComplete()
     {
-        Debug.Log("[ExtractionZone] Extraction complete!");
-        GameEvents.RaiseObjectiveCompleted(extractionObjective);
-        GameEvents.RaiseFeedback("MISSION COMPLETE", FeedbackSeverity.Info);
-        GameEvents.RaiseMissionCompleted();
+        Debug.Log("[ExtractionZone] Passengers picked up!");
+        PassengerState.IsCarryingPassengers = true;
+        GameEvents.RaiseObjectiveCompleted(pickupObjective);
+        GameEvents.RaiseFeedback("PASSENGERS ABOARD", FeedbackSeverity.Info);
     }
 }
