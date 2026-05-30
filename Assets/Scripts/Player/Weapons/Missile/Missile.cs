@@ -158,6 +158,9 @@ public class Missile : MonoBehaviour, IPoolable
 
         foreach (Collider hit in hitColliders)
         {
+            if (hit.CompareTag("Player") || hit.GetComponentInParent<Movement>() != null)
+                continue;
+
             IDamageable damageable = FindDamageable(hit);
 
             if (damageable != null)

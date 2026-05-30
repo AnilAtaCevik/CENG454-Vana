@@ -10,7 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100002, guid: ac5bfd90b98bf4742a63356be587c67c, type: 3}
       propertyPath: m_Name
-      value: Water_Barricade_lod0
+      value: Barricade2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: ac5bfd90b98bf4742a63356be587c67c, type: 3}
+      propertyPath: m_TagString
+      value: MovingObstacle
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: ac5bfd90b98bf4742a63356be587c67c, type: 3}
       propertyPath: m_LocalScale.x

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 241092311266837855}
   - component: {fileID: 7588426984184162531}
   - component: {fileID: 5447042987639399724}
-  - component: {fileID: 5137687729739894271}
+  - component: {fileID: 5349697768447351920}
   m_Layer: 0
   m_Name: Swivel
   m_TagString: Untagged
@@ -92,8 +92,8 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5137687729739894271
-MeshCollider:
+--- !u!65 &5349697768447351920
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -110,10 +110,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300002, guid: f16e897509d6fa64bb33fa7e0e5bff68, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 8.797224, y: 4.952135, z: 5.729817}
+  m_Center: {x: -0.001464367, y: 0.57627565, z: -0.034925707}
 --- !u!1 &1777201686342207199
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,6 +300,7 @@ GameObject:
   - component: {fileID: 5307727679559469199}
   - component: {fileID: 8699622694600174189}
   - component: {fileID: 614651061485547149}
+  - component: {fileID: 1461184340242894314}
   m_Layer: 0
   m_Name: MGMain
   m_TagString: Untagged
@@ -402,6 +402,27 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300004, guid: f16e897509d6fa64bb33fa7e0e5bff68, type: 3}
+--- !u!65 &1461184340242894314
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8533455120677789793}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 13.442608, y: 16.040237, z: 46.942043}
+  m_Center: {x: 3.9400785e-13, y: 6.776194, z: 4.274168}
 --- !u!1 &8620020716020421366
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,7 +469,7 @@ GameObject:
   - component: {fileID: 8184626173368971282}
   - component: {fileID: 3629320219996359006}
   - component: {fileID: -7667499693039314754}
-  - component: {fileID: 8677517146457728553}
+  - component: {fileID: 6252497494954976737}
   m_Layer: 0
   m_Name: AA_Turret
   m_TagString: Enemy
@@ -466,7 +487,11 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 60, y: 0, z: 0}
+<<<<<<< Updated upstream
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+=======
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
+>>>>>>> Stashed changes
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1481234943196905718}
@@ -511,7 +536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1141bee0aac10424b82b0c11a96d23e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretHealth
-  maxHealth: 50
+  maxHealth: 120
   explosionPrefab: {fileID: 100008, guid: 1ae4db7b36e51124b89d2b32303a7a0b, type: 3}
   fuelCanPrefab: {fileID: 8480765971192770263, guid: 4b3d575113620f443990fb17a6c830ab, type: 3}
 --- !u!82 &-7667499693039314754
@@ -611,8 +636,8 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!64 &8677517146457728553
-MeshCollider:
+--- !u!65 &6252497494954976737
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -629,7 +654,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

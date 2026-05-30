@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barricade
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 684ff352d23ac034dbc63dd89b0cc81d, type: 3}
+      propertyPath: m_TagString
+      value: MovingObstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 684ff352d23ac034dbc63dd89b0cc81d, type: 3}
       propertyPath: m_LocalScale.x
       value: 15

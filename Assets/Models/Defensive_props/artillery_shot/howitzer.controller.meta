@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 082d7d5e1b01fa34186cbbb970ed4473
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 321415
+  packageName: Military prop pack - Defense
+  packageVersion: 1.0
+  assetPath: Assets/Defensive_props/artillery_shot/howitzer.controller
+  uploadId: 759263
