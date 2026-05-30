@@ -892,6 +892,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HighValueTarget
       objectReference: {fileID: 0}
+    - target: {fileID: 9209212044257930116, guid: c2159beb6c7e8da4eb4f56699e0fb01a, type: 3}
+      propertyPath: upperCrashThreshold
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -55,8 +55,12 @@ public class AASystem : MonoBehaviour
         {
             if (fireCountdown <= 0f)
             {
-                Fire();
-                fireCountdown = fireRate;
+                float distanceToPlayer = Vector3.Distance(transform.position, target.position);
+                if (HasClearLineOfSight(distanceToPlayer))
+                {
+                    Fire();
+                    fireCountdown = fireRate;
+                }
             }
         }
 
@@ -116,6 +120,24 @@ public class AASystem : MonoBehaviour
             Quaternion targetLocalRotation = Quaternion.Euler(-angleX, 0f, 0f);
             barrelToRotate.localRotation = Quaternion.Slerp(barrelToRotate.localRotation, targetLocalRotation, Time.deltaTime * turnSpeed);
         }
+    }
+
+    private bool HasClearLineOfSight(float distanceToPlayer)
+    {
+        if (firePoints.Length == 0) return false;
+
+        Transform currentFP = firePoints[currentFirePointIndex];
+        Vector3 directionToPlayer = (target.position - currentFP.position).normalized;
+        RaycastHit hit;
+
+        if (Physics.Raycast(currentFP.position, directionToPlayer, out hit, distanceToPlayer))
+        {
+            if (hit.collider.CompareTag(targetTag))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void Fire()

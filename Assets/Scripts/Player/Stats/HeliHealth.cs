@@ -38,6 +38,12 @@ public class HeliHealth : MonoBehaviour, IDamageable
         TakeDamageWithResult(damageAmount);
     }
 
+    public void Heal(float amount)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0f, maxHealth);
+        GameEvents.RaiseHealthChanged(currentHealth, maxHealth);
+    }
+
     private void Die()
     {
         GameEvents.RaiseHelicopterDestroyed();

@@ -9,6 +9,7 @@ TagManager:
   - FxTemporaire
   - Radar
   - GuidedMissile
+  - MovingObstacle
   layers:
   - Default
   - TransparentFX

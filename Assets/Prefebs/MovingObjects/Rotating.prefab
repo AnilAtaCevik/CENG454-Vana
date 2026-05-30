@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rotating
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: f90483c6d6a0b924c8fd77ee2bb8d5db, type: 3}
+      propertyPath: m_TagString
+      value: MovingObstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: f90483c6d6a0b924c8fd77ee2bb8d5db, type: 3}
       propertyPath: m_LocalScale.x
       value: 30

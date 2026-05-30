@@ -4,31 +4,69 @@ using System.Collections;
 
 public class HelicopterCrashDetector : MonoBehaviour
 {
-    [Header("Crash Settings")]
-    [SerializeField] private float crashForceThreshold = 10f;
-    [SerializeField] private float resetDelay = 1.5f;
+    [Header("Lower Part Settings (Zirhli)")]
+    [SerializeField] private float lowerSpeedThreshold = 12f;
+    [SerializeField] private float lowerFixedDamage = 20f;
 
-    [Header("Effects")]
+    [Header("Upper Part Settings (Hassas)")]
+    [SerializeField] private float upperSpeedThreshold = 6f;
+    [SerializeField] private float upperFixedDamage = 40f;
+
+    [Header("General Settings")]
+    [SerializeField] private float resetDelay = 1.5f;
     [SerializeField] private GameObject explosionPrefab;
 
-    private bool hasCrashed = false;
+    private bool isDead = false;
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (hasCrashed) return;
+        if (isDead) return;
 
-        float impactForce = collision.relativeVelocity.magnitude;
-        Debug.Log("Carpma Siddeti: " + impactForce);
-
-        if (impactForce >= crashForceThreshold)
+        if (collision.collider.CompareTag("MovingObstacle"))
         {
-            StartCoroutine(CrashRoutine());
+            TriggerDeathEffects();
+            return;
+        }
+
+        float impactMagnitude = collision.relativeVelocity.magnitude;
+        Debug.Log("Carpma Siddeti: " + impactMagnitude);
+
+        Vector3 contactPoint = transform.InverseTransformPoint(collision.contacts[0].point);
+
+        if (contactPoint.y > 0)
+        {
+            if (impactMagnitude >= upperSpeedThreshold)
+            {
+                ApplyFixedDamage(upperFixedDamage);
+            }
+        }
+        else
+        {
+            if (impactMagnitude >= lowerSpeedThreshold)
+            {
+                ApplyFixedDamage(lowerFixedDamage);
+            }
         }
     }
 
-    private IEnumerator CrashRoutine()
+    private void ApplyFixedDamage(float damageAmount)
     {
-        hasCrashed = true;
+        HeliHealth healthScript = GetComponent<HeliHealth>();
+        
+        if (healthScript != null)
+        {
+            bool deathToggled = healthScript.TakeDamageWithResult(damageAmount);
+
+            if (deathToggled)
+            {
+                TriggerDeathEffects();
+            }
+        }
+    }
+
+    private void TriggerDeathEffects()
+    {
+        isDead = true;
 
         if (explosionPrefab != null)
         {
@@ -47,8 +85,12 @@ public class HelicopterCrashDetector : MonoBehaviour
             rb.isKinematic = true;
         }
 
-        yield return new WaitForSeconds(resetDelay);
+        StartCoroutine(ResetSceneRoutine());
+    }
 
+    private IEnumerator ResetSceneRoutine()
+    {
+        yield return new WaitForSeconds(resetDelay);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
