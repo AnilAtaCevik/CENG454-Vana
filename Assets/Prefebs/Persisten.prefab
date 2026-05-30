@@ -323,6 +323,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1062178111053094977, guid: c2159beb6c7e8da4eb4f56699e0fb01a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4041703093760727141, guid: c2159beb6c7e8da4eb4f56699e0fb01a, type: 3}
+      propertyPath: verticalDrag
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4041703093760727141, guid: c2159beb6c7e8da4eb4f56699e0fb01a, type: 3}
+      propertyPath: maxClimbSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4081117911118962009, guid: c2159beb6c7e8da4eb4f56699e0fb01a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6746455046012859693, guid: c2159beb6c7e8da4eb4f56699e0fb01a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6977142689278101115, guid: c2159beb6c7e8da4eb4f56699e0fb01a, type: 3}
       propertyPath: m_Range
       value: 132.90126
