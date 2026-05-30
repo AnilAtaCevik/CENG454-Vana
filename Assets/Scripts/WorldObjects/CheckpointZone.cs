@@ -41,6 +41,7 @@ public class CheckpointZone : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log($"TRIGGER HIT BY: {other.gameObject.name} tag: {other.tag}");
         if (_activated) return;
         if (!other.CompareTag("Player")) return;
 
