@@ -8,6 +8,9 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] private int initialSize = 50;
     [SerializeField] private bool canExpand = true;
 
+    [Header("Hierarchy")]
+    [SerializeField] private bool detachOnGet = false;
+
     private readonly Queue<GameObject> pool = new Queue<GameObject>();
 
     void Awake()
@@ -37,7 +40,16 @@ public class ObjectPool : MonoBehaviour
         }
 
         GameObject obj = pool.Dequeue();
-        obj.transform.SetParent(null);
+
+        if (detachOnGet)
+        {
+            obj.transform.SetParent(null, true);
+        }
+        else
+        {
+            obj.transform.SetParent(transform, true);
+        }
+
         obj.SetActive(true);
 
 

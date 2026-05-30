@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 9041894930739797468}
   - component: {fileID: 3428757613949171205}
   - component: {fileID: 1701046215291237335}
+  - component: {fileID: -6587248495462753613}
   m_Layer: 0
-  m_Name: ImpactVFX
+  m_Name: EnemyImpactVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4840,7 +4841,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 45945aa408901394fb1280f387aa1496, type: 2}
+  - {fileID: 2100000, guid: 85f6c551e4ec11b45a27a1d4ae53d683, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4894,3 +4895,16 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
+--- !u!114 &-6587248495462753613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5201257616203910659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ce996280435ad041ac620df82bc7c0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PooledAutoReturn
+  returnDelay: 1

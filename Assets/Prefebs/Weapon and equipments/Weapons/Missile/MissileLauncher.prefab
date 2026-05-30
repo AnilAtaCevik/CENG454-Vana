@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6920229217783999542}
-  - component: {fileID: 6216811783844443826}
   - component: {fileID: 3970466103274642923}
+  - component: {fileID: 6216811783844443826}
   m_Layer: 0
   m_Name: MissileSpawner
   m_TagString: Untagged
@@ -33,27 +33,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1918768528708525811}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6216811783844443826
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3466796060394692771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22bd9a37be4357e41ae066ed16cd44f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MissileLauncher
-  missilePrefab: {fileID: 3550910927872905773, guid: c97a0eaf02bf2cc4c8e926f7fe3c47ae, type: 3}
-  firePoints:
-  - {fileID: 4023027062104440963}
-  - {fileID: 5166173592137346863}
-  aimLine: {fileID: 3970466103274642923}
-  maxAimTime: 3
-  aimDistance: 100
-  fireCooldown: 1.5
-  maxAmmo: 6
 --- !u!120 &3970466103274642923
 LineRenderer:
   serializedVersion: 3
@@ -164,6 +143,30 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &6216811783844443826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3466796060394692771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22bd9a37be4357e41ae066ed16cd44f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MissileLauncher
+  firePoints:
+  - {fileID: 4023027062104440963}
+  - {fileID: 5166173592137346863}
+  aimLine: {fileID: 3970466103274642923}
+  maxAimTime: 3
+  aimDistance: 100
+  fireCooldown: 1.5
+  maxAmmo: 6
+  delayBetweenMissiles: 0.15
+  missilePool: {fileID: 0}
+  missileExplosionVfxPool: {fileID: 0}
+  missileLaunchAudioPool: {fileID: 0}
 --- !u!1 &4496808178847457222
 GameObject:
   m_ObjectHideFlags: 0
