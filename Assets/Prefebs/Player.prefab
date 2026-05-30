@@ -1008,6 +1008,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7886476253462595585}
     m_Modifications:
+    - target: {fileID: 2198244750677285328, guid: 2cabf4ed3a87956438b726a6cff6d665, type: 3}
+      propertyPath: m_Name
+      value: Pool_Bullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 2381510602309896013, guid: 2cabf4ed3a87956438b726a6cff6d665, type: 3}
+      propertyPath: detachOnGet
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2672071350921368879, guid: 2cabf4ed3a87956438b726a6cff6d665, type: 3}
       propertyPath: m_Name
       value: WeaponAndEquipmentPools
@@ -1115,6 +1123,17 @@ MonoBehaviour:
 --- !u!114 &7035229920167424380 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5267714323492124164, guid: 2cabf4ed3a87956438b726a6cff6d665, type: 3}
+  m_PrefabInstance: {fileID: 2934242569455617912}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fb344130d090c04f8de6b581165922e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
+--- !u!114 &7381604168932103073 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5676857646641501401, guid: 2cabf4ed3a87956438b726a6cff6d665, type: 3}
   m_PrefabInstance: {fileID: 2934242569455617912}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -1419,6 +1438,10 @@ PrefabInstance:
       propertyPath: missilePool
       value: 
       objectReference: {fileID: 3100351964485374610}
+    - target: {fileID: 6216811783844443826, guid: a91b9b1c41b50d749a77cb44fe892beb, type: 3}
+      propertyPath: missileLaunchAudioPool
+      value: 
+      objectReference: {fileID: 7381604168932103073}
     - target: {fileID: 6216811783844443826, guid: a91b9b1c41b50d749a77cb44fe892beb, type: 3}
       propertyPath: missileExplosionVfxPool
       value: 
