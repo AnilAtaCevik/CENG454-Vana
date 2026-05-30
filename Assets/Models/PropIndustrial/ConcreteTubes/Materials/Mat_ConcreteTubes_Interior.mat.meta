@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c9dc501992311a548ae026990ef806cf
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 171071
+  packageName: Industrial Models
+  packageVersion: 1.0
+  assetPath: Assets/FreeIndustrialModels/ConcreteTubes/Materials/Mat_ConcreteTubes_Interior.mat
+  uploadId: 376068
