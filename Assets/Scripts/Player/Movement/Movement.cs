@@ -79,6 +79,11 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (rb.isKinematic)
+        {
+            Debug.LogWarning("Helikopter şu an Kinematic oldu! Inspector'dan veya başka bir scriptten müdahale ediliyor.", this.gameObject);
+        }
+        
         targetZ = 0f;
         float currentHeight = transform.position.y;
         
@@ -93,6 +98,8 @@ public class Movement : MonoBehaviour
         targetZ = Mathf.Clamp(targetZ, -maxTiltAngle, maxTiltAngle);
         Quaternion targetRotation = Quaternion.Euler(0f, targetY, targetZ);
         rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, Time.fixedDeltaTime * tiltSpeed));
+
+        rb.angularVelocity = Vector3.zero;
     }
 
     public void CheckAltitudeAudio(float currentHeight)
