@@ -319,13 +319,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7545804733384562290}
     m_Modifications:
+    - target: {fileID: 175486118214589034, guid: c2159beb6c7e8da4eb4f56699e0fb01a, type: 3}
+      propertyPath: detachOnGet
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 451020400778653224, guid: c2159beb6c7e8da4eb4f56699e0fb01a, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1062178111053094977, guid: c2159beb6c7e8da4eb4f56699e0fb01a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4041703093760727141, guid: c2159beb6c7e8da4eb4f56699e0fb01a, type: 3}
       propertyPath: verticalDrag
@@ -337,11 +341,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4081117911118962009, guid: c2159beb6c7e8da4eb4f56699e0fb01a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6746455046012859693, guid: c2159beb6c7e8da4eb4f56699e0fb01a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6977142689278101115, guid: c2159beb6c7e8da4eb4f56699e0fb01a, type: 3}
       propertyPath: m_Range
