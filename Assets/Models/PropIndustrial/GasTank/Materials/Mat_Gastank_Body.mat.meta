@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0f435a69745abed4a8448a951fd58469
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 171071
+  packageName: Industrial Models
+  packageVersion: 1.0
+  assetPath: Assets/FreeIndustrialModels/GasTank/Materials/Mat_Gastank_Body.mat
+  uploadId: 376068
