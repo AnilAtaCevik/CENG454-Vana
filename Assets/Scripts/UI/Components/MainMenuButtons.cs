@@ -20,10 +20,9 @@ public class MainMenuButtons : MonoBehaviour
 
     public void OnPlayClicked()
     {
-        LoadingScreen.Instance.LoadScene("Tutorial", "Tutorial");
+        LevelSequence.Instance.StartFromBeginning();
     }
 
-    //TODO: Mission screen will be implemented after level system completed
     public void OnMissionsClicked()
     {
         UIManager.Instance.ShowScreen(
