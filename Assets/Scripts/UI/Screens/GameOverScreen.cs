@@ -44,12 +44,4 @@ public class GameOverScreen : MonoBehaviour
     {
         canvas.SetActive(false);
     }
-    private void Update()
-    {
-        // Test: V tuşuna basınca Victory ekranını aç
-        if (UnityEngine.InputSystem.Keyboard.current.vKey.wasPressedThisFrame)
-        {
-            Show();
-        }
-    }
 }
