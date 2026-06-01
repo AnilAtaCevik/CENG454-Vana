@@ -14,6 +14,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/WeaponsTest.unity
     guid: 48c7c339a4bb55b418eae9774ec196ac
+  - enabled: 1
+    path: Assets/Scenes/Platformer.unity
+    guid: d8f02fa4be00f434893ba0f7098a552b
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 24bdb078928fdad48b0df622ed01cd1d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
