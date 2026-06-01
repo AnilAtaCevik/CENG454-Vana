@@ -26,7 +26,9 @@ public class MainMenuButtons : MonoBehaviour
     //TODO: Mission screen will be implemented after level system completed
     public void OnMissionsClicked()
     {
-        Debug.Log("Missions clicked");
+        UIManager.Instance.ShowScreen(
+            Object.FindAnyObjectByType<MissionsScreen>()
+        );
     }
 
     public void OnCreditsClicked()
