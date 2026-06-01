@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e07fa553729c7f143885b50521980164
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 9225
+  packageName: Military Vehicle
+  packageVersion: 1.3
+  assetPath: Assets/Military Vehicle/Humvee Info.txt
+  uploadId: 15593

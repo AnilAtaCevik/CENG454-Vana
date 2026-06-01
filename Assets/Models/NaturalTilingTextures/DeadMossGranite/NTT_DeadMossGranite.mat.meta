@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: ca8df47c0e8e4a04982b498f11064d9e
+labels:
+- NaturalTilingTextures
+timeCreated: 1429581350
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35173
+  packageName: Natural Tiling Textures
+  packageVersion: 1.2
+  assetPath: Assets/NaturalTilingTextures/DeadMossGranite/NTT_DeadMossGranite.mat
+  uploadId: 66624

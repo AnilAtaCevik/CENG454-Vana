@@ -1,10 +1,14 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class HeliHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private GameObject patlamaEfektiPrefab;
+    [SerializeField] private float sahneBeklemeSuresi = 2f;
+    
     private float currentHealth;
+    private bool isDead = false;
 
     private void Start()
     {
@@ -14,7 +18,7 @@ public class HeliHealth : MonoBehaviour, IDamageable
 
     public bool TakeDamageWithResult(float damageAmount)
     {
-        if (currentHealth <= 0f) return false;
+        if (isDead) return false;
 
         currentHealth -= damageAmount;
         currentHealth = Mathf.Max(currentHealth, 0f);
@@ -24,9 +28,10 @@ public class HeliHealth : MonoBehaviour, IDamageable
         GameEvents.RaiseDamageTaken(damageAmount);
         GameEvents.RaiseHealthChanged(currentHealth, maxHealth);
 
-        if (currentHealth <= 0f)
+        if (currentHealth <= 0f && !isDead)
         {
-            Die();
+            isDead = true;
+            StartCoroutine(DieWithDelay());
             return true;
         }
 
@@ -35,18 +40,43 @@ public class HeliHealth : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damageAmount)
     {
+        if (isDead) return;
         TakeDamageWithResult(damageAmount);
     }
 
     public void Heal(float amount)
     {
+        if (isDead) return;
         currentHealth = Mathf.Clamp(currentHealth + amount, 0f, maxHealth);
         GameEvents.RaiseHealthChanged(currentHealth, maxHealth);
     }
 
-    private void Die()
+    private IEnumerator DieWithDelay()
     {
+        if (patlamaEfektiPrefab != null)
+        {
+            GameObject instantiatedExplosion = Instantiate(patlamaEfektiPrefab, transform.position, transform.rotation);
+            Destroy(instantiatedExplosion, 5f);
+        }
+
+        MeshRenderer[] renderers = GetComponentsInChildren<MeshRenderer>();
+        foreach (var rend in renderers)
+        {
+            rend.enabled = false;
+        }
+
+        if (TryGetComponent<Collider>(out Collider col))
+        {
+            col.enabled = false;
+        }
+
+        if (TryGetComponent<Rigidbody>(out Rigidbody rb))
+        {
+            rb.isKinematic = true;
+            rb.linearVelocity = Vector3.zero;
+        }
+
+        yield return new WaitForSeconds(sahneBeklemeSuresi);
         GameEvents.RaiseHelicopterDestroyed();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

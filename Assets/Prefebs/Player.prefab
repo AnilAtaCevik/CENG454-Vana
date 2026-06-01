@@ -400,11 +400,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3089beb0b98d9e541aeefb7684870399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HelicopterCrashDetector
-  lowerSpeedThreshold: 20
-  lowerFixedDamage: 15
+  lowerSpeedThreshold: 15
+  lowerFixedDamage: 30
   upperSpeedThreshold: 10
-  upperFixedDamage: 40
-  resetDelay: 1
+  upperFixedDamage: 90
+  resetDelay: 3
   explosionPrefab: {fileID: 100008, guid: 1dbc518224e49f34095aab42fe05751a, type: 3}
 --- !u!1 &710750654586869343
 GameObject:

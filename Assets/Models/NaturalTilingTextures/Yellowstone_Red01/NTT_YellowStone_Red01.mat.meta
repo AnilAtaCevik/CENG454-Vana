@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: d6a00022ef212394bb2f3a9f3820db73
+labels:
+- NaturalTilingTextures
+timeCreated: 1431892039
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35173
+  packageName: Natural Tiling Textures
+  packageVersion: 1.2
+  assetPath: Assets/NaturalTilingTextures/Yellowstone_Red01/NTT_YellowStone_Red01.mat
+  uploadId: 66624

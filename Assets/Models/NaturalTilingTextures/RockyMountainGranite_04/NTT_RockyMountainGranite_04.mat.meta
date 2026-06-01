@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 59db88cbe250a884f9809f5eda8d80c3
+labels:
+- NaturalTilingTextures
+timeCreated: 1429585144
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35173
+  packageName: Natural Tiling Textures
+  packageVersion: 1.2
+  assetPath: Assets/NaturalTilingTextures/RockyMountainGranite_04/NTT_RockyMountainGranite_04.mat
+  uploadId: 66624

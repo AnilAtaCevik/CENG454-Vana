@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 0b3667c4d0b914e428760191dda5d873
+labels:
+- NaturalTilingTextures
+timeCreated: 1429582434
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35173
+  packageName: Natural Tiling Textures
+  packageVersion: 1.2
+  assetPath: Assets/NaturalTilingTextures/GraniteMica/NTT_GraniteMica.mat
+  uploadId: 66624

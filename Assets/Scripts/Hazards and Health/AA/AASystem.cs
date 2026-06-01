@@ -155,7 +155,12 @@ public class AASystem : MonoBehaviour
 
         if (audioSource != null && fireSound != null)
         {
-            audioSource.PlayOneShot(fireSound);
+            if (audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
+            audioSource.clip = fireSound;
+            audioSource.Play();
         }
 
         currentFirePointIndex = (currentFirePointIndex + 1) % firePoints.Length;

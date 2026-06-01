@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 23477c6d40b387f468e8d66bd5ff6827
+labels:
+- NaturalTilingTextures
+timeCreated: 1429586431
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35173
+  packageName: Natural Tiling Textures
+  packageVersion: 1.2
+  assetPath: Assets/NaturalTilingTextures/ZionGround_02/NTT_ZionGround_02.mat
+  uploadId: 66624

@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 91d54ac0f8397dd40b39c9e62622b74c
+labels:
+- NaturalTilingTextures
+timeCreated: 1430896719
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35173
+  packageName: Natural Tiling Textures
+  packageVersion: 1.2
+  assetPath: Assets/NaturalTilingTextures/AdamsCanyonGranite/NTT_AdamsCanyonGranite.mat
+  uploadId: 66624
