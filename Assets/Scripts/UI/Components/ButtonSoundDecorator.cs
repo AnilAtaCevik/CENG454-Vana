@@ -13,6 +13,7 @@ public class ButtonSoundDecorator : MonoBehaviour, IPointerClickHandler, IPointe
 
     private void Awake()
     {
+        _audioSource.ignoreListenerPause = true;
         _audioSource = gameObject.AddComponent<AudioSource>();
         _audioSource.outputAudioMixerGroup = AudioManager.Instance != null
             ? AudioManager.Instance.GetSFXGroup()
@@ -23,14 +24,14 @@ public class ButtonSoundDecorator : MonoBehaviour, IPointerClickHandler, IPointe
     //plays click sound when pressed
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (clickSound != null && _audioSource != null && _audioSource.gameObject.activeInHierarchy)
+        if (clickSound != null && _audioSource != null )
             _audioSource.PlayOneShot(clickSound);
     }
 
     //plays hover sound when hovered
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (hoverSound != null && _audioSource != null && _audioSource.gameObject.activeInHierarchy)
+        if (hoverSound != null && _audioSource != null )
             _audioSource.PlayOneShot(hoverSound);
     }
 }

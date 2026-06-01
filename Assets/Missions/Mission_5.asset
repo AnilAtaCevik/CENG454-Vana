@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 382252e98614ddc479b2468b1252b783, type: 3}
   m_Name: Mission_5
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
-  missionName: Mission 5
+  missionName: High Value
   description: Coming Soon...
-  sceneName: 
+  sceneName: High Value
   mapPosition: {x: 801, y: -235}
   missionNumber: 5

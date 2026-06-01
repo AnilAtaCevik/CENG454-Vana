@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 382252e98614ddc479b2468b1252b783, type: 3}
   m_Name: Mission_3
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
-  missionName: Mission 3
+  missionName: Scene A
   description: Coming Soon...
-  sceneName: 
+  sceneName: Scene_A
   mapPosition: {x: 0, y: -3}
   missionNumber: 3
