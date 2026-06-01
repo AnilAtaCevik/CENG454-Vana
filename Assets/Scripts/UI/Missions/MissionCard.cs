@@ -96,8 +96,10 @@ public class MissionCard : MonoBehaviour
 
     private void OnCardClicked()
     {
-        if (_data != null && !string.IsNullOrEmpty(_data.sceneName))
-            LoadingScreen.Instance.LoadScene(_data.sceneName, _data.missionName);
+        // if (_data != null && !string.IsNullOrEmpty(_data.sceneName))
+        //     LoadingScreen.Instance.LoadScene(_data.sceneName, _data.missionName);
+        if (_data != null)
+        LevelSequence.Instance.StartFromMission(_data);
     }
 
     // Resets card before returning to pool
