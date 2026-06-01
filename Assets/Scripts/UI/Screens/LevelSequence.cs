@@ -63,4 +63,13 @@ public class LevelSequence : MonoBehaviour
         SaveSystem.SaveLastLevel(_currentIndex);
         LoadingScreen.Instance.LoadScene(current.sceneName, current.missionName);
     }
+    private void OnEnable()
+    {
+        GameEvents.OnMissionCompleted += LoadNextLevel;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnMissionCompleted -= LoadNextLevel;
+    }
 }

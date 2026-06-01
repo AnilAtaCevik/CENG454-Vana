@@ -18,8 +18,8 @@ public class GameOverScreen : MonoBehaviour
 
     private void Show()
     {
-        Time.timeScale = 0f;
         canvas.SetActive(true);
+        Time.timeScale = 0f;
         if (AudioManager.Instance != null)
             AudioManager.Instance.PlayGameOverMusic();
     }

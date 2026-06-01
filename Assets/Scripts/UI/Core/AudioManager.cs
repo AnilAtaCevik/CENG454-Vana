@@ -120,9 +120,19 @@ public class AudioManager : MonoBehaviour
     }
     public void PlayGameOverMusic()
     {
+        // StopAllCoroutines();
+        // if (_musicSource == null) InitMusicSource();
+        // _musicSource.Stop();
+        // if (gameOverMusic != null)
+        // {
+        //     _musicSource.clip = gameOverMusic;
+        //     _musicSource.loop = false;
+        //     _musicSource.Play();
+        // }
         StopAllCoroutines();
         if (_musicSource == null) InitMusicSource();
         _musicSource.Stop();
+        _musicSource.ignoreListenerPause = true;
         if (gameOverMusic != null)
         {
             _musicSource.clip = gameOverMusic;
