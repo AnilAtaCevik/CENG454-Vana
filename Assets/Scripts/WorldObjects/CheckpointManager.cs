@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-
 /// <summary>
 /// Static brain for the checkpoint system. Survives scene reload
 /// because all fields are static. CheckpointZone writes to it,
@@ -10,7 +9,6 @@ public static class CheckpointManager
 {
     public static bool HasCheckpoint = false;
     public static HashSet<int> ActivatedCheckpoints = new HashSet<int>();
-
     // Saved state
     public static Vector3 SavedPosition;
     public static float SavedHealth;
@@ -18,7 +16,6 @@ public static class CheckpointManager
     public static float SavedFuel;
     public static float SavedMaxFuel;
     public static bool SavedCarryingPassengers;
-
     public static void SaveCheckpoint(int index, Vector3 position,
         float curHealth, float maxHealth,
         float curFuel, float maxFuel,
@@ -32,10 +29,8 @@ public static class CheckpointManager
         SavedFuel = curFuel;
         SavedMaxFuel = maxFuel;
         SavedCarryingPassengers = carryingPassengers;
-
         Debug.Log($"[CheckpointManager] Saved checkpoint {index} at {position}");
     }
-
     /// <summary>Call when starting a new level to reset all checkpoint data.</summary>
     public static void ClearAll()
     {
@@ -43,5 +38,26 @@ public static class CheckpointManager
         ActivatedCheckpoints.Clear();
         SavedCarryingPassengers = false;
         Debug.Log("[CheckpointManager] All checkpoints cleared.");
+    }
+
+    /// <summary>
+    /// Runs once per game launch 
+    /// before any scene loads. Wipes leftover state so a fresh launch always
+    /// starts from the level's beginning, never from a checkpoint left over from a
+    /// previous session. Scene reloads on death do NOT trigger this — checkpoint
+    /// persistence within a single run still works exactly like before.
+    /// </summary>
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ResetOnGameStart()
+    {
+        HasCheckpoint = false;
+        ActivatedCheckpoints = new HashSet<int>();
+        SavedPosition = Vector3.zero;
+        SavedHealth = 0f;
+        SavedMaxHealth = 0f;
+        SavedFuel = 0f;
+        SavedMaxFuel = 0f;
+        SavedCarryingPassengers = false;
+        Debug.Log("[CheckpointManager] Reset on game start.");
     }
 }
