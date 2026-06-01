@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 42ddd54cc55480242a95253f65d2ef0b
+labels:
+- NaturalTilingTextures
+timeCreated: 1429582600
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35173
+  packageName: Natural Tiling Textures
+  packageVersion: 1.2
+  assetPath: Assets/NaturalTilingTextures/Metamorphic/NTT_Metamorphic.mat
+  uploadId: 66624

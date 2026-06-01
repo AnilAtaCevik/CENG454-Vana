@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: b16777481621c67439f987bf17062ad4
+labels:
+- NaturalTilingTextures
+timeCreated: 1429586746
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35173
+  packageName: Natural Tiling Textures
+  packageVersion: 1.2
+  assetPath: Assets/NaturalTilingTextures/ZionRock_04/NTT_ZionRock_04.mat
+  uploadId: 66624

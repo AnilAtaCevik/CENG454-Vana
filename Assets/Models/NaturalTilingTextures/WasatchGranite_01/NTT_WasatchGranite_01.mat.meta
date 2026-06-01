@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 2d30af1f027b23544bade43272869d7f
+labels:
+- NaturalTilingTextures
+timeCreated: 1429585531
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35173
+  packageName: Natural Tiling Textures
+  packageVersion: 1.2
+  assetPath: Assets/NaturalTilingTextures/WasatchGranite_01/NTT_WasatchGranite_01.mat
+  uploadId: 66624

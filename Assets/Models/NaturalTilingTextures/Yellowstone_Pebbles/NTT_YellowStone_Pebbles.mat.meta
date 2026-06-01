@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 684bbe84cbc5d1046a009a378ee563dd
+labels:
+- NaturalTilingTextures
+timeCreated: 1431817557
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35173
+  packageName: Natural Tiling Textures
+  packageVersion: 1.2
+  assetPath: Assets/NaturalTilingTextures/Yellowstone_Pebbles/NTT_YellowStone_Pebbles.mat
+  uploadId: 66624

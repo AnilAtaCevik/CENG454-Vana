@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 3d83a0b93df56a34792d188705c2f044
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 97213
+  packageName: Junkyard models pack
+  packageVersion: 1.0
+  assetPath: Assets/Junkyard models/Shaders/MobileDiffuseDoubleSided.shader
+  uploadId: 193968

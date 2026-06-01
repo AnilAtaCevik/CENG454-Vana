@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 1980981ba4f47d548a89afb479eb6f86
+labels:
+- NaturalTilingTextures
+timeCreated: 1429583118
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35173
+  packageName: Natural Tiling Textures
+  packageVersion: 1.2
+  assetPath: Assets/NaturalTilingTextures/PinkSands/NTT_PinkSands.mat
+  uploadId: 66624

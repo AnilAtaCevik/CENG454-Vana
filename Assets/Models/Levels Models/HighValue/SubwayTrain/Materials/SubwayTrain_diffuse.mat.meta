@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: ed42586722b5a56469eaa46040eaf1cc
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 13482
+  packageName: Subway Train
+  packageVersion: 1.1
+  assetPath: Assets/SubwayTrain/Materials/SubwayTrain_diffuse.mat
+  uploadId: 61053

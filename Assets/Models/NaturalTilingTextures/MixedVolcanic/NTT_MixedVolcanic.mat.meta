@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 18d7a8974d1e35b4795d7a4fc2eb60a3
+labels:
+- NaturalTilingTextures
+timeCreated: 1429582794
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35173
+  packageName: Natural Tiling Textures
+  packageVersion: 1.2
+  assetPath: Assets/NaturalTilingTextures/MixedVolcanic/NTT_MixedVolcanic.mat
+  uploadId: 66624

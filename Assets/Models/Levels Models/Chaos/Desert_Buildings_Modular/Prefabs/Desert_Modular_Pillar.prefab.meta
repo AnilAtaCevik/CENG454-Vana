@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 00bbd7bbb63ef7149a38d214388ac850
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 144178
+  packageName: Desert Buildings Modular
+  packageVersion: 1.0
+  assetPath: Assets/Desert_Buildings_Modular/Prefabs/Desert_Modular_Pillar.prefab
+  uploadId: 305775

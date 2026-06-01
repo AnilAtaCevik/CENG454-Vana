@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: f4b76401be412f840b4f0d5e4793ff6f
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 97213
+  packageName: Junkyard models pack
+  packageVersion: 1.0
+  assetPath: Assets/Junkyard models/Shaders/UnlitTranparentDoubleSided.shader
+  uploadId: 193968
