@@ -1,16 +1,26 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Instant trigger — when helicopter flies over this zone, level is complete.
-/// No landing required. Clears checkpoint data so next level starts fresh.
+/// Instant trigger — when the helicopter flies over this zone, the level is
+/// complete. No landing required.
+///
+/// This script intentionally does NOT know what scene comes next or how the
+/// level sequence is structured. It only does the three things it is
+/// uniquely responsible for:
+///   1. Clears checkpoint state so the next level starts fresh.
+///   2. Raises the LEVEL COMPLETE feedback message for the HUD.
+///   3. Raises the MissionCompleted event.
+///
+/// Whoever cares — LevelSequence (loads next scene via LoadingScreen),
+/// mission UI, audio cues, anything else — subscribes to MissionCompleted
+/// and reacts independently. No direct dependencies between this trigger
+/// and any other system.
 /// </summary>
 [RequireComponent(typeof(Collider))]
 public class LevelCompleteZone : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private string completionMessage = "LEVEL COMPLETE!";
-    [SerializeField] private string nextSceneName = "";
 
     private bool _triggered = false;
 
@@ -27,17 +37,13 @@ public class LevelCompleteZone : MonoBehaviour
 
         _triggered = true;
 
-        // Clear checkpoints so next level starts fresh
+        // 1. Clear checkpoints so the next level starts fresh.
         CheckpointManager.ClearAll();
 
-        // Notify HUD and mission system
+        // 2. Tell the world: this level is done. Anyone who cares reacts.
         GameEvents.RaiseFeedback(completionMessage, FeedbackSeverity.Info);
         GameEvents.RaiseMissionCompleted();
 
-        // Load next scene if specified
-        if (!string.IsNullOrEmpty(nextSceneName))
-            SceneManager.LoadScene(nextSceneName);
-
-        Debug.Log($"[LevelCompleteZone] Level complete! Loading: {nextSceneName}");
+        Debug.Log("[LevelCompleteZone] Level complete — MissionCompleted raised.");
     }
 }
