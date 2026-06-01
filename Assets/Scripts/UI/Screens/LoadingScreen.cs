@@ -11,6 +11,7 @@ public class LoadingScreen : MonoBehaviour
     [SerializeField] private GameObject canvas;
     [SerializeField] private Slider progressBar;
     [SerializeField] private TextMeshProUGUI progressText;
+    [SerializeField] private TextMeshProUGUI sceneNameText;
 
     private void Awake()
     {
@@ -24,16 +25,21 @@ public class LoadingScreen : MonoBehaviour
     }
 
     // Call this instead of SceneManager.LoadScene
-    public void LoadScene(string sceneName)
+    public void LoadScene(string sceneName, string displayName = "")
     {
-        StartCoroutine(LoadAsync(sceneName));
+        StartCoroutine(LoadAsync(sceneName, displayName));
     }
 
-    private IEnumerator LoadAsync(string sceneName)
+    private IEnumerator LoadAsync(string sceneName, string displayName)
     {
         canvas.SetActive(true);
-        
         UIManager.Instance.HideAll();
+
+        if (sceneNameText != null)
+        {
+            string name = string.IsNullOrEmpty(displayName) ? sceneName : displayName;
+            sceneNameText.text = name + " scene is loading, please be patient...";
+        }
 
         if (progressBar != null) progressBar.value = 0f;
         if (progressText != null) progressText.text = "0%";

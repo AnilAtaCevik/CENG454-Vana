@@ -20,7 +20,7 @@ public class MainMenuButtons : MonoBehaviour
 
     public void OnPlayClicked()
     {
-        LoadingScreen.Instance.LoadScene("Tutorial");
+        LoadingScreen.Instance.LoadScene("Tutorial", "Tutorial");
     }
 
     //TODO: Mission screen will be implemented after level system completed
