@@ -83,6 +83,7 @@ public class PauseMenuController : MonoBehaviour
     {
         Time.timeScale = 1f;
         AudioListener.volume = 1f;
+        CheckpointManager.ClearAll();   // fresh restart - wipe any saved checkpoint
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

@@ -3,8 +3,12 @@ using UnityEngine;
 
 /// <summary>
 /// Linear (horizontal) minimap.
-/// Maps each world object's X position onto a horizontal bar and shows an icon for it.
-/// Icons for destroyed or disabled objects are automatically hidden.
+/// Maps each world object's X position onto a horizontal bar and shows an icon.
+/// - Repeating objects (checkpoints, extraction, dropoff, resupply, high value)
+///   are auto-discovered by component type.
+/// - Start/End icons auto-snap to LevelStartZone / LevelCompleteZone in the scene
+///   if you don't assign a Transform manually.
+/// - Icons for destroyed or disabled objects are hidden automatically.
 /// </summary>
 public class LinearMinimapUI : MonoBehaviour
 {
@@ -13,7 +17,7 @@ public class LinearMinimapUI : MonoBehaviour
     public float levelStartX = -10f;
     [Tooltip("World X that maps to the RIGHT edge of the bar.")]
     public float levelEndX = 10f;
-    [Tooltip("If ON, bounds are filled automatically from Start/End point transforms.")]
+    [Tooltip("If ON, the bounds above are filled in from the resolved Start/End points.")]
     public bool autoBoundsFromStartEnd = false;
 
     [Header("Minimap Bar")]
@@ -26,7 +30,7 @@ public class LinearMinimapUI : MonoBehaviour
     public Transform player;
     public RectTransform playerIcon;
 
-    [Header("Single Points")]
+    [Header("Single Points (optional — leave empty to auto-find LevelStartZone / LevelCompleteZone)")]
     public Transform startPoint;
     public RectTransform startIcon;
     public Transform endPoint;
@@ -45,7 +49,8 @@ public class LinearMinimapUI : MonoBehaviour
     {
         public RectTransform icon;
         public float worldX;
-        public Component target; // null for static points (start/end)
+        public Component target; // null for static markers (start/end)
+        public bool isStatic;    // true for start/end — never hide them
     }
 
     readonly List<Marker> markers = new List<Marker>();
@@ -55,17 +60,26 @@ public class LinearMinimapUI : MonoBehaviour
         Rebuild();
     }
 
+    /// <summary>Clears and rebuilds every icon. Safe to call again if the scene changes.</summary>
     public void Rebuild()
     {
+        // Throw away copies from the previous build (but never the start/end icons themselves).
         foreach (Marker m in markers)
             if (m.icon != null && m.icon != startIcon && m.icon != endIcon)
                 Destroy(m.icon.gameObject);
         markers.Clear();
 
-        if (autoBoundsFromStartEnd && startPoint != null && endPoint != null)
+        // Resolve start/end: prefer the manually-assigned transforms; otherwise look for
+        // a LevelStartZone / LevelCompleteZone in the scene. This lets the minimap figure
+        // out where the level begins and ends without you wiring anything by hand.
+        Transform effStart = startPoint != null ? startPoint : FindZoneTransform<LevelStartZone>();
+        Transform effEnd = endPoint != null ? endPoint : FindZoneTransform<LevelCompleteZone>();
+
+        // Optionally take the level bounds straight from those points.
+        if (autoBoundsFromStartEnd && effStart != null && effEnd != null)
         {
-            float a = GetWorldX(startPoint);
-            float b = GetWorldX(endPoint);
+            float a = GetWorldX(effStart);
+            float b = GetWorldX(effEnd);
             if (Mathf.Abs(a - b) > 0.01f)
             {
                 levelStartX = a;
@@ -73,14 +87,17 @@ public class LinearMinimapUI : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("[LinearMinimapUI] Start and End points share almost " +
-                                 "the same X. Keeping manual Level Start/End values.");
+                Debug.LogWarning("[LinearMinimapUI] Start and End share (almost) the same X. " +
+                                 "Keeping the manual Level Start/End values. " +
+                                 "Make sure both points are actually placed in the world.");
             }
         }
 
-        AddMarker(startIcon, startPoint != null ? GetWorldX(startPoint) : levelStartX);
-        AddMarker(endIcon, endPoint != null ? GetWorldX(endPoint) : levelEndX);
+        // Place start/end icons.
+        AddStaticMarker(startIcon, effStart != null ? GetWorldX(effStart) : levelStartX);
+        AddStaticMarker(endIcon, effEnd != null ? GetWorldX(effEnd) : levelEndX);
 
+        // Repeating objects: one icon per component instance in the scene.
         SpawnIconsFor<CheckpointZone>(checkpointIconTemplate);
         SpawnIconsFor<ExtractionZone>(extractionIconTemplate);
         SpawnIconsFor<DropoffZone>(dropoffIconTemplate);
@@ -88,6 +105,17 @@ public class LinearMinimapUI : MonoBehaviour
         SpawnIconsFor<HighValueTarget>(highValueIconTemplate);
     }
 
+    Transform FindZoneTransform<T>() where T : Component
+    {
+        T zone = FindFirstObjectByType<T>(FindObjectsInactive.Include);
+        return zone != null ? zone.transform : null;
+    }
+
+    /// <summary>
+    /// Returns the world X of an object the way you'd actually see it.
+    /// Prefers the collider center, then a renderer, then the raw transform — this
+    /// is offset on a child.
+    /// </summary>
     float GetWorldX(Component obj)
     {
         Collider col = obj.GetComponentInChildren<Collider>();
@@ -103,6 +131,7 @@ public class LinearMinimapUI : MonoBehaviour
     {
         if (template == null) return;
 
+        // The template is never shown — only its copies.
         template.gameObject.SetActive(false);
 
         FindObjectsInactive inactive = includeInactiveObjects
@@ -115,53 +144,48 @@ public class LinearMinimapUI : MonoBehaviour
             RectTransform copy = Instantiate(template, template.parent);
             copy.gameObject.SetActive(true);
             copy.name = template.name + "_" + obj.name;
-            AddMarkerTracked(copy, GetWorldX(obj), obj);
+            AddTrackedMarker(copy, GetWorldX(obj), obj);
         }
     }
 
-    void AddMarker(RectTransform icon, float worldX)
+    void AddStaticMarker(RectTransform icon, float worldX)
     {
         if (icon == null) return;
-        markers.Add(new Marker { icon = icon, worldX = worldX, target = null });
+        markers.Add(new Marker { icon = icon, worldX = worldX, target = null, isStatic = true });
     }
 
-    void AddMarkerTracked(RectTransform icon, float worldX, Component target)
+    void AddTrackedMarker(RectTransform icon, float worldX, Component target)
     {
         if (icon == null) return;
-        markers.Add(new Marker { icon = icon, worldX = worldX, target = target });
+        markers.Add(new Marker { icon = icon, worldX = worldX, target = target, isStatic = false });
     }
 
     void LateUpdate()
     {
         foreach (Marker m in markers)
         {
-            if (m.target == null)
+            if (m.icon == null) continue;
+
+            if (m.isStatic)
             {
-                // Object was fully destroyed
-                if (m.icon != startIcon && m.icon != endIcon)
-                    m.icon.gameObject.SetActive(false);
-                else
-                    PlaceIcon(m.icon, m.worldX);
-            }
-            else if (!m.target.gameObject.activeSelf)
-            {
-                // Object was disabled via SetActive(false) — hide icon
-                if (m.icon != startIcon && m.icon != endIcon)
-                    m.icon.gameObject.SetActive(false);
+                // Start / End — always shown, always placed.
+                PlaceIcon(m.icon, m.worldX);
             }
             else
             {
-                // Object alive and active — show icon
-                m.icon.gameObject.SetActive(true);
-                PlaceIcon(m.icon, m.worldX);
+                // Tracked object: hide its icon if the object was destroyed.
+                bool alive = m.target != null && m.target.gameObject.activeInHierarchy;
+                m.icon.gameObject.SetActive(alive);
+                if (alive) PlaceIcon(m.icon, m.worldX);
             }
         }
 
-        // Player icon always updates every frame
+        // Player icon: re-placed every frame since the player moves.
         if (player != null && playerIcon != null)
             PlaceIcon(playerIcon, player.position.x);
     }
 
+    /// <summary>Puts an icon at the correct spot along the bar for a given world X.</summary>
     void PlaceIcon(RectTransform icon, float worldX)
     {
         if (icon == null || minimapBar == null) return;
