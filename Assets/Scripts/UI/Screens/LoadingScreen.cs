@@ -35,6 +35,12 @@ public class LoadingScreen : MonoBehaviour
         canvas.SetActive(true);
         UIManager.Instance.HideAll();
 
+        var victory = Object.FindAnyObjectByType<VictoryScreen>();
+        if (victory != null) victory.HideCanvas();
+
+        var gameOver = Object.FindAnyObjectByType<GameOverScreen>();
+        if (gameOver != null) gameOver.HideCanvas();
+
         if (sceneNameText != null)
         {
             string name = string.IsNullOrEmpty(displayName) ? sceneName : displayName;

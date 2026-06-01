@@ -10,6 +10,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private AudioClip menuMusic;
     [SerializeField] private AudioClip helicopterSound;
+    [SerializeField] private AudioClip gameOverMusic;
+    [SerializeField] private AudioClip victoryMusic;
     private AudioSource _musicSource;
     private const string SFX_PARAM = "SFXVolume";
     private const string MUSIC_PARAM = "MusicVolume";
@@ -115,5 +117,30 @@ public class AudioManager : MonoBehaviour
         if (_musicSource != null && _musicSource.isPlaying)
             StopAllCoroutines();
             _musicSource.Stop();
+    }
+    public void PlayGameOverMusic()
+    {
+        StopAllCoroutines();
+        if (_musicSource == null) InitMusicSource();
+        _musicSource.Stop();
+        if (gameOverMusic != null)
+        {
+            _musicSource.clip = gameOverMusic;
+            _musicSource.loop = false;
+            _musicSource.Play();
+        }
+    }
+
+    public void PlayVictoryMusic()
+    {
+        StopAllCoroutines();
+        if (_musicSource == null) InitMusicSource();
+        _musicSource.Stop();
+        if (victoryMusic != null)
+        {
+            _musicSource.clip = victoryMusic;
+            _musicSource.loop = false;
+            _musicSource.Play();
+        }
     }
 }

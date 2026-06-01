@@ -48,7 +48,9 @@ public class LevelSequence : MonoBehaviour
         if (_currentIndex < levels.Length)
             LoadCurrent();
         else
-            LoadingScreen.Instance.LoadScene("MainMenuScene", "All missions complete!");
+        {
+            Object.FindAnyObjectByType<VictoryScreen>()?.Show();
+        }
     }
 
     public bool HasNextLevel() => _currentIndex + 1 < levels.Length;
