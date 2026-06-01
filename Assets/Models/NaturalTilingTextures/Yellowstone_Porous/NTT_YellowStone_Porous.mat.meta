@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 36517c984be1c7f479bdf69b9ffc9f0f
+labels:
+- NaturalTilingTextures
+timeCreated: 1431760672
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35173
+  packageName: Natural Tiling Textures
+  packageVersion: 1.2
+  assetPath: Assets/NaturalTilingTextures/Yellowstone_Porous/NTT_YellowStone_Porous.mat
+  uploadId: 66624

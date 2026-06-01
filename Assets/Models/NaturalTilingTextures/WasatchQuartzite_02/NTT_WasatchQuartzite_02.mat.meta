@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: fed49b32556652442acaa9634ea371a1
+labels:
+- NaturalTilingTextures
+timeCreated: 1429585988
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35173
+  packageName: Natural Tiling Textures
+  packageVersion: 1.2
+  assetPath: Assets/NaturalTilingTextures/WasatchQuartzite_02/NTT_WasatchQuartzite_02.mat
+  uploadId: 66624

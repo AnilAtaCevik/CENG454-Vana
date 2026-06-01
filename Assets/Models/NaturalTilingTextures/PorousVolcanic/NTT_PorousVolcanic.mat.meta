@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: d19181a0106e0bc44910e8d3a32bc45f
+labels:
+- NaturalTilingTextures
+timeCreated: 1429583320
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35173
+  packageName: Natural Tiling Textures
+  packageVersion: 1.2
+  assetPath: Assets/NaturalTilingTextures/PorousVolcanic/NTT_PorousVolcanic.mat
+  uploadId: 66624

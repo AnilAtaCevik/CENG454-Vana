@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 00f187d9994a10a44b0265d084dc8195
+labels:
+- NaturalTilingTextures
+timeCreated: 1429584299
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35173
+  packageName: Natural Tiling Textures
+  packageVersion: 1.2
+  assetPath: Assets/NaturalTilingTextures/RedGranite/NTT_RedGranite.mat
+  uploadId: 66624

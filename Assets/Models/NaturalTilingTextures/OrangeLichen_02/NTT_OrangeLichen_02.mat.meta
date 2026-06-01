@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: b3268e9d0c5c02542860a862e236461d
+labels:
+- NaturalTilingTextures
+timeCreated: 1430890728
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35173
+  packageName: Natural Tiling Textures
+  packageVersion: 1.2
+  assetPath: Assets/NaturalTilingTextures/OrangeLichen_02/NTT_OrangeLichen_02.mat
+  uploadId: 66624

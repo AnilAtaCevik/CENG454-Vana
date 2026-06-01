@@ -99,8 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dea6647e83d9f49488e176063743e28a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuidedMissile
+  explosionVfxPrefab: {fileID: 7738673178121229186, guid: ba41732d14a642f499e0812e51b608b4, type: 3}
   speed: 30
-  damage: 25
+  damage: 35
   normalHitSound: {fileID: 8300000, guid: 17075cea55242c642bb21a0b209c341a, type: 3}
   fatalDeathSound: {fileID: 8300000, guid: db085ca113ba8cf458d3f4f9e3cf8ab4, type: 3}
   normalHitVolume: 0.2

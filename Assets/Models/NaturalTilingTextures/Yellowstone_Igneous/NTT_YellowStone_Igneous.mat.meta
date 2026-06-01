@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: f0ead930c6c391d408bc8c0ad827c516
+labels:
+- NaturalTilingTextures
+timeCreated: 1431910055
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35173
+  packageName: Natural Tiling Textures
+  packageVersion: 1.2
+  assetPath: Assets/NaturalTilingTextures/Yellowstone_Igneous/NTT_YellowStone_Igneous.mat
+  uploadId: 66624

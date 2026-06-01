@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        _transitionStrategy = new FadeTransition(0.5f);
+        _transitionStrategy = new FadeTransition(0.2f);
     }
 
     // Allows switching transition style at runtime (Strategy pattern)

@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: b920b6f905167dc4aaf2ad1916cf7c99
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 13482
+  packageName: Subway Train
+  packageVersion: 1.1
+  assetPath: Assets/SubwayTrain/Materials/SubwayTrain_NoDamage.mat
+  uploadId: 61053
