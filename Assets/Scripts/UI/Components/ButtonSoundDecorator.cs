@@ -13,8 +13,8 @@ public class ButtonSoundDecorator : MonoBehaviour, IPointerClickHandler, IPointe
 
     private void Awake()
     {
-        _audioSource.ignoreListenerPause = true;
-        _audioSource = gameObject.AddComponent<AudioSource>();
+        _audioSource = gameObject.AddComponent<AudioSource>(); // assign first
+        _audioSource.ignoreListenerPause = true;               // then use it
         _audioSource.outputAudioMixerGroup = AudioManager.Instance != null
             ? AudioManager.Instance.GetSFXGroup()
             : null;

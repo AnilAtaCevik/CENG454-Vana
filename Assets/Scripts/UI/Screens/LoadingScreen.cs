@@ -71,7 +71,7 @@ public class LoadingScreen : MonoBehaviour
         if (progressBar != null) progressBar.value = 1f;
         if (progressText != null) progressText.text = "100%";
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSecondsRealtime(0.5f);
 
         operation.allowSceneActivation = true;
         canvas.SetActive(false);

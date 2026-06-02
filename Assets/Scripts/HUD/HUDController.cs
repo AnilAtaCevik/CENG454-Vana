@@ -86,11 +86,14 @@ public class HUDController : MonoBehaviour
         GameEvents.OnObjectiveCompleted += HandleObjectiveCompleted;
 
         WeaponEvents.OnMissileAmmoChanged += HandleMissileAmmo;
+        WeaponEvents.OnMissileCooldownStarted += HandleMissileCooldownStarted;
+        WeaponEvents.OnMissileCooldownFinished += HandleMissileCooldownFinished;
         WeaponEvents.OnMinigunOverheated += HandleMinigunOverheated;
         WeaponEvents.OnMinigunCooldownFinished += HandleMinigunCooled;
-        // TODO: uncomment when flare events added to WeaponEvents
-        // WeaponEvents.OnFlareAmmoChanged += HandleFlareAmmo;
 
+        EquipmentEvents.OnFlareAmmoChanged += HandleFlareAmmo;
+        EquipmentEvents.OnFlareCooldownStarted += HandleFlareCooldownStarted;
+        EquipmentEvents.OnFlareCooldownFinished += HandleFlareCooldownFinished;
     }
 
     void OnDisable()
@@ -109,15 +112,20 @@ public class HUDController : MonoBehaviour
         GameEvents.OnObjectiveCompleted -= HandleObjectiveCompleted;
 
         WeaponEvents.OnMissileAmmoChanged -= HandleMissileAmmo;
+        WeaponEvents.OnMissileCooldownStarted -= HandleMissileCooldownStarted;
+        WeaponEvents.OnMissileCooldownFinished -= HandleMissileCooldownFinished;
         WeaponEvents.OnMinigunOverheated -= HandleMinigunOverheated;
         WeaponEvents.OnMinigunCooldownFinished -= HandleMinigunCooled;
-        // WeaponEvents.OnFlareAmmoChanged -= HandleFlareAmmo;
+
+        EquipmentEvents.OnFlareAmmoChanged -= HandleFlareAmmo;
+        EquipmentEvents.OnFlareCooldownStarted -= HandleFlareCooldownStarted;
+        EquipmentEvents.OnFlareCooldownFinished -= HandleFlareCooldownFinished;
     }
 
     void Start()
     {
         if (damageFlashImage != null)
-            damageFlashImage.gameObject.SetActive(false);    // CHANGED
+            damageFlashImage.gameObject.SetActive(false);
 
         if (interactionProgressRoot != null)
             interactionProgressRoot.SetActive(false);
@@ -211,13 +219,29 @@ public class HUDController : MonoBehaviour
     }
 
     // ========================
-    // WEAPONS
+    // WEAPONS / EQUIPMENT
     // ========================
 
     private void HandleMissileAmmo(int current, int max)
     {
         if (missileAmmoText != null)
             missileAmmoText.text = $"MISSILES: {current} / {max}";
+    }
+
+    private void HandleMissileCooldownStarted(float cooldownTime)
+    {
+        if (missileAmmoText != null)
+        {
+            missileAmmoText.color = warningColor;
+        }
+    }
+
+    private void HandleMissileCooldownFinished()
+    {
+        if (missileAmmoText != null)
+        {
+            missileAmmoText.color = infoColor;
+        }
     }
 
     private void HandleMinigunOverheated()
@@ -243,6 +267,22 @@ public class HUDController : MonoBehaviour
     {
         if (flareText != null)
             flareText.text = $"FLARES: {current} / {max}";
+    }
+
+    private void HandleFlareCooldownStarted(float cooldownTime)
+    {
+        if (flareText != null)
+        {
+            flareText.color = warningColor;
+        }
+    }
+
+    private void HandleFlareCooldownFinished()
+    {
+        if (flareText != null)
+        {
+            flareText.color = infoColor;
+        }
     }
 
     // ========================
