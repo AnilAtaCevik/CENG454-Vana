@@ -2,6 +2,16 @@ using UnityEngine;
 
 public class GuidedSystem : MonoBehaviour
 {
+    public enum TurretState
+    {
+        Idle,
+        Locking,
+        Firing
+    }
+
+    [Header("Current State")]
+    [SerializeField] private TurretState currentState = TurretState.Idle;
+
     [Header("Targeting Settings")]
     [SerializeField] private float baseRange = 250f;
     [SerializeField] private string targetTag = "Player";
@@ -45,26 +55,70 @@ public class GuidedSystem : MonoBehaviour
     {
         if (target == null || !HasLineOfSight(target))
         {
-            lockOnTimer = 0f;
-            return;
+            ChangeState(TurretState.Idle);
         }
 
+        switch (currentState)
+        {
+            case TurretState.Idle:
+                HandleIdleState();
+                break;
+
+            case TurretState.Locking:
+                HandleLockingState();
+                break;
+
+            case TurretState.Firing:
+                HandleFiringState();
+                break;
+        }
+
+        if (fireCountdown > 0f)
+        {
+            fireCountdown -= Time.deltaTime;
+        }
+    }
+
+    private void ChangeState(TurretState newState)
+    {
+        if (currentState == newState) return;
+
+        currentState = newState;
+
+        if (currentState == TurretState.Idle)
+        {
+            lockOnTimer = 0f;
+        }
+    }
+
+    private void HandleIdleState()
+    {
+        if (target != null && HasLineOfSight(target))
+        {
+            ChangeState(TurretState.Locking);
+        }
+    }
+
+    private void HandleLockingState()
+    {
         LockOnTarget();
 
         lockOnTimer += Time.deltaTime;
 
         if (lockOnTimer >= requiredLockTime)
         {
-            if (fireCountdown <= 0f)
-            {
-                Fire();
-                fireCountdown = fireRate;
-            }
+            ChangeState(TurretState.Firing);
         }
+    }
 
-        if (fireCountdown > 0f)
+    private void HandleFiringState()
+    {
+        LockOnTarget();
+
+        if (fireCountdown <= 0f)
         {
-            fireCountdown -= Time.deltaTime;
+            Fire();
+            fireCountdown = fireRate;
         }
     }
 

@@ -1,7 +1,17 @@
 using UnityEngine;
 
-public class GuidedHealth : MonoBehaviour, IDamageable
+public class GuidedTurretHealth : MonoBehaviour, IDamageable
 {
+    public enum HealthState
+    {
+        Alive,
+        Dead
+    }
+
+    [Header("Health State")]
+    [SerializeField] private HealthState currentHealthState = HealthState.Alive;
+
+    [Header("Health Settings")]
     [SerializeField] private float maxHealth = 50f;
     private float currentHealth;
 
@@ -14,12 +24,15 @@ public class GuidedHealth : MonoBehaviour, IDamageable
     private void Start()
     {
         currentHealth = maxHealth;
+        currentHealthState = HealthState.Alive;
     }
 
     public void TakeDamage(float damageAmount)
     {
+        if (currentHealthState == HealthState.Dead) return;
+
         currentHealth -= damageAmount;
-        Debug.Log("Guided Launcher Health: " + currentHealth);
+        Debug.Log("Guided Turret Health: " + currentHealth);
 
         if (currentHealth <= 0f)
         {
@@ -29,6 +42,8 @@ public class GuidedHealth : MonoBehaviour, IDamageable
 
     private void Die()
     {
+        currentHealthState = HealthState.Dead;
+
         if (explosionPrefab != null)
         {
             Instantiate(explosionPrefab, transform.position, transform.rotation);
@@ -36,9 +51,14 @@ public class GuidedHealth : MonoBehaviour, IDamageable
 
         if (fuelCanPrefab != null)
         {
-            Instantiate(fuelCanPrefab, transform.position, Quaternion.identity);
+            Instantiate(fuelCanPrefab, transform.position, Quaternion.identity); 
         }
 
         Destroy(gameObject);
+    }
+    
+    public bool IsDead()
+    {
+        return currentHealthState == HealthState.Dead;
     }
 }

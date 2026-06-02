@@ -3,12 +3,21 @@ using System.Collections;
 
 public class HeliHealth : MonoBehaviour, IDamageable
 {
+    public enum HealthState
+    {
+        Alive,
+        Dead
+    }
+
+    [Header("Health State")]
+    [SerializeField] private HealthState currentHealthState = HealthState.Alive;
+
+    [Header("Health Settings")]
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private GameObject patlamaEfektiPrefab;
     [SerializeField] private float sahneBeklemeSuresi = 2f;
 
     private float currentHealth;
-    private bool isDead = false;
 
     private void OnEnable()
     {
@@ -23,12 +32,13 @@ public class HeliHealth : MonoBehaviour, IDamageable
     private void Start()
     {
         currentHealth = maxHealth;
+        currentHealthState = HealthState.Alive;
         GameEvents.RaiseHealthChanged(currentHealth, maxHealth);
     }
 
     public bool TakeDamageWithResult(float damageAmount)
     {
-        if (isDead) return false;
+        if (currentHealthState == HealthState.Dead) return false;
 
         currentHealth -= damageAmount;
         currentHealth = Mathf.Max(currentHealth, 0f);
@@ -38,9 +48,9 @@ public class HeliHealth : MonoBehaviour, IDamageable
         GameEvents.RaiseDamageTaken(damageAmount);
         GameEvents.RaiseHealthChanged(currentHealth, maxHealth);
 
-        if (currentHealth <= 0f && !isDead)
+        if (currentHealth <= 0f && currentHealthState == HealthState.Alive)
         {
-            isDead = true;
+            currentHealthState = HealthState.Dead;
             StartCoroutine(DieWithDelay());
             return true;
         }
@@ -50,21 +60,20 @@ public class HeliHealth : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damageAmount)
     {
-        if (isDead) return;
+        if (currentHealthState == HealthState.Dead) return;
         TakeDamageWithResult(damageAmount);
     }
 
     public void Heal(float amount)
     {
-        if (isDead) return;
+        if (currentHealthState == HealthState.Dead) return;
         currentHealth = Mathf.Clamp(currentHealth + amount, 0f, maxHealth);
         GameEvents.RaiseHealthChanged(currentHealth, maxHealth);
     }
 
-    /// <summary>Restores health to maximum. Called by the resupply event.</summary>
     public void HealToFull()
     {
-        if (isDead) return;
+        if (currentHealthState == HealthState.Dead) return;
         currentHealth = maxHealth;
         GameEvents.RaiseHealthChanged(currentHealth, maxHealth);
     }
@@ -96,5 +105,10 @@ public class HeliHealth : MonoBehaviour, IDamageable
 
         yield return new WaitForSeconds(sahneBeklemeSuresi);
         GameEvents.RaiseHelicopterDestroyed();
+    }
+
+    public bool IsDead()
+    {
+        return currentHealthState == HealthState.Dead;
     }
 }
