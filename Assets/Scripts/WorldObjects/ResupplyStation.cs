@@ -1,19 +1,16 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 /// <summary>
 /// Landing platform that restores resources (health, fuel, ammo, flares)
 /// after the helicopter lands. Reusable - player can re-enter after exiting.
 ///
-/// Resupply amounts are wired through the Inspector via onResupplyComplete
-/// UnityEvent (drag  HeliHealth.Heal, Fuel.Refill, etc.)
+/// Communicates purely through GameEvents: fires OnResupplyRequested and
+/// every system that needs topping up (HeliHealth, Fuel, weapon/equipment
+/// scripts) listens for it and restores itself, then broadcasts its own
+/// state change so the HUD updates automatically.
 /// </summary>
 public class ResupplyStation : LandingZone
 {
-    [Header("Resupply Actions")]
-    [Tooltip("Wire teammate's HeliHealth.Heal, Fuel.Refill, weapon ammo restore here in Inspector")]
-    [SerializeField] private UnityEvent onResupplyComplete;
-
     void Awake()
     {
         interactionLabel = "RESUPPLYING...";
@@ -23,7 +20,10 @@ public class ResupplyStation : LandingZone
     protected override void OnLandingComplete()
     {
         Debug.Log("[ResupplyStation] Resupply complete!");
+
+        // One event -> health, fuel, weapons and equipment all restore themselves.
+        GameEvents.RaiseResupplyRequested();
+
         GameEvents.RaiseFeedback("RESUPPLIED", FeedbackSeverity.Info);
-        onResupplyComplete?.Invoke();
     }
 }

@@ -9,6 +9,16 @@ public class Fuel : MonoBehaviour, IFuelReceiver
     private bool hasPlayedWarning = false;
     private bool isOutOfFuel = false;
 
+    private void OnEnable()
+    {
+        GameEvents.OnResupplyRequested += RefillToMax;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnResupplyRequested -= RefillToMax;
+    }
+
     void Start()
     {
         currentFuel = maxFuel;
@@ -33,7 +43,7 @@ public class Fuel : MonoBehaviour, IFuelReceiver
             if (currentFuel <= 0 && !isOutOfFuel)
             {
                 isOutOfFuel = true;
-                GameEvents.RaiseFuelEmpty(); 
+                GameEvents.RaiseFuelEmpty();
                 GameEvents.RaiseFeedback("CRITICAL: FUEL DEPLETED!", FeedbackSeverity.Critical);
             }
         }
@@ -58,5 +68,15 @@ public class Fuel : MonoBehaviour, IFuelReceiver
 
         GameEvents.RaiseFuelChanged(currentFuel, maxFuel);
         GameEvents.RaiseFeedback("Fuel Replenished", FeedbackSeverity.Info);
+    }
+
+    /// <summary>Refills fuel to maximum. Called by the resupply event.</summary>
+    public void RefillToMax()
+    {
+        currentFuel = maxFuel;
+        isOutOfFuel = false;
+        hasPlayedWarning = false;
+        GameEvents.RaiseFuelChanged(currentFuel, maxFuel);
+        // No feedback here - ResupplyStation fires the single "RESUPPLIED" message.
     }
 }

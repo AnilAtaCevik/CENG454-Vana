@@ -6,9 +6,19 @@ public class HeliHealth : MonoBehaviour, IDamageable
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private GameObject patlamaEfektiPrefab;
     [SerializeField] private float sahneBeklemeSuresi = 2f;
-    
+
     private float currentHealth;
     private bool isDead = false;
+
+    private void OnEnable()
+    {
+        GameEvents.OnResupplyRequested += HealToFull;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnResupplyRequested -= HealToFull;
+    }
 
     private void Start()
     {
@@ -48,6 +58,14 @@ public class HeliHealth : MonoBehaviour, IDamageable
     {
         if (isDead) return;
         currentHealth = Mathf.Clamp(currentHealth + amount, 0f, maxHealth);
+        GameEvents.RaiseHealthChanged(currentHealth, maxHealth);
+    }
+
+    /// <summary>Restores health to maximum. Called by the resupply event.</summary>
+    public void HealToFull()
+    {
+        if (isDead) return;
+        currentHealth = maxHealth;
         GameEvents.RaiseHealthChanged(currentHealth, maxHealth);
     }
 

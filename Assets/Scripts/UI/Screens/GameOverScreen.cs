@@ -6,15 +6,15 @@ public class GameOverScreen : MonoBehaviour
 {
     [SerializeField] private GameObject canvas;
 
-    private void OnEnable()
-    {
-        GameEvents.OnHelicopterDestroyed += Show;
-    }
+    // private void OnEnable()
+    // {
+    //     GameEvents.OnHelicopterDestroyed += Show;
+    // }
 
-    private void OnDisable()
-    {
-        GameEvents.OnHelicopterDestroyed -= Show;
-    }
+    // private void OnDisable()
+    // {
+    //     GameEvents.OnHelicopterDestroyed -= Show;
+    // }
 
     private void Show()
     {

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
   missionName: High Value
   description: Coming Soon...
-  sceneName: High Value
+  sceneName: HighValue
   mapPosition: {x: 801, y: -235}
   missionNumber: 5

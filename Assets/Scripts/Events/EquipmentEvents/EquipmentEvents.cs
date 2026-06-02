@@ -7,6 +7,7 @@ public static class EquipmentEvents
     public static event Action<int, int> OnFlareAmmoChanged;
     public static event Action OnFlareUsed;
     public static event Action<float> OnFlareCooldownStarted;
+    public static event Action OnFlareCooldownFinished;
 
     public static void RaiseSpotlightToggled(bool isEnabled)
     {
@@ -26,5 +27,10 @@ public static class EquipmentEvents
     public static void RaiseFlareCooldownStarted(float cooldownTime)
     {
         OnFlareCooldownStarted?.Invoke(cooldownTime);
+    }
+
+    public static void RaiseFlareCooldownFinished()
+    {
+        OnFlareCooldownFinished?.Invoke();
     }
 }

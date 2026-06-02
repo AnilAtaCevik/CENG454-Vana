@@ -26,23 +26,26 @@ public class MissileSpawner : MonoBehaviour
     [SerializeField] private ObjectPool missileExplosionVfxPool;
     [SerializeField] private ObjectPool missileLaunchAudioPool;
 
-
     private int currentAmmo;
-
     private bool isAiming = false;
-
     private float aimTimer = 0f;
     private float nextFireTime = 0f;
 
+    void OnEnable()
+    {
+        GameEvents.OnResupplyRequested += HandleResupplyRequested;
+    }
 
+    void OnDisable()
+    {
+        GameEvents.OnResupplyRequested -= HandleResupplyRequested;
+    }
 
     void Start()
     {
         currentAmmo = maxAmmo;
-
         WeaponEvents.RaiseMissileAmmoChanged(currentAmmo, maxAmmo);
     }
-
 
     void Update()
     {
@@ -54,13 +57,11 @@ public class MissileSpawner : MonoBehaviour
         }
     }
 
-
     void HandleInput()
     {
         if (Mouse.current == null)
             return;
 
-        // START AIM
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
             if (CanStartAiming())
@@ -69,19 +70,16 @@ public class MissileSpawner : MonoBehaviour
             }
         }
 
-        // HOLD AIM
         if (isAiming)
         {
             aimTimer += Time.deltaTime;
 
-            // AUTO FIRE AFTER 3 SEC
             if (aimTimer >= maxAimTime)
             {
                 FireMissiles();
             }
         }
 
-        // RELEASE FIRE
         if (Mouse.current.rightButton.wasReleasedThisFrame)
         {
             if (isAiming)
@@ -119,7 +117,6 @@ public class MissileSpawner : MonoBehaviour
     void StartAiming()
     {
         isAiming = true;
-
         aimTimer = 0f;
 
         if (aimLine != null)
@@ -128,21 +125,17 @@ public class MissileSpawner : MonoBehaviour
         }
     }
 
-
     void UpdateAimLine()
     {
-        if (aimLine == null || firePoints.Length == 0)
+        if (aimLine == null || firePoints == null || firePoints.Length == 0)
             return;
 
         Vector3 startPos = firePoints[0].position;
-        Vector3 endPos =
-            firePoints[0].position +
-            firePoints[0].forward * aimDistance;
+        Vector3 endPos = firePoints[0].position + firePoints[0].forward * aimDistance;
 
         aimLine.SetPosition(0, startPos);
         aimLine.SetPosition(1, endPos);
     }
-
 
     void FireMissiles()
     {
@@ -161,9 +154,8 @@ public class MissileSpawner : MonoBehaviour
         }
 
         StartCoroutine(FireSequence());
-
+        StartCoroutine(MissileCooldownRoutine());
     }
-
 
     IEnumerator FireSequence()
     {
@@ -178,6 +170,13 @@ public class MissileSpawner : MonoBehaviour
         {
             SpawnMissile(firePoints[1]);
         }
+    }
+
+    IEnumerator MissileCooldownRoutine()
+    {
+        yield return new WaitForSeconds(fireCooldown);
+
+        WeaponEvents.RaiseMissileCooldownFinished();
     }
 
     void SpawnMissile(Transform firePoint)
@@ -203,5 +202,26 @@ public class MissileSpawner : MonoBehaviour
                 missileLaunchAudioPool
             );
         }
+    }
+
+    void HandleResupplyRequested()
+    {
+        currentAmmo = maxAmmo;
+        nextFireTime = 0f;
+
+        if (aimLine != null)
+        {
+            aimLine.enabled = false;
+        }
+
+        isAiming = false;
+
+        WeaponEvents.RaiseMissileAmmoChanged(currentAmmo, maxAmmo);
+        WeaponEvents.RaiseMissileCooldownFinished();
+
+        GameEvents.RaiseFeedback(
+            "Missiles reloaded!",
+            FeedbackSeverity.Info
+        );
     }
 }

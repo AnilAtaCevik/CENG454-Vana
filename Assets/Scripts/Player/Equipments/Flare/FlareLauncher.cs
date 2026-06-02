@@ -29,10 +29,19 @@ public class FlareLauncher : MonoBehaviour
     private float nextDeployTime = 0f;
     private bool isDeploying = false;
 
+    void OnEnable()
+    {
+        GameEvents.OnResupplyRequested += HandleResupplyRequested;
+    }
+
+    void OnDisable()
+    {
+        GameEvents.OnResupplyRequested -= HandleResupplyRequested;
+    }
+
     void Start()
     {
         currentCharges = maxCharges;
-
         EquipmentEvents.RaiseFlareAmmoChanged(currentCharges, maxCharges);
     }
 
@@ -53,7 +62,7 @@ public class FlareLauncher : MonoBehaviour
             return;
 
         if (Time.time < nextDeployTime)
-        { 
+        {
             GameEvents.RaiseFeedback(
                 "Flare system cooling down!",
                 FeedbackSeverity.Warning
@@ -80,6 +89,7 @@ public class FlareLauncher : MonoBehaviour
         EquipmentEvents.RaiseFlareCooldownStarted(deployCooldown);
 
         StartCoroutine(DeployFlareBurst());
+        StartCoroutine(FlareCooldownRoutine());
     }
 
     IEnumerator DeployFlareBurst()
@@ -89,13 +99,19 @@ public class FlareLauncher : MonoBehaviour
         for (int i = 0; i < flareCountPerUse; i++)
         {
             SpawnSingleFlare();
-
             PlayDeployAudio();
 
             yield return new WaitForSeconds(delayBetweenFlares);
         }
 
         isDeploying = false;
+    }
+
+    IEnumerator FlareCooldownRoutine()
+    {
+        yield return new WaitForSeconds(deployCooldown);
+
+        EquipmentEvents.RaiseFlareCooldownFinished();
     }
 
     void SpawnSingleFlare()
@@ -114,14 +130,10 @@ public class FlareLauncher : MonoBehaviour
         if (flare == null)
             return;
 
-        flare.transform.position =
-            flareSpawnPoint.position + randomOffset;
+        flare.transform.position = flareSpawnPoint.position + randomOffset;
+        flare.transform.rotation = flareSpawnPoint.rotation;
 
-        flare.transform.rotation =
-            flareSpawnPoint.rotation;
-
-        Flare flareScript =
-            flare.GetComponent<Flare>();
+        Flare flareScript = flare.GetComponent<Flare>();
 
         if (flareScript != null)
         {
@@ -180,5 +192,20 @@ public class FlareLauncher : MonoBehaviour
                 deployVolume
             );
         }
+    }
+
+    void HandleResupplyRequested()
+    {
+        currentCharges = maxCharges;
+        nextDeployTime = 0f;
+        isDeploying = false;
+
+        EquipmentEvents.RaiseFlareAmmoChanged(currentCharges, maxCharges);
+        EquipmentEvents.RaiseFlareCooldownFinished();
+
+        GameEvents.RaiseFeedback(
+            "Flares reloaded!",
+            FeedbackSeverity.Info
+        );
     }
 }

@@ -6,6 +6,7 @@ public static class WeaponEvents
     public static event Action<int, int> OnMissileAmmoChanged;
     public static event Action OnMissileFired;
     public static event Action<float> OnMissileCooldownStarted;
+    public static event Action OnMissileCooldownFinished;
 
     public static event Action OnMinigunOverheated;
     public static event Action OnMinigunCooldownFinished;
@@ -23,6 +24,11 @@ public static class WeaponEvents
     public static void RaiseMissileCooldownStarted(float cooldownTime)
     {
         OnMissileCooldownStarted?.Invoke(cooldownTime);
+    }
+
+    public static void RaiseMissileCooldownFinished()
+    {
+        OnMissileCooldownFinished?.Invoke();
     }
 
     public static void RaiseMinigunOverheated()

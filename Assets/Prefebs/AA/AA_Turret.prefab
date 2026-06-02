@@ -92,15 +92,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f16e897509d6fa64bb33fa7e0e5bff68, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 35
+      value: 545.36176
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f16e897509d6fa64bb33fa7e0e5bff68, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 18.21
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f16e897509d6fa64bb33fa7e0e5bff68, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 411.69962
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f16e897509d6fa64bb33fa7e0e5bff68, type: 3}
       propertyPath: m_LocalRotation.w
@@ -186,8 +186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2be4f2270501a54fb9de3de20ff1c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AASystem
-  baseRange: 250
-  radarBonusRange: 150
+  baseRange: 50
+  radarBonusRange: 0
   targetTag: Player
   partToRotate: {fileID: 3775082810389008207}
   barrelToRotate: {fileID: 3775082810389008203}

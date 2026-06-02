@@ -35,6 +35,8 @@ public class CheckpointZone : MonoBehaviour
             _activated = true;
             ClearEnemyGroups();
             SwapVisual();
+            if (hintMessages != null && hintMessages.Length > 0)
+                StartCoroutine(ShowMessages());
             Debug.Log($"[CheckpointZone] {checkpointIndex} auto-restored on scene load.");
         }
     }
