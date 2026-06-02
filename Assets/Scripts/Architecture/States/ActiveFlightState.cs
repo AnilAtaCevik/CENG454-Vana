@@ -1,34 +1,41 @@
 using UnityEngine;
 
-public class ActiveFlightStrategy : IFlightStrategy
+public class ActiveFlightState : IFlightState
 {
-    public void ExecuteMovement(Movement ctx, float powerMultiplier)
+    private Movement ctx;
+
+    public ActiveFlightState(Movement context)
     {
-        ProcessAscentDescent(ctx, powerMultiplier);
-        ProcessRightLeft(ctx, powerMultiplier);
-        ProcessPitch(ctx, powerMultiplier);
-        VelocityLimiter(ctx);
+        this.ctx = context;
     }
 
-    private void ProcessAscentDescent(Movement ctx, float powerMultiplier)
+    public void Enter() 
+    { 
+    }
+
+    public void Exit() 
+    { 
+    }
+
+    public void Tick()
+    {
+        float currentHeight = ctx.transform.position.y;
+        float powerMultiplier = ctx.EnginePower.GetPowerMultiplier(currentHeight);
+
+        ProcessAscentDescent(powerMultiplier, currentHeight);
+        ProcessRightLeft(powerMultiplier);
+        ProcessPitch(powerMultiplier);
+        VelocityLimiter();
+    }
+
+    private void ProcessAscentDescent(float powerMultiplier, float currentHeight)
     {
         float verticalInput = ctx.ascentDescent.ReadValue<float>();
-        float currentHeight = ctx.transform.position.y;
-        float finalStrength = ctx.ascentDescentStrength * powerMultiplier; 
+        float finalStrength = ctx.ascentDescentStrength * powerMultiplier;
 
         if (verticalInput > 0)
         {
-            ctx.CheckAltitudeAudio(currentHeight);
-
-            if (currentHeight <= ctx.absoluteCeiling)
-            {
-                ctx.rb.AddForce(Vector3.up * Time.fixedDeltaTime * finalStrength);
-            }
-            else
-            {
-                Vector3 vel = ctx.rb.linearVelocity;
-                if (vel.y > 0) ctx.rb.linearVelocity = new Vector3(vel.x, vel.y * 0.9f, vel.z);
-            }
+            ctx.rb.AddForce(Vector3.up * Time.fixedDeltaTime * finalStrength);
         }
         else if (verticalInput < 0)
         {
@@ -36,7 +43,7 @@ public class ActiveFlightStrategy : IFlightStrategy
         }
     }
 
-    private void ProcessRightLeft(Movement ctx, float powerMultiplier)
+    private void ProcessRightLeft(float powerMultiplier)
     {
         float rightInput = ctx.rightLeft.ReadValue<float>();
         float finalStrength = ctx.rightLeftStrength * powerMultiplier;
@@ -58,7 +65,7 @@ public class ActiveFlightStrategy : IFlightStrategy
         }
     }
 
-    private void ProcessPitch(Movement ctx, float powerMultiplier)
+    private void ProcessPitch(float powerMultiplier)
     {
         float pitchInput = ctx.pitch.ReadValue<float>();
         float finalStrength = ctx.pitchStrength * powerMultiplier;
@@ -72,7 +79,7 @@ public class ActiveFlightStrategy : IFlightStrategy
         }
     }
 
-    private void VelocityLimiter(Movement ctx)
+    private void VelocityLimiter()
     {
         Vector3 horizontalVelocity = new Vector3(ctx.rb.linearVelocity.x, 0, ctx.rb.linearVelocity.z);
         float verticalVelocityY = ctx.rb.linearVelocity.y;
