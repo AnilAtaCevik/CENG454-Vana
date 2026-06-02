@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 public class Movement : MonoBehaviour
 {
     public Rigidbody rb { get; private set; }
+    
+    [Header("Engine System")]
+    public BaseEnginePowerSO EnginePower; 
 
     [Header("Inputs")]
     public InputAction ascentDescent;
@@ -11,38 +14,31 @@ public class Movement : MonoBehaviour
     public InputAction pitch;
 
     [Header("Audio")]
-    [SerializeField] AudioSource altitudeWarningAudio;
+    public AudioSource altitudeWarningAudio;
 
     [Header("Flight Settings")]
     public float ascentDescentStrength = 1000f;
     public float rightLeftStrength = 1000f;
     public float pitchStrength = 10f;
-    public float tiltSpeed = 5f; 
+    public float tiltSpeed = 5f;
     public float maxTiltAngle = 15f;
     public float maxSpeed = 30f;
     public float linearDrag = 2f;
-    public float serviceCeiling = 50f;
-    public float absoluteCeiling = 100f;
-    public float altitudeSoftness = 3f;
     public float maxClimbSpeed = 12f;
-    public float verticalDrag = 2.5f;   
+    public float verticalDrag = 2.5f;
 
     public float targetZ;
     public float targetY;
     public bool isMovingLeft;
 
-    private IFlightStrategy currentFlightStrategy;
-    private IEnginePower enginePower;
+    private IFlightState currentState;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         targetY = rb.rotation.eulerAngles.y;
 
-        IEnginePower baseEngine = new BaseEnginePower(); 
-        enginePower = new AltitudePenaltyDecorator(baseEngine, serviceCeiling, absoluteCeiling, altitudeSoftness);
-        
-        currentFlightStrategy = new ActiveFlightStrategy(); 
+        ChangeState(new ActiveFlightState(this));
     }
 
     void OnEnable()
@@ -65,33 +61,31 @@ public class Movement : MonoBehaviour
         GameEvents.OnFuelChanged -= HandleFuelChanged;
     }
 
+    public void ChangeState(IFlightState newState)
+    {
+        currentState?.Exit();
+        currentState = newState;
+        currentState?.Enter();
+    }
+
     private void HandleFuelEmpty()
     {
-        currentFlightStrategy = new DeadEngineStrategy();
+        ChangeState(new DeadEngineState(this));
         if (altitudeWarningAudio != null && altitudeWarningAudio.isPlaying) altitudeWarningAudio.Stop();
     }
 
     private void HandleFuelChanged(float current, float max)
     {
-        if (current > 0 && currentFlightStrategy is DeadEngineStrategy)
+        if (current > 0 && currentState is DeadEngineState)
         {
-            currentFlightStrategy = new ActiveFlightStrategy();
+            ChangeState(new ActiveFlightState(this));
         }
     }
 
     void FixedUpdate()
     {
-        if (rb.isKinematic)
-        {
-            Debug.LogWarning("Helikopter şu an Kinematic oldu! Inspector'dan veya başka bir scriptten müdahale ediliyor.", this.gameObject);
-        }
-        
         targetZ = 0f;
-        float currentHeight = transform.position.y;
-        
-        float currentPower = enginePower.GetPowerMultiplier(currentHeight);
-        
-        currentFlightStrategy.ExecuteMovement(this, currentPower);
+        currentState?.Tick();
         StabilizeRotation();
     }
 
@@ -101,16 +95,9 @@ public class Movement : MonoBehaviour
         Quaternion targetRotation = Quaternion.Euler(0f, targetY, targetZ);
         rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, Time.fixedDeltaTime * tiltSpeed));
 
-        rb.angularVelocity = Vector3.zero;
-    }
-
-    public void CheckAltitudeAudio(float currentHeight)
-    {
-        if (altitudeWarningAudio == null) return;
-
-        if (currentHeight < serviceCeiling && altitudeWarningAudio.isPlaying) 
-            altitudeWarningAudio.Stop();
-        else if (currentHeight >= serviceCeiling && currentHeight <= absoluteCeiling && !altitudeWarningAudio.isPlaying) 
-            altitudeWarningAudio.Play();
+        if (!rb.isKinematic)
+        {
+            rb.angularVelocity = Vector3.zero;
+        }
     }
 }

@@ -531,6 +531,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4041703093760727141, guid: c2159beb6c7e8da4eb4f56699e0fb01a, type: 3}
+      propertyPath: EnginePower
+      value: 
+      objectReference: {fileID: 11400000, guid: 0230d3259e80737438e1eb4be58eee46, type: 2}
+    - target: {fileID: 4041703093760727141, guid: c2159beb6c7e8da4eb4f56699e0fb01a, type: 3}
       propertyPath: verticalDrag
       value: 1
       objectReference: {fileID: 0}
