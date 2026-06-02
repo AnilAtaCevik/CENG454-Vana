@@ -2,6 +2,16 @@ using UnityEngine;
 
 public class AASystem : MonoBehaviour
 {
+    public enum TurretState
+    {
+        Idle,
+        Locking,
+        Firing
+    }
+
+    [Header("Current State")]
+    [SerializeField] private TurretState currentState = TurretState.Idle;
+
     [Header("Targeting Settings")]
     [SerializeField] private float baseRange = 250f;
     [SerializeField] private float radarBonusRange = 150f;
@@ -43,30 +53,74 @@ public class AASystem : MonoBehaviour
 
         if (target == null)
         {
-            lockOnTimer = 0f;
-            return;
+            ChangeState(TurretState.Idle);
         }
 
+        switch (currentState)
+        {
+            case TurretState.Idle:
+                HandleIdleState();
+                break;
+
+            case TurretState.Locking:
+                HandleLockingState();
+                break;
+
+            case TurretState.Firing:
+                HandleFiringState();
+                break;
+        }
+
+        if (fireCountdown > 0f)
+        {
+            fireCountdown -= Time.deltaTime;
+        }
+    }
+
+    private void ChangeState(TurretState newState)
+    {
+        if (currentState == newState) return;
+
+        currentState = newState;
+
+        if (currentState == TurretState.Idle)
+        {
+            lockOnTimer = 0f;
+        }
+    }
+
+    private void HandleIdleState()
+    {
+        if (target != null)
+        {
+            ChangeState(TurretState.Locking);
+        }
+    }
+
+    private void HandleLockingState()
+    {
         LockOnTarget();
 
         lockOnTimer += Time.deltaTime;
 
         if (lockOnTimer >= requiredLockTime)
         {
-            if (fireCountdown <= 0f)
-            {
-                float distanceToPlayer = Vector3.Distance(transform.position, target.position);
-                if (HasClearLineOfSight(distanceToPlayer))
-                {
-                    Fire();
-                    fireCountdown = fireRate;
-                }
-            }
+            ChangeState(TurretState.Firing);
         }
+    }
 
-        if (fireCountdown > 0f)
+    private void HandleFiringState()
+    {
+        LockOnTarget();
+
+        if (fireCountdown <= 0f)
         {
-            fireCountdown -= Time.deltaTime;
+            float distanceToPlayer = Vector3.Distance(transform.position, target.position);
+            if (HasClearLineOfSight(distanceToPlayer))
+            {
+                Fire();
+                fireCountdown = fireRate;
+            }
         }
     }
 
