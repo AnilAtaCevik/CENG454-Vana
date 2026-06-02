@@ -3,14 +3,6 @@ using UnityEngine.InputSystem;
 
 public class Minigun : MonoBehaviour
 {
-    public enum MinigunState
-    {
-        Idle,
-        Firing,
-        Overheated,
-        Cooling
-    }
-
     [Header("References")]
     [SerializeField] private Transform[] firePoints;
     [SerializeField] private ObjectPool bulletPool;
@@ -34,132 +26,84 @@ public class Minigun : MonoBehaviour
     [SerializeField] private AudioSource firingAudio;
     [SerializeField] private AudioSource overheatAudio;
 
-    private MinigunState currentState = MinigunState.Idle;
+    private IMinigunState currentState;
 
     private float stateTimer;
     private float fireStartTime;
     private float nextFireTime;
 
+    void Start()
+    {
+        ChangeState(new MinigunIdleState());
+    }
+
     void Update()
     {
-        HandleInput();
-        HandleState();
+        currentState?.Update(this);
     }
 
-    void HandleInput()
+    public void ChangeState(IMinigunState newState)
     {
-        if (Mouse.current == null)
-            return;
-
-        bool isPressed = Mouse.current.leftButton.isPressed;
-
-        if (isPressed)
-        {
-            if (currentState == MinigunState.Idle)
-            {
-                EnterState(MinigunState.Firing);
-            }
-        }
-        else
-        {
-            if (currentState == MinigunState.Firing)
-            {
-                EnterState(MinigunState.Idle);
-            }
-        }
+        currentState?.Exit(this);
+        currentState = newState;
+        currentState.Enter(this);
     }
 
-    void HandleState()
+    public bool IsFirePressed()
+    {
+        return Mouse.current != null && Mouse.current.leftButton.isPressed;
+    }
+
+    public void TickStateTimer()
     {
         stateTimer -= Time.deltaTime;
-
-        switch (currentState)
-        {
-            case MinigunState.Firing:
-
-                HandleFire();
-
-                if (stateTimer <= 0f)
-                {
-                    EnterState(MinigunState.Overheated);
-                }
-
-                break;
-
-            case MinigunState.Overheated:
-
-                if (stateTimer <= 0f)
-                {
-                    EnterState(MinigunState.Cooling);
-                }
-
-                break;
-
-            case MinigunState.Cooling:
-
-                if (stateTimer <= 0f)
-                {
-                    WeaponEvents.RaiseMinigunCooldownFinished();
-                    EnterState(MinigunState.Idle);
-                }
-
-                break;
-        }
     }
 
-    void EnterState(MinigunState newState)
+    public bool IsStateTimerFinished()
     {
-        currentState = newState;
+        return stateTimer <= 0f;
+    }
 
+    public void ResetStateTimer()
+    {
+        stateTimer = 0f;
+    }
+
+    public void StartFiringState()
+    {
         StopAllAudio();
 
-        switch (newState)
-        {
-            case MinigunState.Idle:
+        firingAudio?.Play();
 
-                stateTimer = 0f;
-
-                break;
-
-            case MinigunState.Firing:
-
-                firingAudio?.Play();
-
-                stateTimer = firingDuration;
-
-                fireStartTime = Time.time + spinUpDelay;
-                nextFireTime = fireStartTime;
-
-                break;
-
-            case MinigunState.Overheated:
-
-                overheatAudio?.Play();
-
-                stateTimer =
-                    overheatAudio != null
-                    ? overheatAudio.clip.length
-                    : 1.5f;
-
-                WeaponEvents.RaiseMinigunOverheated();
-
-                break;
-
-            case MinigunState.Cooling:
-
-                stateTimer = cooldownTime;
-
-                break;
-        }
+        stateTimer = firingDuration;
+        fireStartTime = Time.time + spinUpDelay;
+        nextFireTime = fireStartTime;
     }
 
-    void HandleFire()
+    public void StartOverheatedState()
     {
-        if (Mouse.current == null ||
-            !Mouse.current.leftButton.isPressed)
-        {
+        StopAllAudio();
+
+        overheatAudio?.Play();
+
+        stateTimer =
+            overheatAudio != null
+            ? overheatAudio.clip.length
+            : 1.5f;
+
+        WeaponEvents.RaiseMinigunOverheated();
+    }
+
+    public void StartCoolingState()
+    {
+        StopAllAudio();
+        stateTimer = cooldownTime;
+    }
+
+    public void HandleFire()
+    {
+        if (!IsFirePressed())
             return;
-        }
 
         if (Time.time < fireStartTime)
             return;
@@ -167,7 +111,6 @@ public class Minigun : MonoBehaviour
         if (Time.time >= nextFireTime)
         {
             Shoot();
-
             nextFireTime = Time.time + fireRate;
         }
     }
@@ -205,7 +148,7 @@ public class Minigun : MonoBehaviour
         }
     }
 
-    void StopAllAudio()
+    public void StopAllAudio()
     {
         firingAudio?.Stop();
         overheatAudio?.Stop();
